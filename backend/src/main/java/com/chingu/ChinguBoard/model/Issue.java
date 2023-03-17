@@ -1,6 +1,7 @@
 package com.chingu.ChinguBoard.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -20,6 +21,8 @@ public class Issue {
 
     private List<User> assignees; // not sure to store id or object
 
+    private List<Comment> comments;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
@@ -34,6 +37,8 @@ public class Issue {
     private Status status;
 
     public Issue() {
+        this.assignees = new ArrayList<>();
+        this.comments = new ArrayList<>();
     }
 
     public String getId() {
@@ -122,6 +127,14 @@ public class Issue {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public List<Comment> getComments() {
+        return this.comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
 }

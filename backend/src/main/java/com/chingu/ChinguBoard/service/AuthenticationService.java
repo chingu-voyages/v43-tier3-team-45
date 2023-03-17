@@ -66,7 +66,7 @@ public class AuthenticationService {
                 request.getEmail(),
                 passwordEncoder.encode(request.getPassword()),
                 Role.ROLE_USER);
-        userService.addUser(user);
+        user = userService.addUser(user);
         String token = generateToken(user);
         return new AuthenticationResponse(token, user);
     }

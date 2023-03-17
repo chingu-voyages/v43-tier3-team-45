@@ -1,5 +1,6 @@
 package com.chingu.ChinguBoard.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -16,6 +17,7 @@ public class Project {
     private List<Issue> issues;
 
     public Project() {
+        this.issues = new ArrayList<>();
     }
 
     public String getId() {

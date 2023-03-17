@@ -17,7 +17,7 @@ public class Comment {
     // the user who created this comment. not sure to store user as the id or the actual object
     private String userId;
 
-    // the bcontent of this comment
+    // the content of this comment
     private String text;
 
     private LocalDateTime createdAt;

@@ -1,5 +1,6 @@
 package com.chingu.ChinguBoard.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -15,7 +16,16 @@ public class Team {
 
     private List<User> members;
 
+    private List<Project> projects;
+
     public Team() {
+        this.members = new ArrayList<>();
+        this.projects = new ArrayList<>();
+    }
+
+    public List<User> addMember(User user) {
+        this.members.add(user);
+        return this.members;
     }
 
     public String getId() {
@@ -40,6 +50,14 @@ public class Team {
 
     public void setMembers(List<User> members) {
         this.members = members;
+    }
+
+    public List<Project> getProjects() {
+        return this.projects;
+    }
+
+    public void setProjects(List<Project> project) {
+        this.projects = project;
     }
 
 }
