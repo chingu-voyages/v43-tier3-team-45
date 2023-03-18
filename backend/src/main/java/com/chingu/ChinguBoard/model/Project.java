@@ -12,7 +12,11 @@ public class Project {
     @Id
     private String id;
 
+    private String name;
+
     private Team team;
+
+    private String teamId;
 
     private List<Issue> issues;
 
@@ -28,12 +32,28 @@ public class Project {
         this.id = id;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Team getTeam() {
         return this.team;
     }
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public String getTeamId() {
+        return this.teamId;
+    }
+
+    public void setTeamId(String teamId) {
+        this.teamId = teamId;
     }
 
     public List<Issue> getIssues() {
