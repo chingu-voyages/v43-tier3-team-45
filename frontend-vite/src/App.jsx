@@ -1,14 +1,12 @@
-import React from 'react'
-import './App.css';
-import KanbanBoard from './components/KanbanBoard';
+
 
 function App() {
 
   return (
-    <div>
-      <KanbanBoard />
+    <div className="w-screen h-screen bg-red-300">
+        Hello
     </div>
   )
 }
 
-export default App
+export default App      
