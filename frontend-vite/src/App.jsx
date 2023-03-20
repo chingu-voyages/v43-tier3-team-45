@@ -7,7 +7,8 @@ function App() {
 
   return (
     <div>
-      <KanbanBoard />
+      <h1> HELLO </h1>
+      {/* <KanbanBoard /> */}
     </div>
   )
 }
