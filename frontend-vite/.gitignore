@@ -24,4 +24,3 @@ dist-ssr
 *.sw?
 
 .env
-# will need these values elswhere for depolyment - serverless? node relay?
