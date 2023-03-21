@@ -50,8 +50,8 @@ export default function Kanban() {
 
     return (
         <DragDropContext onDragEnd={handleDragEnd}>
-            <h1> PROGRESS BOARD</h1>
-            <div>
+            <div class="flex">
+                <div class="grid grid-cols-3 gap-8">
                 <Column
                     title={"TO DO"}
                     tasks={incomplete}
@@ -67,6 +67,7 @@ export default function Kanban() {
                     tasks={[]}
                     id={"3"}
                 />
+                </div>
             </div>
 
         </DragDropContext>

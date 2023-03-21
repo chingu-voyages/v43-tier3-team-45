@@ -38,16 +38,18 @@ export default function Task({ task, index }) {
                 ref={provided.innerRef}
                 isDragging={snapshot.isDragging}
             >
-                <div>
-                    <span>
-                        #{task.id}
-                        {" "}
-                    </span>
+                <div class="border m-2 p-2">
+                    <div>
+                        <span>
+                            #{task.id}
+                            {" "}
+                        </span>
+                    </div>
+                    <div id="task-id">
+                        {task.title}
+                    </div>
+                    <div id="user-avatar"></div>
                 </div>
-                <div id="task-id">
-                    {task.title}
-                </div>
-                <div id="user-avatar"></div>
 
                 {provided.placeholder}
             </div>
