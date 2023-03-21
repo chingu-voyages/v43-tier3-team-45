@@ -1,14 +1,11 @@
-import React from 'react'
+import React from 'react';
 import './App.css';
-import KanbanBoard from './components/KanbanBoard';
-import Task from './components/Task'
 
 function App() {
 
   return (
     <div>
-      <h1> HELLO </h1>
-      {/* <KanbanBoard /> */}
+      <h1>Welcome to DnD Kanban</h1>
     </div>
   )
 }
