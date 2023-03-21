@@ -19,10 +19,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       domain={domain}
       clientId={clientId}
       redirectUri={windown.location.origin}
-    >  */}
+    > 
 
       <App />
-    {/* </Auth0Provider> */}
+    </Auth0Provider>
   </React.StrictMode>,
 )
 
