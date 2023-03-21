@@ -8,7 +8,8 @@ public record IssueDTO(
     String title,
     String description,
     UserDTO createdBy,
-    List<UserDTO> asignees,
+    List<UserDTO> assignees,
+    List<CommentDTO> comments,
     String issueType,
     String priority,
     String status,
@@ -16,7 +17,6 @@ public record IssueDTO(
     Instant createdAt,
     Instant updatedAt,
     Instant dueAt
-    // add List<CommentDTO> comments
 ) {
 
 }

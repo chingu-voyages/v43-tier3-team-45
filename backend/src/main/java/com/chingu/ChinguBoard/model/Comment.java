@@ -1,6 +1,6 @@
 package com.chingu.ChinguBoard.model;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -15,12 +15,12 @@ public class Comment {
     private String issueId;
 
     // the user who created this comment. not sure to store user as the id or the actual object
-    private String userId;
+    private User createdBy;
 
     // the content of this comment
     private String text;
 
-    private LocalDateTime createdAt;
+    private Instant createdAt;
 
     public Comment() {
     }
@@ -41,12 +41,12 @@ public class Comment {
         this.issueId = issueId;
     }
 
-    public String getUserId() {
-        return this.userId;
+    public User getCreatedBy() {
+        return this.createdBy;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
     }
 
     public String getText() {
@@ -57,11 +57,11 @@ public class Comment {
         this.text = text;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Instant getCreatedAt() {
         return this.createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
 }
