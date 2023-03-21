@@ -54,7 +54,8 @@ public class TeamController {
 
     @PostMapping("/create/{userId}")
     public ResponseEntity<TeamDTO> createTeam(@RequestBody TeamDTO teamDTO, @PathVariable String userId) {
-        Team savedTeam = teamService.createTeam(teamDTO, userId);
+        Team team = new Team(teamDTO.name());
+        Team savedTeam = teamService.createTeam(team, userId);
         return ResponseEntity.ok(teamDTOMapper.apply(savedTeam));
     }
 

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.chingu.ChinguBoard.dto.TeamDTO;
 import com.chingu.ChinguBoard.model.Team;
 import com.chingu.ChinguBoard.model.User;
 import com.chingu.ChinguBoard.repository.TeamRepository;
@@ -29,8 +28,7 @@ public class TeamService {
         return teamRepository.findById(id).orElseThrow();
     }
 
-    public Team createTeam(TeamDTO teamDTO, String userId) {
-        Team team = new Team(teamDTO.name());
+    public Team createTeam(Team team, String userId) {
         User user = userService.getUser(userId);
         team.addMember(user);
         return teamRepository.save(team);

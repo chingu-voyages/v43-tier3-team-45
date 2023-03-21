@@ -27,7 +27,5 @@ public class IssueService {
     public Issue createIssue(Issue issue) {
         return issueRepository.save(issue);
     }
-
-    
     
 }

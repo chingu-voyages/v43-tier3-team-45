@@ -1,6 +1,6 @@
 package com.chingu.ChinguBoard.model;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,11 +23,12 @@ public class Issue {
 
     private List<Comment> comments;
 
-    private LocalDateTime createdAt;
+    // could potentially change all the times to instants and just convert to zonedtime when sending to client in DTO
+    private Instant createdAt;
 
-    private LocalDateTime updatedAt;
+    private Instant updatedAt;
 
-    private LocalDateTime dueAt;
+    private Instant dueAt;
 
     // I think enums will be converted to strings of the name
     private IssueType issueType;
@@ -39,6 +40,19 @@ public class Issue {
     public Issue() {
         this.assignees = new ArrayList<>();
         this.comments = new ArrayList<>();
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now();
+    }
+
+    public Issue(String title, String description, User createdBy, List<User> assignees, IssueType issueType, Priority priority, Status status) {
+        super();
+        this.title = title;
+        this.description = description;
+        this.createdBy = createdBy;
+        this.assignees = assignees;
+        this.issueType = issueType;
+        this.priority = priority;
+        this.status = status;
     }
 
     public String getId() {
@@ -81,27 +95,27 @@ public class Issue {
         this.assignees = assignees;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Instant getCreatedAt() {
         return this.createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public Instant getUpdatedAt() {
         return this.updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public LocalDateTime getDueAt() {
+    public Instant getDueAt() {
         return this.dueAt;
     }
 
-    public void setDueAt(LocalDateTime dueAt) {
+    public void setDueAt(Instant dueAt) {
         this.dueAt = dueAt;
     }
 
