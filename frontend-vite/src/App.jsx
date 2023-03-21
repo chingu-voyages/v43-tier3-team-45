@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
+import Kanban from './pages/Kanban';
 
 function App() {
 
   return (
     <div>
-      <h1>Welcome to DnD Kanban</h1>
+      <Kanban />
     </div>
   )
 }
