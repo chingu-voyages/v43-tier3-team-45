@@ -1,9 +1,17 @@
 import React from 'react';
 import "./scroll.css"
 import { Droppable } from 'react-beautiful-dnd';
-
+import Task from './Task'
 export default function Column({ title, tasks, id}) {
+    console.log(tasks)
 
+    const tasksArray = tasks.map((task, index) => (
+        <Task
+            key={index}
+            index={index}
+            task={task}
+        />
+    ))
 
     return (
         <div>
@@ -16,7 +24,7 @@ export default function Column({ title, tasks, id}) {
                             {...provided.droppableProps}
                             isDraggingOver={snapshot.isDraggingOver}
                         >
-                            {/* provide tasks here */}
+                            {tasksArray}
                             {provided.placeholder}
                         </div>
                     )}
