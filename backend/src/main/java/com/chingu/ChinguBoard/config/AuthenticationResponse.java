@@ -1,20 +1,19 @@
 package com.chingu.ChinguBoard.config;
 
-import com.chingu.ChinguBoard.model.User;
+import com.chingu.ChinguBoard.dto.UserDTO;
 
 public class AuthenticationResponse {
     
     private String token;
 
-    private User user;
+    private UserDTO userDTO;
 
     public AuthenticationResponse() {
     }
 
-    public AuthenticationResponse(String token, User user) {
+    public AuthenticationResponse(String token, UserDTO userDTO) {
         this.token = token;
-        // would have to blank out the password
-        this.user = user;
+        this.userDTO = userDTO;
     }
 
     public String getToken() {
@@ -25,12 +24,12 @@ public class AuthenticationResponse {
         this.token = token;
     }
 
-    public User getUser() {
-        return this.user;
+    public UserDTO getUserDTO() {
+        return this.userDTO;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 
 }

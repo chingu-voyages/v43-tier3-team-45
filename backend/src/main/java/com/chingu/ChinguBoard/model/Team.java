@@ -29,6 +29,11 @@ public class Team {
         this.projects = new ArrayList<>();
     }
 
+    public Team(String name) {
+        super();
+        this.name = name;
+    }
+
     public List<User> addMember(User user) {
         this.members.add(user);
         return this.members;

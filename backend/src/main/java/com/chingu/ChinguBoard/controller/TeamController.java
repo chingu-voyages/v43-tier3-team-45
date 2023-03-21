@@ -1,6 +1,7 @@
 package com.chingu.ChinguBoard.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,36 +12,53 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chingu.ChinguBoard.dto.TeamDTO;
+import com.chingu.ChinguBoard.mapper.TeamDTOMapper;
 import com.chingu.ChinguBoard.model.Team;
 import com.chingu.ChinguBoard.service.TeamService;
 
 @RestController
 @RequestMapping("/api/teams")
 public class TeamController {
-    
+
     private final TeamService teamService;
 
-    public TeamController(TeamService teamService) {
+    private final TeamDTOMapper teamDTOMapper;
+
+    public TeamController(TeamService teamService, TeamDTOMapper teamDTOMapper) {
         this.teamService = teamService;
+        this.teamDTOMapper = teamDTOMapper;
     }
 
     @GetMapping()
-    public List<Team> getAllTeams() {
-        return teamService.getAllTeams();
+    public ResponseEntity<List<TeamDTO>> getAllTeams() {
+        List<TeamDTO> list = teamService.getAllTeams()
+                .stream()
+                .map(teamDTOMapper)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Team> getTeam(@PathVariable String id) {
+    public ResponseEntity<TeamDTO> getTeam(@PathVariable String id) {
         Team team = teamService.getTeam(id);
-        return ResponseEntity.ok(team);
+        /**
+         * could instead do:
+         * return ResponseEntity.ok(teamService.getTeam(id).map(teamDTOMapper).orElseThrow()
+         * where the optional error handling is done in the controller and not in ther service
+         * 
+         * applies to all single object mappings
+         */
+        return ResponseEntity.ok(teamDTOMapper.apply(team));
     }
 
     @PostMapping("/create/{userId}")
-    public ResponseEntity<Team> createTeam(@RequestBody Team team, @PathVariable String userId) {
-        Team savedTeam = teamService.createTeam(team, userId);
-        return ResponseEntity.ok(savedTeam);
+    public ResponseEntity<TeamDTO> createTeam(@RequestBody TeamDTO teamDTO, @PathVariable String userId) {
+        Team savedTeam = teamService.createTeam(teamDTO, userId);
+        return ResponseEntity.ok(teamDTOMapper.apply(savedTeam));
     }
 
+    // TODO: update Team to TeamDTO
     @PutMapping("/update")
     public ResponseEntity<Team> updateTeam(@RequestBody Team team) {
         Team updatedTeam = teamService.updateTeam(team);
