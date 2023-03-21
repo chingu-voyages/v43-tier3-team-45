@@ -9,7 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@auth0/auth0-react": "github:auth0/auth0-react",
+    "@auth0/auth0-react": "^2.0.1",
+    "@auth0/auth0-spa-js": "^2.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -17,6 +18,7 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
+    "dotenv": "^16.0.3",
     "vite": "^4.2.0"
   }
 }
