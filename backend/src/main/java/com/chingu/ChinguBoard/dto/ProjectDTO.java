@@ -5,7 +5,7 @@ import java.util.List;
 public record ProjectDTO(
     String id,
     String name,
-    String description, // not too sure about this field
+    String description, 
     List<IssueListDTO> issues
 ) {
     

@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "issues")
 public class Issue {
-    
+    // TODO: add stuff for changing to list of ids
     @Id
     private String id;
 

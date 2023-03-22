@@ -3,6 +3,8 @@ package com.chingu.ChinguBoard.mapper;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+
 import com.chingu.ChinguBoard.dto.CommentDTO;
 import com.chingu.ChinguBoard.dto.IssueDTO;
 import com.chingu.ChinguBoard.dto.UserDTO;
@@ -13,6 +15,7 @@ import com.chingu.ChinguBoard.model.Priority;
 import com.chingu.ChinguBoard.model.Status;
 import com.chingu.ChinguBoard.model.User;
 
+@Service
 public class IssueDTOMapper {
 
     private final UserDTOMapper userDTOMapper;

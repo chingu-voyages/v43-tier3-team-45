@@ -30,6 +30,11 @@ public class Project {
         this.issues = new ArrayList<>();
     }
 
+    public void addIssue(Issue issue) {
+        this.issues.add(issue);
+        this.issueIds.add(issue.getId());
+    }
+
     public String getId() {
         return this.id;
     }

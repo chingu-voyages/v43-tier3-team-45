@@ -28,6 +28,8 @@ public class Team {
     public Team() {
         this.members = new ArrayList<>();
         this.projects = new ArrayList<>();
+        this.memberIds = new ArrayList<>();
+        this.projectIds = new ArrayList<>();
     }
 
     public Team(String name) {
@@ -37,11 +39,13 @@ public class Team {
 
     public List<User> addMember(User user) {
         this.members.add(user);
+        this.memberIds.add(user.getId());
         return this.members;
     }
 
     public void addProject(Project project) {
         this.projects.add(project);
+        this.projectIds.add(project.getId());
     }
 
     public String getId() {

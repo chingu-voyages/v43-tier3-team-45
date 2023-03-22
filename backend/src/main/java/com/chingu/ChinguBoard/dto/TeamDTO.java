@@ -7,5 +7,4 @@ public record TeamDTO(
         String name,
         List<UserDTO> members,
         List<ProjectListDTO> projects) {
-
 }

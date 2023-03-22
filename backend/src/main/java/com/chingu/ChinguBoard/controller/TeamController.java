@@ -52,15 +52,16 @@ public class TeamController {
         return ResponseEntity.ok(teamDTOMapper.toDTO(savedTeam));
     }
 
-    // TODO: update Team to TeamDTO
     @PutMapping("/update")
-    public ResponseEntity<Team> updateTeam(@RequestBody Team team) {
+    public ResponseEntity<TeamDTO> updateTeam(@RequestBody TeamDTO teamDTO) {
+        Team team = teamDTOMapper.toEntity(teamDTO);
         Team updatedTeam = teamService.updateTeam(team);
-        return ResponseEntity.ok(updatedTeam);
+        return ResponseEntity.ok(teamDTOMapper.toDTO(updatedTeam));
     }
 
     @PutMapping("/{id}/{userId}")
-    public void addMemberToTeam(@PathVariable String id, @PathVariable String userId) {
-        teamService.addMember(id, userId);
+    public ResponseEntity<TeamDTO> addMemberToTeam(@PathVariable String id, @PathVariable String userId) {
+        Team team = teamService.addMember(id, userId);
+        return ResponseEntity.ok(teamDTOMapper.toDTO(team));
     }
 }

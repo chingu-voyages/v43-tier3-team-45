@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chingu.ChinguBoard.dto.ProjectDTO;
@@ -32,10 +33,12 @@ public class ProjectController {
         return ResponseEntity.ok(projectDTOMapper.toDTO(project));
     }
 
-    // TODO: change to DTO
     @PostMapping("/create")
-    public ResponseEntity<Project> createProject(@RequestBody Project project) {
-        Project savedProject = projectService.createProject(project);
-        return ResponseEntity.ok(savedProject);
+    public ResponseEntity<ProjectDTO> createProject(@RequestBody ProjectDTO projectDTO, @RequestParam String teamId) {
+        Project project = projectDTOMapper.toEntity(projectDTO);
+        Project savedProject = projectService.createProject(project, teamId);
+        return ResponseEntity.ok(projectDTOMapper.toDTO(savedProject));
     }
+
+    // add DELETE methods
 }
