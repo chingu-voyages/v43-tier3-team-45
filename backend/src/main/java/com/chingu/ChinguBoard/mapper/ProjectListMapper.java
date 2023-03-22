@@ -1,18 +1,21 @@
 package com.chingu.ChinguBoard.mapper;
 
-import java.util.function.Function;
-
 import org.springframework.stereotype.Service;
 
 import com.chingu.ChinguBoard.dto.ProjectListDTO;
 import com.chingu.ChinguBoard.model.Project;
 
 @Service
-public class ProjectListMapper implements Function<Project, ProjectListDTO> {
+public class ProjectListMapper {
+    
+    public Project toEntity(ProjectListDTO projectListDTO) {
+        Project project = new Project();
+        project.setId(projectListDTO.id());
+        project.setName(projectListDTO.name());
+        return project;
+    }
 
-    @Override
-    public ProjectListDTO apply(Project project) {
+    public ProjectListDTO toDTO(Project project) {
         return new ProjectListDTO(project.getId(), project.getName());
     }
-    
 }

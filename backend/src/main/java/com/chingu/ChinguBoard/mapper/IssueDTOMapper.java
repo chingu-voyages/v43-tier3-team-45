@@ -66,6 +66,7 @@ public class IssueDTOMapper {
                 .stream()
                 .map(commentDTOMapper::toDTO)
                 .collect(Collectors.toList());
+                
         return new IssueDTO(issue.getId(), 
                 issue.getTitle(), 
                 issue.getDescription(), 
