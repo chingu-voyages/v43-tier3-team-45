@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "projects")
@@ -20,7 +21,10 @@ public class Project {
 
     private String teamId;
 
+    @Transient
     private List<Issue> issues;
+
+    private List<String> issueIds;
 
     public Project() {
         this.issues = new ArrayList<>();
@@ -72,6 +76,14 @@ public class Project {
 
     public void setIssues(List<Issue> issues) {
         this.issues = issues;
+    }
+
+    public List<String> getIssueIds() {
+        return this.issueIds;
+    }
+
+    public void setIssueIds(List<String> issueIds) {
+        this.issueIds = issueIds;
     }
 
 }
