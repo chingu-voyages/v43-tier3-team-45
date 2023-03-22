@@ -19,7 +19,8 @@ public class UserController {
 
     private final UserService userService;
 
-    // adding mapper to controller and not the service since services can be used elsewhere, not just to serve to frontend
+    // adding mapper to controller and not the service since services can be used
+    // elsewhere, not just to serve to frontend
     private final UserDTOMapper userDTOMapper;
 
     public UserController(UserService userService, UserDTOMapper userDTOMapper) {
@@ -29,7 +30,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable String id) {
-        UserDTO userDTO = userDTOMapper.apply(userService.getUser(id));
+        UserDTO userDTO = userDTOMapper.toDTO(userService.getUser(id));
         return ResponseEntity.ok(userDTO);
     }
 
@@ -37,7 +38,7 @@ public class UserController {
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         List<UserDTO> list = userService.getAllUsers()
                 .stream()
-                .map(userDTOMapper)
+                .map(userDTOMapper::toDTO)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(list);
     }

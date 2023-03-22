@@ -35,7 +35,8 @@ public class AuthenticationService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public AuthenticationService(UserService userService, UserDTOMapper userDTOMapper, JwtEncoder encoder, AuthenticationManager authManager,
+    public AuthenticationService(UserService userService, UserDTOMapper userDTOMapper, JwtEncoder encoder,
+            AuthenticationManager authManager,
             PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.userDTOMapper = userDTOMapper;
@@ -45,7 +46,7 @@ public class AuthenticationService {
     }
 
     public String generateToken(UserDetails userDetails) {
-        Instant now = Instant.now(); 
+        Instant now = Instant.now();
         String scope = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(" "));
@@ -62,7 +63,7 @@ public class AuthenticationService {
     public AuthenticationResponse login(LoginRequest request) {
         authManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         User user = userService.getUserWithEmail(request.getEmail());
-        UserDTO userDTO = userDTOMapper.apply(user);
+        UserDTO userDTO = userDTOMapper.toDTO(user);
         String token = generateToken(user);
         return new AuthenticationResponse(token, userDTO);
     }
@@ -75,7 +76,7 @@ public class AuthenticationService {
                 request.getLastName(),
                 Role.ROLE_USER);
         user = userService.addUser(user);
-        UserDTO userDTO = userDTOMapper.apply(user);
+        UserDTO userDTO = userDTOMapper.toDTO(user);
         String token = generateToken(user);
         return new AuthenticationResponse(token, userDTO);
     }

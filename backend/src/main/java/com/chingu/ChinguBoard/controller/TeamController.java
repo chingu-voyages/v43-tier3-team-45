@@ -34,7 +34,7 @@ public class TeamController {
     public ResponseEntity<List<TeamDTO>> getAllTeams() {
         List<TeamDTO> list = teamService.getAllTeams()
                 .stream()
-                .map(teamDTOMapper)
+                .map(teamDTOMapper::toDTO)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(list);
     }
@@ -42,21 +42,14 @@ public class TeamController {
     @GetMapping("/{id}")
     public ResponseEntity<TeamDTO> getTeam(@PathVariable String id) {
         Team team = teamService.getTeam(id);
-        /**
-         * could instead do:
-         * return ResponseEntity.ok(teamService.getTeam(id).map(teamDTOMapper).orElseThrow()
-         * where the optional error handling is done in the controller and not in ther service
-         * 
-         * applies to all single object mappings
-         */
-        return ResponseEntity.ok(teamDTOMapper.apply(team));
+        return ResponseEntity.ok(teamDTOMapper.toDTO(team));
     }
 
     @PostMapping("/create/{userId}")
     public ResponseEntity<TeamDTO> createTeam(@RequestBody TeamDTO teamDTO, @PathVariable String userId) {
-        Team team = new Team(teamDTO.name());
+        Team team = teamDTOMapper.toEntity(teamDTO);
         Team savedTeam = teamService.createTeam(team, userId);
-        return ResponseEntity.ok(teamDTOMapper.apply(savedTeam));
+        return ResponseEntity.ok(teamDTOMapper.toDTO(savedTeam));
     }
 
     // TODO: update Team to TeamDTO

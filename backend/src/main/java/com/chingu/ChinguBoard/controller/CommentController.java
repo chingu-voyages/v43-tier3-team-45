@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chingu.ChinguBoard.dto.CommentDTO;
+import com.chingu.ChinguBoard.mapper.CommentDTOMapper;
 import com.chingu.ChinguBoard.model.Comment;
 import com.chingu.ChinguBoard.service.CommentService;
 
@@ -17,16 +19,20 @@ public class CommentController {
     
     private final CommentService commentService;
 
-    public CommentController(CommentService commentService) {
+    private final CommentDTOMapper commentDTOMapper;
+
+    public CommentController(CommentService commentService, CommentDTOMapper commentDTOMapper) {
         this.commentService = commentService;
+        this.commentDTOMapper = commentDTOMapper;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Comment> getComment(@PathVariable String id) {
+    public ResponseEntity<CommentDTO> getComment(@PathVariable String id) {
         Comment comment = commentService.getComment(id);
-        return ResponseEntity.ok(comment);
+        return ResponseEntity.ok(commentDTOMapper.toDTO(comment));
     }
 
+    // TODO: change to DTO
     @PostMapping()
     public ResponseEntity<Comment> createComment(@RequestBody Comment comment) {
         Comment savedComment = commentService.createComment(comment);

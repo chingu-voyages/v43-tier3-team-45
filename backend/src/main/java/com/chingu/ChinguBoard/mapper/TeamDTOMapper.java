@@ -42,7 +42,7 @@ public class TeamDTOMapper {
         team.setProjects(projects);
         return team;
     }
-    
+
     public TeamDTO toDTO(Team team) {
         List<UserDTO> members = team.getMembers()
                 .stream()
