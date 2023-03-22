@@ -7,6 +7,7 @@ const initialState = {
     firstName: "",
     lastName: "",
     role: "",
+    // above values will be filled in with event listeners in profile compoent
   };
   
 
