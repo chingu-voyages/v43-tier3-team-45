@@ -6,7 +6,7 @@ import com.chingu.ChinguBoard.dto.ProjectListDTO;
 import com.chingu.ChinguBoard.model.Project;
 
 @Service
-public class ProjectListMapper {
+public class ProjectListDTOMapper {
     
     public Project toEntity(ProjectListDTO projectListDTO) {
         Project project = new Project();
