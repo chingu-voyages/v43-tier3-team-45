@@ -34,9 +34,9 @@ public class CommentController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Comment> createComment(@RequestBody CommentDTO commentDTO, @RequestParam String issueId) {
+    public ResponseEntity<CommentDTO> createComment(@RequestBody CommentDTO commentDTO, @RequestParam String issueId) {
         Comment comment = commentDTOMapper.toEntity(commentDTO);
         Comment savedComment = commentService.createComment(comment, issueId);
-        return ResponseEntity.ok(savedComment);
+        return ResponseEntity.ok(commentDTOMapper.toDTO(savedComment));
     }
 }

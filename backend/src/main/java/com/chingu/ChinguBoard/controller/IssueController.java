@@ -28,10 +28,10 @@ public class IssueController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Issue> createIssue(@RequestBody IssueDTO issueDTO, @RequestParam String projectId) {
+    public ResponseEntity<IssueDTO> createIssue(@RequestBody IssueDTO issueDTO, @RequestParam String projectId) {
         Issue issue = issueDTOMapper.toEntity(issueDTO);
         Issue savedIssue = issueService.createIssue(issue, projectId);
-        return ResponseEntity.ok(savedIssue);
+        return ResponseEntity.ok(issueDTOMapper.toDTO(savedIssue));
     }
 
     @GetMapping("/{id}")
