@@ -8,12 +8,10 @@ import org.springframework.stereotype.Service;
 import com.chingu.ChinguBoard.dto.CommentDTO;
 import com.chingu.ChinguBoard.dto.IssueDTO;
 import com.chingu.ChinguBoard.dto.UserDTO;
-import com.chingu.ChinguBoard.model.Comment;
 import com.chingu.ChinguBoard.model.Issue;
 import com.chingu.ChinguBoard.model.IssueType;
 import com.chingu.ChinguBoard.model.Priority;
 import com.chingu.ChinguBoard.model.Status;
-import com.chingu.ChinguBoard.model.User;
 
 @Service
 public class IssueDTOMapper {
@@ -32,21 +30,17 @@ public class IssueDTOMapper {
         issue.setId(issueDTO.id());
         issue.setTitle(issueDTO.title());
         issue.setDescription(issueDTO.description());
+        issue.setCreatedById(issueDTO.createdBy().id());
         issue.setCreatedBy(userDTOMapper.toEntity(issueDTO.createdBy()));
 
-        // map each UserDTO to User
-        List<User> assignees = issueDTO.assignees()
-                .stream()
-                .map(userDTOMapper::toEntity)
-                .collect(Collectors.toList());
-        issue.setAssignees(assignees);
+        // mapping each UserDTO to User and adding the User and id
+        issueDTO.assignees().stream().forEach(userDTO -> {
+                issue.addAssignee(userDTOMapper.toEntity(userDTO));
+        });
 
-        // map each CommentDTO to Comment
-        List<Comment> comments = issueDTO.comments()
-                .stream()
-                .map(commentDTOMapper::toEntity)
-                .collect(Collectors.toList());
-        issue.setComments(comments);
+        issueDTO.comments().stream().forEach(commentDTO -> {
+                issue.addComment(commentDTOMapper.toEntity(commentDTO));
+        });
 
         issue.setIssueType(IssueType.valueOf(issueDTO.issueType()));
         issue.setPriority(Priority.valueOf(issueDTO.priority()));

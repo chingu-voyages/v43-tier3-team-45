@@ -11,7 +11,6 @@ import com.chingu.ChinguBoard.model.Issue;
 import com.chingu.ChinguBoard.model.IssueType;
 import com.chingu.ChinguBoard.model.Priority;
 import com.chingu.ChinguBoard.model.Status;
-import com.chingu.ChinguBoard.model.User;
 
 @Service
 public class IssueListDTOMapper {
@@ -29,12 +28,16 @@ public class IssueListDTOMapper {
         issue.setCreatedBy(userDTOMapper.toEntity(issueListDTO.createdBy()));
         
         // map each UserDTO to User
-        List<User> assignees = issueListDTO.assignees()
-                .stream()
-                .map(userDTOMapper::toEntity)
-                .collect(Collectors.toList());
+        // List<User> assignees = issueListDTO.assignees()
+        //         .stream()
+        //         .map(userDTOMapper::toEntity)
+        //         .collect(Collectors.toList());
+        // issue.setAssignees(assignees);
 
-        issue.setAssignees(assignees);
+        issueListDTO.assignees().stream().forEach(userDTO -> {
+            issue.addAssignee(userDTOMapper.toEntity(userDTO));
+        });
+
         issue.setIssueType(IssueType.valueOf(issueListDTO.issueType()));
         issue.setPriority(Priority.valueOf(issueListDTO.priority()));
         issue.setStatus(Status.valueOf(issueListDTO.status()));

@@ -8,9 +8,7 @@ import org.springframework.stereotype.Service;
 import com.chingu.ChinguBoard.dto.ProjectListDTO;
 import com.chingu.ChinguBoard.dto.TeamDTO;
 import com.chingu.ChinguBoard.dto.UserDTO;
-import com.chingu.ChinguBoard.model.Project;
 import com.chingu.ChinguBoard.model.Team;
-import com.chingu.ChinguBoard.model.User;
 
 @Service
 public class TeamDTOMapper {
@@ -29,17 +27,24 @@ public class TeamDTOMapper {
         team.setId(teamDTO.id());
         team.setName(teamDTO.name());
 
-        List<User> members = teamDTO.members()
-                .stream()
-                .map(userDTOMapper::toEntity)
-                .collect(Collectors.toList());
-        team.setMembers(members);
+        // List<User> members = teamDTO.members()
+        //         .stream()
+        //         .map(userDTOMapper::toEntity)
+        //         .collect(Collectors.toList());
+        // team.setMembers(members);
+        teamDTO.members().stream().forEach(userDTO -> {
+            team.addMember(userDTOMapper.toEntity(userDTO));
+        });
 
-        List<Project> projects = teamDTO.projects()
-                .stream()
-                .map(projectListDTOMapper::toEntity)
-                .collect(Collectors.toList());
-        team.setProjects(projects);
+        // List<Project> projects = teamDTO.projects()
+        //         .stream()
+        //         .map(projectListDTOMapper::toEntity)
+        //         .collect(Collectors.toList());
+        // team.setProjects(projects);
+        teamDTO.projects().stream().forEach(projectListDTO -> {
+            team.addProject(projectListDTOMapper.toEntity(projectListDTO));
+        });
+
         return team;
     }
 

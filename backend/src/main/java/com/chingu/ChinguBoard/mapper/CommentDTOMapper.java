@@ -19,6 +19,7 @@ public class CommentDTOMapper {
         comment.setId(commentDTO.id());
         comment.setText(commentDTO.text());
         comment.setCreatedAt(commentDTO.createdAt());
+        comment.setCreatedById(commentDTO.createdBy().id());
         comment.setCreatedBy(userDTOMapper.toEntity(commentDTO.createdBy()));
         return comment;
     }

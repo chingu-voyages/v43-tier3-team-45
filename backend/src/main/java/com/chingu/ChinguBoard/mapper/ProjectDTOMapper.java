@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.chingu.ChinguBoard.dto.IssueListDTO;
 import com.chingu.ChinguBoard.dto.ProjectDTO;
-import com.chingu.ChinguBoard.model.Issue;
 import com.chingu.ChinguBoard.model.Project;
 
 @Service
@@ -25,12 +24,15 @@ public class ProjectDTOMapper {
         project.setName(projectDTO.name());
         project.setDescription(projectDTO.description());
 
-        List<Issue> issues = projectDTO.issues()
-                .stream()
-                .map(issueListDTOMapper::toEntity)
-                .collect(Collectors.toList());
-        
-        project.setIssues(issues);
+        // List<Issue> issues = projectDTO.issues()
+        //         .stream()
+        //         .map(issueListDTOMapper::toEntity)
+        //         .collect(Collectors.toList());
+        // project.setIssues(issues);
+
+        projectDTO.issues().stream().forEach(issueDTO -> {
+            project.addIssue(issueListDTOMapper.toEntity(issueDTO));
+        });
         return project;
     }
 
