@@ -22,7 +22,6 @@ public class CommentService {
         this.issueService = issueService;
     }
 
-    // hydrate with User
     public Comment getComment(String id) {
         Comment comment = commentRepository.findById(id).orElseThrow();
         comment.setCreatedBy(userService.getUser(comment.getCreatedById()));

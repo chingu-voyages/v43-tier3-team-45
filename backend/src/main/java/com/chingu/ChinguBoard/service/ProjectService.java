@@ -29,6 +29,10 @@ public class ProjectService {
     public Project getProject(String id) {
         Project project = projectRepository.findById(id).orElseThrow();
 
+        /**
+         * Project from DB only has a list of issue IDs
+         * this list is used to make a List<Issue>
+         */
         List<Issue> issues = project.getIssueIds()
                 .stream()
                 .map(issueService::getIssue)
@@ -48,6 +52,10 @@ public class ProjectService {
         /**
          * don't necessarily need to use getProject to populate project's list of
          * issues, the list of object not needed to be updated, only the list of IDs
+         * 
+         * actually, might be best to use getProject since retrieving straight from DB
+         * will be missing the list of objects but has the list of IDs, the resulting
+         * object will have discrepencies
          */
         Project project = getProject(projectId);
         project.addIssue(issue);

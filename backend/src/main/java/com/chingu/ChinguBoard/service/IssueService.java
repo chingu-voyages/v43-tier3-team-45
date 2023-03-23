@@ -33,6 +33,10 @@ public class IssueService {
     public Issue getIssue(String id) {
         Issue issue = issueRepository.findById(id).orElseThrow();
 
+        /**
+         * Issue from DB will only have a list of comment IDs and user IDs
+         * from these lists, lists of User and Comment are
+         */
         List<Comment> comments = issue.getCommentIds()
                 .stream()
                 .map(commentService::getComment)

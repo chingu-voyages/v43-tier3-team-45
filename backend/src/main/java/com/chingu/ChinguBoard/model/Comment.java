@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "comments")
 public class Comment {
-    // TODO: add stuff for changing to list of ids
+
     @Id
     private String id;
 

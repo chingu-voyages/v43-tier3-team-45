@@ -28,6 +28,7 @@ public class Project {
 
     public Project() {
         this.issues = new ArrayList<>();
+        this.issueIds = new ArrayList<>();
     }
 
     public void addIssue(Issue issue) {

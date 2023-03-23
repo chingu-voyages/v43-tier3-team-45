@@ -33,6 +33,10 @@ public class TeamService {
     public Team getTeam(String id) {
         Team team = teamRepository.findById(id).orElseThrow();
 
+        /**
+         * team from DB doesn't contain the actual Project and User objects, just their IDs
+         * the ID lists are used to make the objects
+         */
         List<Project> projects = team.getProjectIds()
                 .stream()
                 .map(projectService::getProject)
@@ -59,7 +63,7 @@ public class TeamService {
     }
 
     public Team addMember(String teamId, String userId) {
-        Team team = teamRepository.findById(teamId).orElseThrow();
+        Team team = getTeam(teamId);
         User user = userService.getUser(userId);
         team.addMember(user);
         return teamRepository.save(team);

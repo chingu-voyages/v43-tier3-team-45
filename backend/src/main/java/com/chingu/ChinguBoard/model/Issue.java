@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "issues")
 public class Issue {
-    // TODO: add stuff for changing to list of ids
+
     @Id
     private String id;
 
@@ -48,8 +48,8 @@ public class Issue {
     public Issue() {
         this.assignees = new ArrayList<>();
         this.comments = new ArrayList<>();
-        this.createdAt = Instant.now();
-        this.updatedAt = Instant.now();
+        this.assigneeIds = new ArrayList<>();
+        this.commentIds = new ArrayList<>();
     }
 
     public Issue(String title, String description, User createdBy, List<User> assignees, IssueType issueType, Priority priority, Status status) {
