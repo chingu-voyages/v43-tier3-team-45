@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chingu.ChinguBoard.dto.CommentDTO;
@@ -16,7 +17,7 @@ import com.chingu.ChinguBoard.service.CommentService;
 @RestController
 @RequestMapping("/api/comments")
 public class CommentController {
-    
+
     private final CommentService commentService;
 
     private final CommentDTOMapper commentDTOMapper;
@@ -32,10 +33,10 @@ public class CommentController {
         return ResponseEntity.ok(commentDTOMapper.toDTO(comment));
     }
 
-    // TODO: change to DTO
-    @PostMapping()
-    public ResponseEntity<Comment> createComment(@RequestBody Comment comment) {
-        Comment savedComment = commentService.createComment(comment);
+    @PostMapping("/create")
+    public ResponseEntity<Comment> createComment(@RequestBody CommentDTO commentDTO, @RequestParam String issueId) {
+        Comment comment = commentDTOMapper.toEntity(commentDTO);
+        Comment savedComment = commentService.createComment(comment, issueId);
         return ResponseEntity.ok(savedComment);
     }
 }
