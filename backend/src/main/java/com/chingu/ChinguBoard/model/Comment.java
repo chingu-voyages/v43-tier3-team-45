@@ -1,26 +1,26 @@
 package com.chingu.ChinguBoard.model;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "comments")
 public class Comment {
-    
+
     @Id
     private String id;
 
-    // the issue that this comment belongs to. not sure to store issue as the id or the actual object
-    private String issueId;
+    @Transient
+    private User createdBy;
 
-    // the user who created this comment. not sure to store user as the id or the actual object
-    private String userId;
+    private String createdById;
 
     // the content of this comment
     private String text;
 
-    private LocalDateTime createdAt;
+    private Instant createdAt;
 
     public Comment() {
     }
@@ -33,20 +33,20 @@ public class Comment {
         this.id = id;
     }
 
-    public String getIssueId() {
-        return this.issueId;
+    public User getCreatedBy() {
+        return this.createdBy;
     }
 
-    public void setIssueId(String issueId) {
-        this.issueId = issueId;
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
     }
 
-    public String getUserId() {
-        return this.userId;
+    public String getCreatedById() {
+        return this.createdById;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setCreatedById(String createdById) {
+        this.createdById = createdById;
     }
 
     public String getText() {
@@ -57,11 +57,12 @@ public class Comment {
         this.text = text;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Instant getCreatedAt() {
         return this.createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
+    
 }

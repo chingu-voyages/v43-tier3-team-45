@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import com.chingu.ChinguBoard.config.AuthenticationResponse;
 import com.chingu.ChinguBoard.config.LoginRequest;
 import com.chingu.ChinguBoard.config.RegisterRequest;
+import com.chingu.ChinguBoard.dto.UserDTO;
+import com.chingu.ChinguBoard.mapper.UserDTOMapper;
 import com.chingu.ChinguBoard.model.Role;
 import com.chingu.ChinguBoard.model.User;
 
@@ -25,22 +27,26 @@ public class AuthenticationService {
 
     private final UserService userService;
 
+    private final UserDTOMapper userDTOMapper;
+
     private final JwtEncoder encoder;
 
     private final AuthenticationManager authManager;
 
     private final PasswordEncoder passwordEncoder;
 
-    public AuthenticationService(UserService userService, JwtEncoder encoder, AuthenticationManager authManager,
+    public AuthenticationService(UserService userService, UserDTOMapper userDTOMapper, JwtEncoder encoder,
+            AuthenticationManager authManager,
             PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.userDTOMapper = userDTOMapper;
         this.encoder = encoder;
         this.authManager = authManager;
         this.passwordEncoder = passwordEncoder;
     }
 
     public String generateToken(UserDetails userDetails) {
-        Instant now = Instant.now(); // TODO: change Instant to something else like DateTime
+        Instant now = Instant.now();
         String scope = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(" "));
@@ -57,18 +63,22 @@ public class AuthenticationService {
     public AuthenticationResponse login(LoginRequest request) {
         authManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         User user = userService.getUserWithEmail(request.getEmail());
+        UserDTO userDTO = userDTOMapper.toDTO(user);
         String token = generateToken(user);
-        return new AuthenticationResponse(token, user);
+        return new AuthenticationResponse(token, userDTO);
     }
 
     public AuthenticationResponse register(RegisterRequest request) {
         User user = new User(
                 request.getEmail(),
                 passwordEncoder.encode(request.getPassword()),
+                request.getFirstName(),
+                request.getLastName(),
                 Role.ROLE_USER);
         user = userService.addUser(user);
+        UserDTO userDTO = userDTOMapper.toDTO(user);
         String token = generateToken(user);
-        return new AuthenticationResponse(token, user);
+        return new AuthenticationResponse(token, userDTO);
     }
 
 }

@@ -1,15 +1,16 @@
 package com.chingu.ChinguBoard.model;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "issues")
 public class Issue {
-    
+
     @Id
     private String id;
 
@@ -17,19 +18,27 @@ public class Issue {
 
     private String description;
 
-    private User createdBy; // not sure to store id or object
+    @Transient
+    private User createdBy;
 
-    private List<User> assignees; // not sure to store id or object
+    @Transient
+    private List<User> assignees;
 
+    @Transient
     private List<Comment> comments;
 
-    private LocalDateTime createdAt;
+    private String createdById;
 
-    private LocalDateTime updatedAt;
+    private List<String> assigneeIds;
 
-    private LocalDateTime dueAt;
+    private List<String> commentIds;
 
-    // I think enums will be converted to strings of the name
+    private Instant createdAt;
+
+    private Instant updatedAt;
+
+    private Instant dueAt;
+
     private IssueType issueType;
 
     private Priority priority;
@@ -39,6 +48,29 @@ public class Issue {
     public Issue() {
         this.assignees = new ArrayList<>();
         this.comments = new ArrayList<>();
+        this.assigneeIds = new ArrayList<>();
+        this.commentIds = new ArrayList<>();
+    }
+
+    public Issue(String title, String description, User createdBy, List<User> assignees, IssueType issueType, Priority priority, Status status) {
+        super();
+        this.title = title;
+        this.description = description;
+        this.createdBy = createdBy;
+        this.assignees = assignees;
+        this.issueType = issueType;
+        this.priority = priority;
+        this.status = status;
+    }
+    
+    public void addComment(Comment comment) {
+        this.getComments().add(comment);
+        this.getCommentIds().add(comment.getId());
+    }
+    
+    public void addAssignee(User assignee) {
+        this.getAssignees().add(assignee);
+        this.getAssigneeIds().add(assignee.getId());
     }
 
     public String getId() {
@@ -81,27 +113,27 @@ public class Issue {
         this.assignees = assignees;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Instant getCreatedAt() {
         return this.createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public Instant getUpdatedAt() {
         return this.updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public LocalDateTime getDueAt() {
+    public Instant getDueAt() {
         return this.dueAt;
     }
 
-    public void setDueAt(LocalDateTime dueAt) {
+    public void setDueAt(Instant dueAt) {
         this.dueAt = dueAt;
     }
 
@@ -135,6 +167,30 @@ public class Issue {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public String getCreatedById() {
+        return this.createdById;
+    }
+
+    public void setCreatedById(String createdById) {
+        this.createdById = createdById;
+    }
+
+    public List<String> getAssigneeIds() {
+        return this.assigneeIds;
+    }
+
+    public void setAssigneeIds(List<String> assigneeIds) {
+        this.assigneeIds = assigneeIds;
+    }
+
+    public List<String> getCommentIds() {
+        return this.commentIds;
+    }
+
+    public void setCommentIds(List<String> commentIds) {
+        this.commentIds = commentIds;
     }
 
 }

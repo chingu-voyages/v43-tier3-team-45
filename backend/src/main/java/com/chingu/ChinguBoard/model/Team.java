@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "teams")
@@ -14,24 +15,37 @@ public class Team {
 
     private String name;
 
+    @Transient
     private List<User> members;
 
-    /**
-     * think it is best for Team to have a list of Project IDs instead of the actual object
-     * example workflow:
-     * when user first gets to the board, the client only gets list of all teams (GET request to `/api/teams`) and display all current teams (maybe add a field of List<String> teamNames to be able to display team names without calling teams API)
-     * when user clicks on a team, client sends GET request to `/api/teans/{id}` to get the Team object, which would 
-     */
+    @Transient
     private List<Project> projects;
+
+    private List<String> memberIds;
+
+    private List<String> projectIds;
 
     public Team() {
         this.members = new ArrayList<>();
         this.projects = new ArrayList<>();
+        this.memberIds = new ArrayList<>();
+        this.projectIds = new ArrayList<>();
+    }
+
+    public Team(String name) {
+        super();
+        this.name = name;
     }
 
     public List<User> addMember(User user) {
         this.members.add(user);
+        this.memberIds.add(user.getId());
         return this.members;
+    }
+
+    public void addProject(Project project) {
+        this.projects.add(project);
+        this.projectIds.add(project.getId());
     }
 
     public String getId() {
@@ -64,6 +78,22 @@ public class Team {
 
     public void setProjects(List<Project> project) {
         this.projects = project;
+    }
+
+    public List<String> getMemberIds() {
+        return this.memberIds;
+    }
+
+    public void setMemberIds(List<String> memberIds) {
+        this.memberIds = memberIds;
+    }
+
+    public List<String> getProjectIds() {
+        return this.projectIds;
+    }
+
+    public void setProjectIds(List<String> projectIds) {
+        this.projectIds = projectIds;
     }
 
 }
