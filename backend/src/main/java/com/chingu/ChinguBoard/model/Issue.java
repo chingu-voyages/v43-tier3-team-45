@@ -62,6 +62,16 @@ public class Issue {
         this.priority = priority;
         this.status = status;
     }
+    
+    public void addComment(Comment comment) {
+        this.getComments().add(comment);
+        this.getCommentIds().add(comment.getId());
+    }
+    
+    public void addAssignee(User assignee) {
+        this.getAssignees().add(assignee);
+        this.getAssigneeIds().add(assignee.getId());
+    }
 
     public String getId() {
         return this.id;

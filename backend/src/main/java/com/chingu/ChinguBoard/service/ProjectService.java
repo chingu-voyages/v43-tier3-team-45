@@ -12,14 +12,15 @@ import com.chingu.ChinguBoard.repository.ProjectRepository;
 
 @Service
 public class ProjectService {
-    
+
     private final ProjectRepository projectRepository;
 
     private final TeamService teamService;
 
     private final IssueService issueService;
 
-    public ProjectService(ProjectRepository projectRepository, TeamService teamService, @Lazy IssueService issueService) {
+    public ProjectService(ProjectRepository projectRepository, TeamService teamService,
+            @Lazy IssueService issueService) {
         this.projectRepository = projectRepository;
         this.teamService = teamService;
         this.issueService = issueService;
@@ -44,6 +45,10 @@ public class ProjectService {
     }
 
     public void addIssue(Issue issue, String projectId) {
+        /**
+         * don't necessarily need to use getProject to populate project's list of
+         * issues, the list of object not needed to be updated, only the list of IDs
+         */
         Project project = getProject(projectId);
         project.addIssue(issue);
         projectRepository.save(project);

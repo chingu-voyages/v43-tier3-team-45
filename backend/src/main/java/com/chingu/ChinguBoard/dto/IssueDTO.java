@@ -13,7 +13,7 @@ public record IssueDTO(
     String issueType,
     String priority,
     String status,
-    // Data type can change
+    // Data type can change for time fields
     Instant createdAt,
     Instant updatedAt,
     Instant dueAt
