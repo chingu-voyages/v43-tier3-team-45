@@ -30,9 +30,8 @@ public class UserService {
         return userRepository.findByEmail(email).orElseThrow();
     }
 
-    // can have a return type instead of void 
-    public void addUser(User user) {
-        userRepository.save(user);
+    public User addUser(User user) {
+        return userRepository.save(user);
     }
 
 }
