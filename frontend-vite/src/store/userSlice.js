@@ -18,19 +18,23 @@ export const userSlice = createSlice({
         name: 'user',
         initialState,
         addUserId: (state, action) => {
-            state.userId = action.paylod
+            state.userId = action.payload
         },
         addEmail: (state, action) => {
-            state.email = action.paylod
+            state.email = action.payload
         },
         addFirstName: (state, action) => {
-            state.firstName = action.paylod
+            state.firstName = action.payload
         },
         addLastName: (state, action) => {
-            state.lastName = action.paylod
+            state.lastName = action.payload
         },
         addRole: (state, action) => {
-            state.role = action.paylod
+            state.role = action.payload
         },
+});
 
-})
+export const { addUserId, addEmail, addFirstName, addLastName, addRole } = userSlice.actions;
+// use dispatch to set and selector to get
+
+export default userSlice.reducer;
