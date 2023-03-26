@@ -1,8 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { addUserId, addEmail, addFirstName, addLastName, addRole } from '../store/userSlice'
-import LoginButton from "./LoginButton"
-import LogoutButton from "./LogoutButton"
 
 const LoginForm = () => {
     const dispatch = useDispatch()
