@@ -5,7 +5,8 @@ function Login () {
 
     return (
         <div>
-
+            < LoginButton/>
+            < LogoutButton />
         </div>
     )
 
