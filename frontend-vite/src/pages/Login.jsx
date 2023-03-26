@@ -1,12 +1,10 @@
-import LoginButton from "../components/LoginButton"
-import LogoutButton from "../components/LogoutButton"
+import LoginForm from "../components/LoginForm"
 
 function Login () {
 
     return (
         <div>
-            < LoginButton/>
-            < LogoutButton />
+            <LoginForm />
         </div>
     )
 
