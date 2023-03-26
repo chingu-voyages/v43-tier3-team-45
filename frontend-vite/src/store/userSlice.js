@@ -10,7 +10,6 @@ const initialState = {
     // above values will be filled in with event listeners in profile compoent
   };
   
-
 //   use asyncthunk to fetch from backend and populate 
 //   then use Selector in profile etc to proevide email and id
 

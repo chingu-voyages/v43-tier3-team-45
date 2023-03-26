@@ -8,14 +8,14 @@ import { store }from './store/store'
 
 const domain = import.meta.env.VITE_AUTH0_DOMAIN
 const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID
-const redirectUri = window.location.origin
+// const redirectUri = window.location.origin
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Auth0Provider
-      domain={domain}
-      clientId={clientId}
-      redirectUri={redirectUri}
+      domain={"dev-qaiod8jqqrcfugv2.us.auth0.com"}
+      clientId={"2ZA7vHttMavOhbvbvZ49tFTzpLdhVdg5"}
+      redirectUri={"http://127.0.0.1:5173/"}
       >
       <Provider store={store} >
         <App />
