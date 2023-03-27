@@ -8,7 +8,7 @@ function App() {
     <div>
       <Kanban />
     </div>
-  )
+  );
 }
 
 export default App

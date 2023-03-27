@@ -9,7 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-@Document(collection = "user")
+@Document(collection = "users")
 public class User implements UserDetails { 
     
     @Id
@@ -25,21 +25,26 @@ public class User implements UserDetails {
 
     private Role role;
 
+    private String avatarUrl;
+
     public User() {
     }
 
-    public User(String id, String email, String password, String firstName, String lastName, Role role) {
+    public User(String id, String email, String password, String firstName, String lastName, Role role, String avataUrl) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
+        this.avatarUrl = avataUrl;
     }
 
-    public User(String email, String password, Role role) {
+    public User(String email, String password, String firstName, String lastName, Role role) {
         this.email = email;
         this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.role = role;
     }
 
@@ -89,6 +94,14 @@ public class User implements UserDetails {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getAvatarUrl() {
+        return this.avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     @Override
