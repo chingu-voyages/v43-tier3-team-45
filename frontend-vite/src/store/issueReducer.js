@@ -53,6 +53,6 @@ export const { addIssueId, addTitle,
     addIssueType, addStatus, 
     addPriority  } = issueReducer.actions;
   
-export const selectissue = (state) => state.issue;
+export const selectIssue = (state) => state.issue;
 
 export default issueReducer.reducer;
