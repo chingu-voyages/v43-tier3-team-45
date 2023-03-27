@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios"
 import axiosInstance from "../util/AxiosInstance";
@@ -5,17 +6,39 @@ import axiosInstance from "../util/AxiosInstance";
 
 // const BASE_URL = "http://localhost:8080/api/"
 // Chinguboarddev2-env.eba-3gsq927u.us-east-2.elasticbeanstalk.com/api
+=======
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axiosInstance from "../util/AxiosInstance";
+>>>>>>> 5d9e119b (looking at thunk async)
 
 const initialState = {
     token: null,
 }
 
+<<<<<<< HEAD
 // const formData = {
 //     email: 'testuser',
 //     password: 'testpassword',
 //   };
 
 export const authReducer = createSlice({
+=======
+/**
+ * thunk to make an async call to authenticate user credentials with backend server and store token and user information it receives back
+ * @param creds - { email, password }
+ */
+export const loginUser = createAsyncThunk('auth/loginUser', async (creds, {dispatch}) => {
+    try {
+        const response = await axiosInstance.post(`/auth/login`, creds);
+        dispatch(setToken(response.data.token));
+        dispatch() // would need action from userSlice to set user information. if this is the case why even used thunk to define async function within the slice
+    } catch (error) {
+        
+    }
+})
+
+export const authSlice = createSlice({
+>>>>>>> 5d9e119b (looking at thunk async)
     name: 'auth',
     initialState,
     reducers: {
