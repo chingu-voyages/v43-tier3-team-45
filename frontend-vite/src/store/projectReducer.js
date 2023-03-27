@@ -24,6 +24,6 @@ export const projectReducer = createSlice({
   
 export const { addProjectId, addProjectName, addProjectIssues } = projectReducer.actions;
   
-export const selectissue = (state) => state.issue;
+export const selectissue = (state) => state.project;
 
 export default projectReducer.reducer;
