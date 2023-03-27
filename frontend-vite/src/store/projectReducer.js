@@ -7,7 +7,7 @@ const initialState = {
   };
   
 export const projectReducer = createSlice({
-    name: 'issue',
+    name: 'project',
     initialState,
     reducers: {
         addProjectId: (state, action) => {

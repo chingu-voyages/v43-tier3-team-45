@@ -1,18 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-   teaamId: "",
+   teamId: "",
    teamName: "",
    members: {},
    projects: {},
   };
   
 export const teamReducer = createSlice({
-    name: 'issue',
+    name: 'team',
     initialState,
     reducers: {
         addTeamId: (state, action) => {
-            state.projectId = action.payload;
+            state.teamId = action.payload;
         },
         addTeamName: (state, action) => {
             state.teamName = action.payload;
