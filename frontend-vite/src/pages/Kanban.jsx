@@ -4,15 +4,19 @@ import Column from "../components/Column"
 
 
 export default function Kanban() {
-    const [completed, setCompleted] = useState([])
-    const [incomplete, setIncomplete] = useState([])
+    const [completed, setCompleted] = useState([]);
+    const [incomplete, setIncomplete] = useState([]);
+    const [backlog, setBacklog] = useState([])
 
     useEffect(() => {
         fetch("https://jsonplaceholder.typicode.com/todos")
             .then((r) => r.json())
             .then((json) => {
                 setCompleted(json.filter((task) => task.completed));
+                // setCompleted(json.filter((task) => task.column === 'completed'));
                 setIncomplete(json.filter((task) => !task.completed));
+                // setIncomplete(json.filter((task) => task.column === 'in-progress'));
+                // setBacklog(json.filter((task) => task.column === 'backlog'));
             })
     }, [])
 
@@ -73,3 +77,5 @@ export default function Kanban() {
         </DragDropContext>
     )
 }
+
+
