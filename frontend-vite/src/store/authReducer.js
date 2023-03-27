@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { useSelector, useDispatch } from 'react-redux'
 import { selectUser } from "./userReducer";
 
-const BASE_URL = "http://localhost:8080"
+const BASE_URL = "Chinguboarddev2-env.eba-3gsq927u.us-east-2.elasticbeanstalk.com/api"
 
 const initialState = {
     token: null,
@@ -10,11 +10,11 @@ const initialState = {
 
 const formData = {
     username: 'testuser',
-    password: 'testpassword'
+    password: 'testpassword',
   };
 
 export const loginUser = createAsyncThunk(
-    "/api/auth/login", async () => {
+    "/auth/login", async () => {
         const res = await fetch(BASE_URL, {
             method: 'POST',
             mode: 'no-cors',
@@ -28,7 +28,6 @@ export const loginUser = createAsyncThunk(
         return setToken(res_1);
     }
   )
-
 
 export const authSlice = createSlice({
     name: 'auth',
