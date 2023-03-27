@@ -1,35 +1,33 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { useSelector, useDispatch } from 'react-redux'
-import { selectUser } from "./userReducer";
 
-const BASE_URL = "Chinguboarddev2-env.eba-3gsq927u.us-east-2.elasticbeanstalk.com/api"
+const BASE_URL = "http://localhost:8080/"
 
 const initialState = {
     token: null,
 }
 
 const formData = {
-    username: 'testuser',
+    email: 'testuser',
     password: 'testpassword',
   };
 
-export const loginUser = createAsyncThunk(
-    "/auth/login", async () => {
-        const res = await fetch(BASE_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
-          });
-        const res_1 = await res.json();
-        console.log("res", res_1)
-        return setToken(res_1);
+  export const loginUser = createAsyncThunk(
+    "auth/login",
+    async () => {
+      const res = await fetch(BASE_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+      const res_1 = await res.json();
+      return res_1; // Return the response data directly
     }
-  )
+  );
 
-export const authSlice = createSlice({
+export const authReducer = createSlice({
     name: 'auth',
     initialState,
     reducers: {
@@ -39,11 +37,16 @@ export const authSlice = createSlice({
         logoutToken: (state) => {
             state.token = null;
         },
-    }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(loginUser.fulfilled, (state, action) => {
+          state.token = action.payload.token;
+        });
+    },
 });
 
-export const { setToken, logoutToken, logIn } = authSlice.actions;
+export const { setToken, logoutToken } = authReducer.actions;
 
 export const selectToken = (state) => state.auth;
 
-export default authSlice.reducer;
+export default authReducer.reducer;

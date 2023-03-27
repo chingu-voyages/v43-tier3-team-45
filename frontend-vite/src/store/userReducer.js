@@ -14,7 +14,7 @@ const initialState = {
 //   use asyncthunk to fetch from backend and populate 
 //   then use Selector in profile etc to proevide email and id
 
-export const userSlice = createSlice({
+export const userReducer = createSlice({
     name: 'user',
     initialState,
     reducers: {
@@ -39,10 +39,10 @@ export const userSlice = createSlice({
     },
   });
   
-export const { addUserId, addEmail, addFirstName, addLastName, addRole, addPassword } = userSlice.actions;
+export const { addUserId, addEmail, addFirstName, addLastName, addRole, addPassword } = userReducer.actions;
   
 export const selectUser = (state) => state.user;
 
 // use dispatch to set and selector to get
 
-export default userSlice.reducer;
+export default userReducer.reducer;

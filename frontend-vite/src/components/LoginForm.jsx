@@ -8,27 +8,24 @@ const LoginForm = () => {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
 
-    console.log("auth", email)
-    console.log("user", password)
-
     const handleEmail = (e) => {
         setEmail(e.target.value)
-    }
+    };
 
     const handlePassword = (e) => {
         setPassword(e.target.value)
-      }
+    };
 
-      const handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(addPassword(password));
         dispatch(addEmail(email));
-      };
+    };
 
-      const handleThunk = (e) => {
+    const handleThunk = (e) => {
         e.preventDefault()
         dispatch(loginUser())
-      }
+    };
 
     return (
         <form >
