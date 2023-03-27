@@ -25,6 +25,11 @@ const LoginForm = () => {
         dispatch(addEmail(email));
       };
 
+      const handleThunk = (e) => {
+        e.preventDefault()
+        dispatch(loginUser())
+      }
+
     return (
         <form >
         <label>
@@ -38,6 +43,7 @@ const LoginForm = () => {
             </label>
     
         <button onClick={handleSubmit}>Log in</button>
+        <button onClick={handleThunk}>SUbmit</button>
         </form>
     )
 

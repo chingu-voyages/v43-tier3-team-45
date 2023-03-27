@@ -2,12 +2,12 @@ import { configureStore, createSerializableStateInvariantMiddleware } from '@red
 import userReducer from './userReducer'
 import authReducer from './authReducer'
 
-const middleware = [createSerializableStateInvariantMiddleware()];
+// const middleware = [createSerializableStateInvariantMiddleware()];
 
 export const store = configureStore({
     reducer: {
         user: userReducer,
         auth: authReducer,
   },
-  middleware,
+//   middleware,
 })
