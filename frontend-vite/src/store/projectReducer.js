@@ -23,7 +23,8 @@ export const projectReducer = createSlice({
     },
   });
   
-export const { addProjectId, addProjectName, addProjectIssues, resetState } = projectReducer.actions;
+export const { addProjectId, addProjectName, 
+    addProjectIssues, resetState } = projectReducer.actions;
   
 export const selectProject = (state) => state.project;
 

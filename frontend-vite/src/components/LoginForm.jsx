@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { addEmail, addPassword, selectUser } from '../store/userReducer'
+import { useDispatch } from 'react-redux'
+import { addEmail, addPassword } from '../store/userReducer'
 import { loginUser } from '../store/authReducer'
 
 const LoginForm = () => {

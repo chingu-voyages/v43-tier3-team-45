@@ -47,7 +47,10 @@ export const userReducer = createSlice({
     },
   });
   
-export const { addUserId, addEmail, addFirstName, addLastName, addRole, addPassword, resetState } = userReducer.actions;
+export const { addUserId, addEmail, 
+    addFirstName, addLastName, 
+    addRole, addPassword, 
+    resetState } = userReducer.actions;
   
 export const selectUser = (state) => state.user;
 
