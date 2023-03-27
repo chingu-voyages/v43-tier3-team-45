@@ -43,10 +43,11 @@ export const userReducer = createSlice({
       addPassword: (state, action) => {
         state.password = action.payload;
       },
+      resetState: () => initialState,
     },
   });
   
-export const { addUserId, addEmail, addFirstName, addLastName, addRole, addPassword } = userReducer.actions;
+export const { addUserId, addEmail, addFirstName, addLastName, addRole, addPassword, resetState } = userReducer.actions;
   
 export const selectUser = (state) => state.user;
 

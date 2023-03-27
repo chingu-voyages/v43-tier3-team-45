@@ -19,10 +19,11 @@ export const projectReducer = createSlice({
         addProjectIssues: (state, action) => {
             state.projectIssues = action.payload;
           },
+        resetState: () => initialState,
     },
   });
   
-export const { addProjectId, addProjectName, addProjectIssues } = projectReducer.actions;
+export const { addProjectId, addProjectName, addProjectIssues, resetState } = projectReducer.actions;
   
 export const selectProject = (state) => state.project;
 

@@ -23,10 +23,11 @@ export const teamReducer = createSlice({
         addTeamProjects: (state, action) => {
             state.projects = action.payload;
         },
+        resetState: () => initialState,
     },
   });
   
-export const { addTeamId, addTeamName, addMembers, addTeamProjects } = projectReducer.actions;
+export const { addTeamId, addTeamName, addMembers, addTeamProjects, resetState } = projectReducer.actions;
   
 export const selectTeam = (state) => state.team;
 

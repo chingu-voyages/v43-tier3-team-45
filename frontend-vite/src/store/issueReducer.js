@@ -44,6 +44,7 @@ export const issueReducer = createSlice({
         addPriority: (state, action) => {
             state.priority = action.payload;
         },
+        resetState: () => initialState,
     },
   });
   
@@ -51,7 +52,7 @@ export const { addIssueId, addTitle,
     addDescription, addCreatedBy, 
     addAssignees, addComments, 
     addIssueType, addStatus, 
-    addPriority  } = issueReducer.actions;
+    addPriority, resetState  } = issueReducer.actions;
   
 export const selectIssue = (state) => state.issue;
 
