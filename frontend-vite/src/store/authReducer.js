@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { useSelector } from 'react-redux';
 import axios from "axios"
+import axiosInstance from "../util/AxiosInstance";
 
 const BASE_URL = "http://localhost:8080/api/"
 // Chinguboarddev2-env.eba-3gsq927u.us-east-2.elasticbeanstalk.com/api
@@ -13,17 +15,17 @@ const formData = {
     password: 'testpassword',
   };
 
-  export const loginUser = createAsyncThunk(
+export const loginUser = createAsyncThunk(
     "auth/login/",
     async () => {
-      const res = await axios.post(BASE_URL, formData, {
+      const res = await axios.post(BASE_URL, axiosInstance, formData, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
       return res.data;
     }
-  );
+);
 
 export const authReducer = createSlice({
     name: 'auth',

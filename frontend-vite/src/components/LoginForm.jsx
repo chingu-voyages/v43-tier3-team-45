@@ -22,25 +22,24 @@ const LoginForm = () => {
         dispatch(addEmail(email));
     };
 
-    const handleThunk = (e) => {
-        e.preventDefault()
-        dispatch(loginUser())
-    };
+    // const handleThunk = (e) => {
+    //     e.preventDefault()
+    //     dispatch(loginUser())
+    // };
 
     return (
         <form >
-        <label>
-            Email:
-            <input type="text" name="name" onChange={handleEmail}/>
-            </label>
-            
-        <label>
-            Password:
-            <input type="text" name="name" onChange={handlePassword}/>
-            </label>
-    
-        <button onClick={handleSubmit}>Log in</button>
-        <button onClick={handleThunk}>SUbmit</button>
+            <label>
+                Email:
+                <input type="text" name="name" onChange={handleEmail}/>
+                </label>
+                
+            <label>
+                Password:
+                <input type="text" name="name" onChange={handlePassword}/>
+                </label>
+        
+            <button onClick={handleSubmit}>Log in</button>
         </form>
     )
 

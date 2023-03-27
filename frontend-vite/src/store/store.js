@@ -1,16 +1,11 @@
-import { 
-    configureStore, 
-    createSerializableStateInvariantMiddleware 
-    } from '@reduxjs/toolkit'
-import authReducer from './authReducer'
-import userReducer from './userReducer'
-
-// const middleware = [createSerializableStateInvariantMiddleware()];
+import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
-    reducer: {
-        auth: authReducer,
-        user: userReducer,
+  reducer: {
+    auth: () => import('./authReducer'),
+    user: () => import('./userReducer'),
   },
-//   middleware,
 })
+
+export default store
+
