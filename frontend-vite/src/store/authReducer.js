@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios"
 
-const BASE_URL = "http://localhost:8080/"
+const BASE_URL = "http://localhost:8080/api/"
 // Chinguboarddev2-env.eba-3gsq927u.us-east-2.elasticbeanstalk.com/api
 
 const initialState = {
@@ -13,18 +14,14 @@ const formData = {
   };
 
   export const loginUser = createAsyncThunk(
-    "auth/login",
+    "auth/login/",
     async () => {
-      const res = await fetch(BASE_URL, {
-        method: 'POST',
-        mode: 'no-cors',
+      const res = await axios.post(BASE_URL, formData, {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData)
       });
-      const res_1 = await res.json();
-      return res_1; // Return the response data directly
+      return res.data;
     }
   );
 

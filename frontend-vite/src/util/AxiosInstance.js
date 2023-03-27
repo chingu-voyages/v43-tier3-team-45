@@ -2,7 +2,7 @@ import axios from "axios";
 import { store } from "../store/store";
 
 // change for deployment
-const BASE_URL = "http://localhost:8080/"; // URL for AWS EBS dev deployment
+const BASE_URL = "http://localhost:8080/api/"; // URL for AWS EBS dev deployment
 // Chinguboarddev2-env.eba-3gsq927u.us-east-2.elasticbeanstalk.com/api
 
 const axiosInstance = axios.create({
