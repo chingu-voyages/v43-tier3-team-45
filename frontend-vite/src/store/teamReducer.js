@@ -27,7 +27,7 @@ export const teamReducer = createSlice({
     },
   });
   
-export const { addTeamId, addTeamName, addMembers, addTeamProjects, resetState } = projectReducer.actions;
+export const { addTeamId, addTeamName, addMembers, addTeamProjects, resetState } = teamReducer.actions;
   
 export const selectTeam = (state) => state.team;
 

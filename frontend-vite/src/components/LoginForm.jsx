@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { addEmail, addPassword, selectUser } from '../store/userReducer'
-import { setToken, logoutToken, selectToken, loginUser} from '../store/authReducer'
+import { loginUser } from '../store/authReducer'
 
 const LoginForm = () => {
     const dispatch = useDispatch()
@@ -20,6 +20,7 @@ const LoginForm = () => {
         e.preventDefault();
         dispatch(addPassword(password));
         dispatch(addEmail(email));
+        dispatch(loginUser())
     };
 
     // const handleThunk = (e) => {
