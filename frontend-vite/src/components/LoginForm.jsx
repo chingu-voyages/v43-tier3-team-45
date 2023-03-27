@@ -1,15 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { addUserId, addEmail, addFirstName, addLastName, addRole } from '../store/userSlice'
+import { addEmail, addPassword, selectUser } from '../store/userReducer'
+import { setToken, logoutToken, selectToken, loginUser} from '../store/authReducer'
 
 const LoginForm = () => {
     const dispatch = useDispatch()
-    // call to backend
+    const [email, setEmail] = useState()
+    const [password, setPassword] = useState()
+
+    console.log("auth", email)
+    console.log("user", password)
+
+    const handleEmail = (e) => {
+        setEmail(e.target.value)
+    }
+
+    const handlePassword = (e) => {
+        setPassword(e.target.value)
+      }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        dispatch(addPassword(password))
+        dispatch(addEmail(email))
+    }
 
     return (
-        <div>
-            {/* form */}
-        </div>
+        <form >
+        <label>
+            Email:
+            <input type="text" name="name" onChange={handleEmail}/>
+            </label>
+            
+        <label>
+            Password:
+            <input type="text" name="name" onChange={handlePassword}/>
+            </label>
+    
+        <button onClick={handleSubmit}>Log in</button>
+        </form>
     )
 
 }

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     userId: null,
@@ -7,6 +7,7 @@ const initialState = {
     firstName: "",
     lastName: "",
     role: "",
+    password: "",
     // above values will be filled in with event listeners in profile compoent
   };
   
@@ -21,7 +22,7 @@ export const userSlice = createSlice({
         },
         addEmail: (state, action) => {
             state.email = action.payload
-        },
+          },
         addFirstName: (state, action) => {
             state.firstName = action.payload
         },
@@ -31,9 +32,14 @@ export const userSlice = createSlice({
         addRole: (state, action) => {
             state.role = action.payload
         },
+        addPassword: (state, action) => {
+            state.password = action.payload
+        },
 });
 
-export const { addUserId, addEmail, addFirstName, addLastName, addRole } = userSlice.actions;
+export const selectUser = (state) => state.user;
+
+export const { addUserId, addEmail, addFirstName, addLastName, addRole, addPassword } = userSlice.actions;
 // use dispatch to set and selector to get
 
 export default userSlice.reducer;
