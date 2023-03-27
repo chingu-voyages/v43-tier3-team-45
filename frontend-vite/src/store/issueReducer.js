@@ -23,7 +23,7 @@ export const issueReducer = createSlice({
     },
   });
   
-export const {  } = issueReducer.actions;
+export const { addIssueId } = issueReducer.actions;
   
 export const selectissue = (state) => state.issue;
 
