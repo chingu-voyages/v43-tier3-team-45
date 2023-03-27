@@ -19,11 +19,11 @@ const LoginForm = () => {
         setPassword(e.target.value)
       }
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        dispatch(addPassword(password))
-        dispatch(addEmail(email))
-    }
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(addPassword(password));
+        dispatch(addEmail(email));
+      };
 
     return (
         <form >
