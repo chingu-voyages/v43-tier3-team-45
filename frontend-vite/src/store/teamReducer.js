@@ -31,4 +31,4 @@ export const { addTeamId, addTeamName, addMembers, addTeamProjects, resetState }
   
 export const selectTeam = (state) => state.team;
 
-export default projectReducer.reducer;
+export default teamReducer.reducer;
