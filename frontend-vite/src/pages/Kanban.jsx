@@ -139,7 +139,7 @@ export default function Kanban() {
         }
 
         // GET ITEM
-        const task = findItemById(draggableId, [...newStatus, ...completed])
+        const task = findItemById(draggableId, [...newStatus, ...completed, ...backlog, ...inProgress])
 
         // ADD ITEM
         if (destination.droppableId == 4 ) {
