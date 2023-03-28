@@ -33,9 +33,7 @@ const Profile = () => {
             src={avatarSrc}
             alt="avatar"
           />
-          {user}
-      </div>
-          {/* <h1 className="text-xl font-bold py-2">{firstName}</h1>
+          <h1 className="text-xl font-bold py-2">{firstName}</h1>
           <h1 className="text-xl font-bold py-2">{lastName}</h1>
           <p className="text-lg py-2">{role}</p>
       </div>
@@ -47,9 +45,7 @@ const Profile = () => {
           Edit Profile
         </button>
         {showUpdateProfile ? <UpdateProfile /> : null}
-        <button className="bg-gray-400 hover:bg-gray-700 text-gray-800 hover:text-white font-bold py-2 px-4 rounded">
-          Logout
-        </button> */}
+        
     </>
   );
 };
