@@ -26,7 +26,7 @@ export default function Column({ title, tasks, id}) {
                                 style={{
                                     background: snapshot.isDraggingOver ? 'lightblue' : 'lightgrey',
                                     padding: 4,
-                                    width: 250,
+                                    width: 400,
                                     minHeight: 800}}
                             >
                                 {tasksArray}
