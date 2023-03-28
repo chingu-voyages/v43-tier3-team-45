@@ -128,21 +128,28 @@ export default function Kanban() {
         if (source.droppableId == destination.droppableId) return;
 
         //REMOVE FROM SOURCE ARRAY
-
-        if (source.droppableId == 2 ) {
+        if (source.droppableId == 4) {
             setCompleted(removeItemById(draggableId, completed));
+        } else if (source.droppableId == 3) {
+            setinProgress(removeItemById(draggableId, inProgress));
+        } else if (source.droppableId == 2 ) {
+            setNewStatus(removeItemById(draggableId, newStatus));
         } else {
-            setNewStatus(removeItemById(draggableId, newStatus))
+            setBacklog(removeItemById(draggableId, backlog));
         }
 
         // GET ITEM
         const task = findItemById(draggableId, [...newStatus, ...completed])
 
         // ADD ITEM
-        if (destination.droppableId == 2 ) {
-            setCompleted([{...task, completed: !task.completed}, ...completed]);
+        if (destination.droppableId == 4 ) {
+            setCompleted([{...task, completed: task.completed}, ...completed]);
+        } else if (destination.droppableId == 3) {
+            setinProgress([{...task, completed: !task.completed}, ...inProgress]);
+        } else if (destination.droppableId == 2) {
+            setNewStatus([{...task, completed: !task.completed}, ...newStatus]);
         } else {
-            setNewStatus([{...task, completed: !task.completed}, ...newStatus])
+            setBacklog([{...task, completed: !task.completed}, ...backlog]);
         }
     }
 
