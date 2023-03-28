@@ -143,7 +143,7 @@ export default function Kanban() {
 
         // ADD ITEM
         if (destination.droppableId == 4 ) {
-            setCompleted([{...task, completed: task.completed}, ...completed]);
+            setCompleted([{...task, completed: !task.completed}, ...completed]);
         } else if (destination.droppableId == 3) {
             setinProgress([{...task, completed: !task.completed}, ...inProgress]);
         } else if (destination.droppableId == 2) {

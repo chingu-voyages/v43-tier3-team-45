@@ -28,6 +28,8 @@ import styled from "styled-components";
 
 export default function Task({ task, index }) {
 
+    console.log(task)
+
     return (
         <Draggable draggableId={`${task.id}`} key={task.id} index={index}>
 
@@ -37,11 +39,20 @@ export default function Task({ task, index }) {
                 {...provided.dragHandleProps}
                 ref={provided.innerRef}
                 isDragging={snapshot.isDragging}
+                style={{
+                    userSelect: 'none',
+                    padding: 16,
+                    margin: '0 00 8px 0',
+                    minHeight: '50px',
+                    backgroundColor: snapshot.isDragging ? '#263B4A' : '#456C86',
+                    color: 'white',
+                    ...provided.draggableProps.style
+                }}
             >
                 <div class="border m-2 p-2">
                     <div>
                         <span>
-                            #{task.id}
+                            #{task.status}
                             {" "}
                         </span>
                     </div>
