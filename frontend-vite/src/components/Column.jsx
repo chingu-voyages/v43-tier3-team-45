@@ -2,6 +2,8 @@ import React from 'react';
 import "./scroll.css"
 import { Droppable } from 'react-beautiful-dnd';
 import Task from './Task'
+
+
 export default function Column({ title, tasks, id}) {
 
     const tasksArray = tasks.map((task, index) => (

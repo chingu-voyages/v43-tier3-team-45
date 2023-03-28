@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { DragDropContext } from "react-beautiful-dnd";
 import Column from "../components/Column";
+import NewIssueForm from '../components/NewIssueForm';
 
 
 export default function Kanban() {
@@ -9,6 +10,7 @@ export default function Kanban() {
     const [newStatus, setNewStatus] = useState([]);
     const [inProgress, setinProgress] = useState([]);
     const [completed, setCompleted] = useState([]);
+    // const [issueStatus, setIssueStatus] = useState(issue.status)
 
 
     useEffect(() => {
@@ -52,7 +54,16 @@ export default function Kanban() {
 
         // ADD ITEM
         if (destination.droppableId == 4 ) {
-            setCompleted([...completed, {...task, completed: !task.completed}]);
+            // fetch(`http://localhost:8080/api/issues/${issue.id}`, {
+            //     method: "PATCH",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify(issueStatus)
+            // })
+                // .then(() =>
+                setCompleted([...completed, {...task, completed: !task.completed}]);
+
         } else if (destination.droppableId == 3) {
             setinProgress([ ...inProgress, {...task, completed: !task.completed}]);
         } else if (destination.droppableId == 2) {
@@ -64,32 +75,38 @@ export default function Kanban() {
 
 
     return (
-        <DragDropContext onDragEnd={handleDragEnd}>
-            <div class="flex">
-                <div class="grid grid-cols-4 gap-8">
-                <Column
-                    title={"BACKLOG"}
-                    tasks={backlog}
-                    id={"1"}
-                />
-                <Column
-                    title={"TO DO"}
-                    tasks={newStatus}
-                    id={"2"}
-                />
-                <Column
-                    title={"IN PROGRESS"}
-                    tasks={inProgress}
-                    id={"3"}
-                />
-                <Column
-                    title={"COMPLETED"}
-                    tasks={completed}
-                    id={"4"}
-                />
-                </div>
+        <div>
+            <div class="p-6">
+                <NewIssueForm />
             </div>
-        </DragDropContext>
+
+            <DragDropContext onDragEnd={handleDragEnd}>
+                <div class="flex">
+                    <div class="grid grid-cols-4 gap-8">
+                    <Column
+                        title={"BACKLOG"}
+                        tasks={backlog}
+                        id={"1"}
+                    />
+                    <Column
+                        title={"TO DO"}
+                        tasks={newStatus}
+                        id={"2"}
+                    />
+                    <Column
+                        title={"IN PROGRESS"}
+                        tasks={inProgress}
+                        id={"3"}
+                    />
+                    <Column
+                        title={"COMPLETED"}
+                        tasks={completed}
+                        id={"4"}
+                    />
+                    </div>
+                </div>
+            </DragDropContext>
+        </div>
     )
 }
 

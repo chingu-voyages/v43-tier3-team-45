@@ -2,6 +2,7 @@ import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 
 export default function Task({ task, index }) {
+    console.log(task)
 
     return (
         <Draggable draggableId={`${task.id}`} key={task.id} index={index}>
@@ -23,14 +24,14 @@ export default function Task({ task, index }) {
                 }}
             >
                 <div class="border m-2 p-2">
-                    <div>
-                        <span>
-                            #{task.status}
-                            {" "}
-                        </span>
-                    </div>
-                    <div id="task-id">
+                    <div id="task-title">
                         {task.title}
+                    </div>
+                    <div id="task-status">
+                        <span> Status: {task.status}</span>
+                    </div>
+                    <div id="task-priority">
+                        <span>Priority: {task.priority}</span>
                     </div>
                     <div id="user-avatar"></div>
                 </div>
