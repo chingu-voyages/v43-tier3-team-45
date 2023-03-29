@@ -1,11 +1,9 @@
 import issueReducer from "../store/issueReducer"
 import { useDispatch, useSelector } from 'react-redux'
-import { Modal } from '@mui/material';
+// import { Modal, Button, Box, Typography } from '@mui/material';
 
 
 function CreateIssue() {
-
-
 
 
     return (

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { addEmail, addPassword, selectToken, setToken} from '../store/userReducer';
+import { addEmail, addPassword, setToken} from '../store/userReducer';
 import axios from "axios"
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -28,7 +28,10 @@ const LoginForm = () => {
             if (token) {git 
                 config.headers.Authorization = `Bearer ${token}`;
             }
+
+            console.log(config)
             return config;
+            
         },
         (error) => {
             return Promise.reject(error);
@@ -39,7 +42,8 @@ const LoginForm = () => {
         'auth/loginUser',
         async (creds) => {
           try {
-            const response = await axiosInstance.post(`/auth/login`, creds);
+            const response = await axiosInstance.post(`/auth/login`, creds, config);
+            dispatch(setToken(response.data))
             return response.data;
           } catch (error) {
             console.log("error", error)
@@ -58,15 +62,15 @@ const LoginForm = () => {
 
     const handleAPI = (e) => {
         e.preventDefault();
-        dispatch(addPassword(password));
-        dispatch(addEmail(email));
-        dispatch(loginUser(creds))
-          .then((result) => {
-            console.log('API success', result);
-          })
-          .catch((error) => {
-            console.log('API error', error);
-          });
+        // dispatch(addPassword(password));
+        // dispatch(addEmail(email));
+        loginUser()
+        //   .then((result) => {
+        //     console.log('API success', result);
+        //   })
+        //   .catch((error) => {
+        //     console.log('API error', error);
+        //   });
       }
 
 

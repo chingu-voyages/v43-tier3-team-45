@@ -1,12 +1,14 @@
 import React from 'react'
 import './App.css';
-import KanbanBoard from './components/KanbanBoard';
+import LoginForm from './components/LoginForm';
+import CreateIssue from '/src/components/CreateIssue.jsx'
 
 function App() {
 
   return (
     <div>
-      <KanbanBoard />
+      <CreateIssue />
+      <LoginForm />
     </div>
   );
 }
