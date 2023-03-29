@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { addEmail, addPassword, setToken} from '../store/userReducer';
+import { addEmail, addPassword, selectToken, setToken} from '../store/userReducer';
 import axios from "axios"
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -20,10 +20,11 @@ const LoginForm = () => {
     const axiosInstance = axios.create({
         baseURL: BASE_URL,
     });
+
+    const token = useSelector(state => state.user.token);
   
     axiosInstance.interceptors.request.use(
         (config) => {
-            const token = store.getState().auth.token;
             if (token) {
                 config.headers.Authorization = `Bearer ${token}`;
             }
@@ -34,19 +35,18 @@ const LoginForm = () => {
         }
     );
   
-   const loginUser = createAsyncThunk(
+    const loginUser = createAsyncThunk(
         'auth/loginUser',
-        async (creds, thunkAPI) => {
+        async (creds) => {
           try {
-            const response = await axiosInstance.post(`/auth/login`, creds, {dispatch});
-            thunkAPI.dispatch(setToken(response.data.token));
-            console.log("token success", response)
+            const response = await axiosInstance.post(`/auth/login`, creds);
+            return response.data;
           } catch (error) {
             console.log("error", error)
-            return thunkAPI.rejectWithValue(error.response.data);
+            throw error;
           }
         }
-    );
+      );
   
     const handleEmail = (e) => {
         setEmail(e.target.value)
