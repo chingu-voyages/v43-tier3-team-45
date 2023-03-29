@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
    projectId: "",
    projectName: "",
-   issues: {},
+   issues: [],
   };
   
 export const projectReducer = createSlice({
@@ -17,7 +17,8 @@ export const projectReducer = createSlice({
             state.projectName = action.payload;
           },
         addProjectIssues: (state, action) => {
-            state.projectIssues = action.payload;
+            const newIssue = action.payload;
+            state.issues = [...state.issues, newIssue];
           },
         resetState: () => initialState,
     },

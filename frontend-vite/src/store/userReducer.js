@@ -2,29 +2,21 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     userId: null,
+    token: null,
     email: "",
     firstName: "",
     lastName: "",
     role: "",
     password: "",
   };
-  
-// export const postUserProfile = createAsyncThunk(
-//     "auth/login/",
-//     async () => {
-//       const res = await axios.post(BASE_URL, axiosInstance, formData, {
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//       });
-//       return res.data;
-//     }
-// );
 
 export const userReducer = createSlice({
     name: 'user',
     initialState,
     reducers: {
+      setToken: (state, action) => {
+        state.token = action.payload;
+      },
       addUserId: (state, action) => {
         state.userId = action.payload;
       },
@@ -43,17 +35,16 @@ export const userReducer = createSlice({
       addPassword: (state, action) => {
         state.password = action.payload;
       },
+      logoutToken: (state) => {
+        state.token = null;
+      },
       resetState: () => initialState,
     },
   });
   
-export const { addUserId, addEmail, 
-    addFirstName, addLastName, 
-    addRole, addPassword, 
-    resetState } = userReducer.actions;
+export const { addUserId, addEmail, addFirstName, addLastName, addRole, addPassword, resetState, setToken, logoutToken } = userReducer.actions;
   
 export const selectUser = (state) => state.user;
-
-// use dispatch to set and selector to get
+export const selectToken = (state) => state.user.token;
 
 export default userReducer.reducer;

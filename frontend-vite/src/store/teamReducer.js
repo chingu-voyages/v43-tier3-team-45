@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
    teamId: "",
    teamName: "",
-   members: {},
-   projects: {},
+   members: [],
+   projects: [],
   };
   
 export const teamReducer = createSlice({
@@ -18,10 +18,12 @@ export const teamReducer = createSlice({
             state.teamName = action.payload;
         },
         addMembers: (state, action) => {
-            state.members = action.payload;
+            const newMember = action.payload;
+            state.members = [...state.members, newMember];
         },
         addTeamProjects: (state, action) => {
-            state.projects = action.payload;
+            const newProject = action.payload;
+            state.projects = [...state.items, newProject];
         },
         resetState: () => initialState,
     },

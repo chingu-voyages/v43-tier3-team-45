@@ -5,14 +5,13 @@ const initialState = {
     title: "",
     description: "",
     createdBy: "",
-    assignees: {},
-    comments: {},
+    assignees: [],
+    comments: [],
     issueType: "",
     status: "",
     priority: ""
   };
   
-
 export const issueReducer = createSlice({
     name: 'issue',
     initialState,
@@ -30,10 +29,12 @@ export const issueReducer = createSlice({
             state.createdBy = action.payload;
         },
         addAssignees: (state, action) => {
-            state.assignees = action.payload;
+            const newAssignee = action.payload;
+            state.assignees = [...state.assignees, newAssignee];
         },
         addComments: (state, action) => {
-            state.comments = action.payload;
+            const newComment = action.payload;
+            state.comments = [...state.comments, newComment];
         },
         addIssueType: (state, action) => {
             state.issueType = action.payload;
