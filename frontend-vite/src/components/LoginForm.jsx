@@ -42,7 +42,7 @@ const LoginForm = () => {
         'auth/loginUser',
         async (creds) => {
           try {
-            const response = await axiosInstance.post(`/auth/login`, creds, config);
+            const response = await axiosInstance.post(`/auth/login`, creds);
             dispatch(setToken(response.data))
             return response.data;
           } catch (error) {
@@ -62,9 +62,9 @@ const LoginForm = () => {
 
     const handleAPI = (e) => {
         e.preventDefault();
-        // dispatch(addPassword(password));
-        // dispatch(addEmail(email));
-        loginUser()
+        dispatch(addPassword(password));
+        dispatch(addEmail(email));
+        dispatch(loginUser())
         //   .then((result) => {
         //     console.log('API success', result);
         //   })
@@ -75,7 +75,7 @@ const LoginForm = () => {
 
 
     return (
-        <form >
+        <form  onSubmit={handleAPI}>
             <label>
                 Email:
                 <input type="text" name="name" onChange={handleEmail}/>
@@ -87,7 +87,7 @@ const LoginForm = () => {
             </label>
         
             {/* <button onClick={handleSubmit}>Log in</button> */}
-            <button onClick={handleAPI}>API Call</button>
+            <button>API Call</button>
         </form>
     )
 
