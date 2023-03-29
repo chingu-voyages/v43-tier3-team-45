@@ -18,7 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       redirectUri={redirectUri}
       >
       <Provider store={store} >
-      <App />
+        <App />
       </Provider>
     </Auth0Provider>
   </React.StrictMode>,
