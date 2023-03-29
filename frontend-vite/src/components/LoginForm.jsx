@@ -56,14 +56,10 @@ const LoginForm = () => {
         setPassword(e.target.value)
     };
 
-    const handleSubmit = (e) => {
+    const handleAPI = (e) => {
         e.preventDefault();
         dispatch(addPassword(password));
         dispatch(addEmail(email));
-    };
-
-    const handleAPI = (e) => {
-        e.preventDefault();
         dispatch(loginUser(creds))
           .then((result) => {
             console.log('API success', result);
@@ -86,7 +82,7 @@ const LoginForm = () => {
                 <input type="text" name="name" onChange={handlePassword}/>
             </label>
         
-            <button onClick={handleSubmit}>Log in</button>
+            {/* <button onClick={handleSubmit}>Log in</button> */}
             <button onClick={handleAPI}>API Call</button>
         </form>
     )
