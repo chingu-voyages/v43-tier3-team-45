@@ -1,14 +1,14 @@
 import React from 'react'
 import './App.css';
+import CreateIssue from './pages/CreateIssue';
 import LoginForm from './components/LoginForm';
-import CreateIssue from '/src/components/CreateIssue.jsx'
 
 function App() {
 
   return (
     <div>
-      <CreateIssue />
       <LoginForm />
+      <CreateIssue />
     </div>
   );
 }
