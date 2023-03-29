@@ -42,8 +42,6 @@ const LoginForm = () => {
             const response = await axiosInstance.post(`/auth/login`, creds);
             return response.data;
           } catch (error) {
-            console.log("error", error)
-            throw error;
           }
         }
       );
