@@ -64,13 +64,13 @@ const LoginForm = () => {
         e.preventDefault();
         dispatch(addPassword(password));
         dispatch(addEmail(email));
-        dispatch(loginUser())
-        //   .then((result) => {
-        //     console.log('API success', result);
-        //   })
-        //   .catch((error) => {
-        //     console.log('API error', error);
-        //   });
+        dispatch(loginUser(creds))
+          .then((result) => {
+            console.log('API success', result);
+          })
+          .catch((error) => {
+            console.log('API error', error);
+          });
       }
 
 
