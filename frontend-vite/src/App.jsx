@@ -1,15 +1,14 @@
-import React from 'react';
-import { Route, Routes } from "react-router-dom";
-import './App.css'
-import Login from './pages/Login';
+import React from 'react'
+import './App.css';
+import KanbanBoard from './components/KanbanBoard';
 
 function App() {
 
   return (
-    <div className="App">
-        <Login />
+    <div>
+      <KanbanBoard />
     </div>
   );
 }
 
-export default App
+export default App      
