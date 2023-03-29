@@ -25,13 +25,10 @@ const LoginForm = () => {
   
     axiosInstance.interceptors.request.use(
         (config) => {
-            if (token) {git 
+            if (token) {
                 config.headers.Authorization = `Bearer ${token}`;
             }
-
-            console.log(config)
-            return config;
-            
+            return config;            
         },
         (error) => {
             return Promise.reject(error);
@@ -42,7 +39,7 @@ const LoginForm = () => {
         'auth/loginUser',
         async (creds) => {
           try {
-            const response = await axiosInstance.post(`/auth/login`, creds);
+            const response = await axiosInstance.post(`/auth/login`, creds, {dispatch});
             dispatch(setToken(response.data))
             return response.data;
           } catch (error) {
@@ -86,7 +83,6 @@ const LoginForm = () => {
                 <input type="text" name="name" onChange={handlePassword}/>
             </label>
         
-            {/* <button onClick={handleSubmit}>Log in</button> */}
             <button>API Call</button>
         </form>
     )
