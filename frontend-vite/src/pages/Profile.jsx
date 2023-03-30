@@ -8,7 +8,7 @@ const Profile = () => {
 
   const fetchUser = async () => {
     const { data } = await axios.get(
-      "http://localhost:8080/api/users/641ba82f94ba927d1a1e932a"
+      "http://localhost:8080/api/users/6425021f15df221426292106"
     );
     setUser(data);
   };
@@ -17,11 +17,11 @@ const Profile = () => {
     fetchUser();
   }, []);
 
-  const { firstName, lastName, role, email } = user;
+  const { firstName, lastName, role, email, avatarURl } = user;
   const [showUpdateProfile, setShowUpdateProfile] = useState(false);
 
-  const avatarSrc =
-    "https://gravatar.com/avatar/29348169ecc5b8d01ac28beb2c5a4a79?s=400&d=robohash&r=x";
+  // const avatarSrc =
+  //   "https://gravatar.com/avatar/29348169ecc5b8d01ac28beb2c5a4a79?s=400&d=robohash&r=x";
 
   const handleUpdateProfileClick = () => {
     setShowUpdateProfile(true);
@@ -32,7 +32,7 @@ const Profile = () => {
       <div className="flex flex-col items-center justify-center mt-10">
         <Avatar
           className="w-12 h-12 rounded-full border-2 border-gray-400 overflow-hidden"
-          src={avatarSrc}
+          src={avatarURl}
           alt="avatar"
         />
         <h1 className="text-xl font-bold py-2">{firstName}</h1>
