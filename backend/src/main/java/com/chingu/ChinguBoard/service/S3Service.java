@@ -14,6 +14,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetUrlRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 
 @Service
 public class S3Service {
@@ -22,6 +23,9 @@ public class S3Service {
 
     static final String BUCKET_NAME = "chinguboard-dev";
 
+    // default avatar image for users who don't upload their own image
+    static final String DEFAULT_IMAGE = "https://chinguboard-dev.s3.us-east-2.amazonaws.com/f805ce7c-5dba-46f3-be54-90c27983aacc_29348169ecc5b8d01ac28beb2c5a4a79.png";
+
     public S3Service(S3Client s3) {
         this.s3 = s3;
     }
@@ -29,6 +33,9 @@ public class S3Service {
     public String upload(MultipartFile file) throws S3Exception {
         try {
             String filename = StringUtils.cleanPath(file.getOriginalFilename());
+            if (filename.equals("")) {
+                return DEFAULT_IMAGE;
+            }
             Map<String, String> metadata = new HashMap<>();
             metadata.put("Content-Type", file.getContentType());
             metadata.put("Content-Length", String.valueOf(file.getSize()));
@@ -37,6 +44,7 @@ public class S3Service {
                     .bucket(BUCKET_NAME)
                     .key(key)
                     .metadata(metadata)
+                    .acl(ObjectCannedACL.PUBLIC_READ)
                     .build();
             s3.putObject(putOb, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
 
