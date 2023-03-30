@@ -1,35 +1,48 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../util/AxiosInstance";
+import { setUser } from "./userReducer";
 
 const initialState = {
-    token: null,
-}
+  token: null,
+  status: "idle",
+  error: null,
+};
 
 /**
  * thunk to make an async call to authenticate user credentials with backend server and store token and user information it receives back
  * @param creds - { email, password }
  */
-export const loginUser = createAsyncThunk('auth/loginUser', async (creds, {dispatch}) => {
-    try {
-        const response = await axiosInstance.post(`/auth/login`, creds);
-        dispatch(setToken(response.data.token));
-        dispatch() // would need action from userSlice to set user information. if this is the case why even used thunk to define async function within the slice
-    } catch (error) {
-        
-    }
-})
+export const loginUser = createAsyncThunk("auth/loginUser", async (creds) => {
+  const response = await axiosInstance.post(`/auth/login`, creds);
+  return response.data;
+});
 
 export const authSlice = createSlice({
-    name: 'auth',
-    initialState,
-    reducers: {
-        setToken: (state, action) => {
-            state.token = action.payload;
-        },
-        logoutToken: (state) => {
-            state.token = null;
-        }
-    }
+  name: "auth",
+  initialState,
+  reducers: {
+    setToken: (state, action) => {
+      state.token = action.payload;
+    },
+    logoutToken: (state) => {
+      state.token = null;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(loginUser.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      state.status = "success";
+      // not too sure about these two lines
+      state.token = action.payload.token;
+      setUser(action.payload.user);
+    });
+    builder.addCase(loginUser.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+    });
+  },
 });
 
 export const { setToken, logoutToken } = authSlice.actions;
