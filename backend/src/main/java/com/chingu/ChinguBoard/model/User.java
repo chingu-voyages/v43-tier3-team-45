@@ -40,6 +40,15 @@ public class User implements UserDetails {
         this.avatarUrl = avataUrl;
     }
 
+    public User(String email, String password, String firstName, String lastName, Role role, String avataUrl) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
+        this.avatarUrl = avataUrl;
+    }
+
     public User(String email, String password, String firstName, String lastName, Role role) {
         this.email = email;
         this.password = password;
