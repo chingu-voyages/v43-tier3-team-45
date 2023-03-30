@@ -8,14 +8,13 @@ export default function Kanban({task}) {
   const [newStatus, setNewStatus] = useState([]);
   const [inProgress, setinProgress] = useState([]);
   const [completed, setCompleted] = useState([]);
-  const [allIssues, setAllIssues] = useState([])
-
+  // const [allIssues, setAllIssues] = useState([])
 
   useEffect(() => {
     fetch("http://localhost:8080/api/projects/641ba8e494ba927d1a1e932d")
       .then((r) => r.json())
       .then((json) => {
-        setAllIssues(json.issues)
+        // setAllIssues(json.issues)
         setBacklog(json.issues.filter((issue) => issue.status == "BACKLOG"));
         setNewStatus(json.issues.filter((issue) => issue.status == "NEW"));
         setinProgress(json.issues.filter((issue) => issue.status == "IN_PROGRESS"));
@@ -60,19 +59,15 @@ export default function Kanban({task}) {
     // ADD ITEM
     if (destination.droppableId == 4) {
 
-      const issueId = allIssues.filter((issue) => issue.id == draggableId)
+      // const issueId = allIssues.find((issue) => issue.id == draggableId)
 
-      const taskData = {
-        status: "COMPLETED",
-        ...issueId
-      }
+      // issueId.status = "DONE"
 
-      fetch(`http://localhost:8080/api/issues/${draggableId}`, {
+      fetch(`http://localhost:8080/api/issues/${draggableId}?status=DONE`, {
           method: "PATCH",
           headers: {
               "Content-Type": "application/json",
-          },
-          body: JSON.stringify(taskData)
+          }
       })
       .then(() =>
       setCompleted([...completed, { ...task, completed: !task.completed }]));
