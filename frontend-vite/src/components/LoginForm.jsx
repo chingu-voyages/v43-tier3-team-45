@@ -43,8 +43,6 @@ const LoginForm = () => {
             dispatch(setToken(response.data))
             return response.data;
           } catch (error) {
-            console.log("error", error)
-            throw error;
           }
         }
       );
