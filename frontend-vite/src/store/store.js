@@ -1,7 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit'
+import userReducer from './userReducer'
+import issueReducer from './issueReducer'
+import projectReducer from './projectReducer'
+import teamReducer from './teamReducer'
 
-const store = configureStore({
-  reducer: {},
+export const store = configureStore({
+  reducer: {
+    user: userReducer,
+    issue: issueReducer,
+    project: projectReducer,
+    team: teamReducer,
+  },
 })
 
-export default store;
+export default store
+
