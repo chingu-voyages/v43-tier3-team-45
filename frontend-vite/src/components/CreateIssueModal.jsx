@@ -1,9 +1,21 @@
-import issueReducer from "../store/issueReducer"
 import { useDispatch, useSelector } from 'react-redux'
 // import { Modal, Button, Box, Typography } from '@mui/material';
+import { addTitle, addDescription } from "../store/issueReducer"
 
 
 const CreateIssueModal = ({closeModal}) => {
+    const dispatch = useDispatch()
+
+    const handleTitle = (e) => {
+        e.preventDefault()
+        dispatch(addTitle(e.target.value))
+    }
+
+    const handleDescription = (e) => {
+        e.preventDefault()
+        dispatch(addDescription(e.target.value))
+    }
+    
 
 
     return (
@@ -16,13 +28,17 @@ const CreateIssueModal = ({closeModal}) => {
                 <div className="body"> 
                     <form>
                         <label>
-                        Email:
-                            <input type="text" name="name" />
+                        Title:
+                            <input type="text" name="name" onChange={handleTitle}/>
+                        </label>
+                        <label>
+                        Description:
+                            <input type="text" name="name" onChange={handleDescription}/>
                         </label>
                     </form>
                 </div>
                 <div className="footer">
-                    <button >Save</button>    
+                    <button> Save </button>    
                  </div>
             </div>
         </div>
