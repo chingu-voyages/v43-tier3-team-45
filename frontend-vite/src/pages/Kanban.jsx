@@ -3,22 +3,22 @@ import { DragDropContext } from "react-beautiful-dnd";
 import Column from "../components/Column";
 import NewIssueForm from "../components/NewIssueForm";
 
-export default function Kanban() {
+export default function Kanban({task}) {
   const [backlog, setBacklog] = useState([]);
   const [newStatus, setNewStatus] = useState([]);
   const [inProgress, setinProgress] = useState([]);
   const [completed, setCompleted] = useState([]);
-  // const [issueStatus, setIssueStatus] = useState(issue.status)
+  const [allIssues, setAllIssues] = useState([])
+
 
   useEffect(() => {
     fetch("http://localhost:8080/api/projects/641ba8e494ba927d1a1e932d")
       .then((r) => r.json())
       .then((json) => {
+        setAllIssues(json.issues)
         setBacklog(json.issues.filter((issue) => issue.status == "BACKLOG"));
         setNewStatus(json.issues.filter((issue) => issue.status == "NEW"));
-        setinProgress(
-          json.issues.filter((issue) => issue.status == "IN_PROGRESS")
-        );
+        setinProgress(json.issues.filter((issue) => issue.status == "IN_PROGRESS"));
         setCompleted(json.issues.filter((issue) => issue.status == "DONE"));
       });
   }, []);
@@ -33,8 +33,10 @@ export default function Kanban() {
 
   function handleDragEnd(result) {
     const { destination, source, draggableId } = result;
+    console.log(draggableId)
 
     if (source.droppableId == destination.droppableId) return;
+    console.log(source.droppableId)
 
     //REMOVE FROM SOURCE ARRAY
     if (source.droppableId == 4) {
@@ -57,15 +59,24 @@ export default function Kanban() {
 
     // ADD ITEM
     if (destination.droppableId == 4) {
-      // fetch(`http://localhost:8080/api/issues/${issue.id}`, {
-      //     method: "PATCH",
-      //     headers: {
-      //         "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(issueStatus)
-      // })
-      // .then(() =>
-      setCompleted([...completed, { ...task, completed: !task.completed }]);
+
+      const issueId = allIssues.filter((issue) => issue.id == draggableId)
+
+      const taskData = {
+        status: "COMPLETED",
+        ...issueId
+      }
+
+      fetch(`http://localhost:8080/api/issues/${draggableId}`, {
+          method: "PATCH",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify(taskData)
+      })
+      .then(() =>
+      setCompleted([...completed, { ...task, completed: !task.completed }]));
+
     } else if (destination.droppableId == 3) {
       setinProgress([...inProgress, { ...task, completed: !task.completed }]);
     } else if (destination.droppableId == 2) {

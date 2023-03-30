@@ -29,6 +29,9 @@ export default function Task({ task, index }) {
             <div id="task-priority">
               <span>Priority: {task.priority}</span>
             </div>
+            <div>
+              {task.id}
+            </div>
             <div id="user-avatar"></div>
           </div>
 

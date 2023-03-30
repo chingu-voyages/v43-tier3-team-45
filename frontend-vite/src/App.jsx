@@ -6,12 +6,18 @@ function App() {
   const [taskStatus, setTaskStatus] = useState([])
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/issues")
-  })
+    fetch("http://localhost:8080/api/issues/641bad971753157698dc186a")
+      .then(response => response.json())
+      .then((task) => setTaskStatus(task))
+  }, [])
+
+  // console.log(taskStatus.status)
 
   return (
     <div>
-      <Kanban />
+      <Kanban
+        task={taskStatus}
+      />
     </div>
   );
 }
