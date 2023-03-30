@@ -4,17 +4,17 @@ import UpdateProfile from "./UpdateProfile";
 import axios from "axios";
 
 const Profile = () => {
-  const [user, setUser] = useState([])
-  
+  const [user, setUser] = useState([]);
+
   const fetchUser = async () => {
     const { data } = await axios.get(
       "http://localhost:8080/api/users/641ba82f94ba927d1a1e932a"
     );
-    setUser(data)
+    setUser(data);
   };
 
   useEffect(() => {
-    fetchUser()
+    fetchUser();
   }, []);
 
   const { firstName, lastName, role, email } = user;
@@ -42,14 +42,13 @@ const Profile = () => {
       <hr />
       <div className="flex flex-col items-center justify-center">
         <p className="text-lg py-2">{email}</p>
-      
-      <button
-        className=" bg-blue-400 hover:bg-blue-700 text-black hover:text-white font-bold py-2 px-4 rounded mr-2 mt-8"
-        onClick={handleUpdateProfileClick}
-      >
-        Edit Profile
-      </button>
-      {showUpdateProfile ? <UpdateProfile /> : null}
+        <button
+          className=" bg-blue-400 hover:bg-blue-700 text-black hover:text-white font-bold py-2 px-4 rounded mr-2 mt-8"
+          onClick={handleUpdateProfileClick}
+        >
+          Edit Profile
+        </button>
+        {showUpdateProfile ? <UpdateProfile /> : null}
       </div>
     </>
   );
