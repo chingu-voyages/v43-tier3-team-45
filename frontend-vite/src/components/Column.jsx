@@ -25,7 +25,7 @@ export default function Column({ title, tasks, id }) {
                     ? "lightblue"
                     : "lightgrey",
                   padding: 4,
-                  width: 400,
+                  width: 320,
                   minHeight: 800,
                 }}
               >
