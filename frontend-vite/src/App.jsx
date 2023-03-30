@@ -1,9 +1,8 @@
-import React from 'react';
-import './App.css';
-import Kanban from './pages/Kanban';
+import React from "react";
+import "./App.css";
+import Kanban from "./pages/Kanban";
 
 function App() {
-
   return (
     <div>
       <Kanban />
@@ -11,4 +10,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

@@ -1,115 +1,96 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import Column from "../components/Column";
-import NewIssueForm from '../components/NewIssueForm';
-
+import NewIssueForm from "../components/NewIssueForm";
 
 export default function Kanban() {
+  const [backlog, setBacklog] = useState([]);
+  const [newStatus, setNewStatus] = useState([]);
+  const [inProgress, setinProgress] = useState([]);
+  const [completed, setCompleted] = useState([]);
+  // const [issueStatus, setIssueStatus] = useState(issue.status)
 
-    const [backlog, setBacklog] = useState([]);
-    const [newStatus, setNewStatus] = useState([]);
-    const [inProgress, setinProgress] = useState([]);
-    const [completed, setCompleted] = useState([]);
-    // const [issueStatus, setIssueStatus] = useState(issue.status)
+  useEffect(() => {
+    fetch("http://localhost:8080/api/projects/641ba8e494ba927d1a1e932d")
+      .then((r) => r.json())
+      .then((json) => {
+        setBacklog(json.issues.filter((issue) => issue.status == "BACKLOG"));
+        setNewStatus(json.issues.filter((issue) => issue.status == "NEW"));
+        setinProgress(
+          json.issues.filter((issue) => issue.status == "IN_PROGRESS")
+        );
+        setCompleted(json.issues.filter((issue) => issue.status == "DONE"));
+      });
+  }, []);
 
+  function findItemById(id, array) {
+    return array.find((item) => item.id == id);
+  }
 
-    useEffect(() => {
-        fetch("http://localhost:8080/api/projects/641ba8e494ba927d1a1e932d")
-            .then((r) => r.json())
-            .then((json) => {
-                setBacklog(json.issues.filter((issue) => issue.status == 'BACKLOG'))
-                setNewStatus(json.issues.filter((issue) => issue.status == 'NEW'))
-                setinProgress(json.issues.filter((issue) => issue.status == 'IN_PROGRESS'))
-                setCompleted(json.issues.filter((issue) => issue.status == 'DONE'))
-            })
-        }, [])
+  function removeItemById(id, array) {
+    return array.filter((item) => item.id != id);
+  }
 
+  function handleDragEnd(result) {
+    const { destination, source, draggableId } = result;
 
-    function findItemById(id, array) {
-        return array.find((item) => item.id == id)
+    if (source.droppableId == destination.droppableId) return;
+
+    //REMOVE FROM SOURCE ARRAY
+    if (source.droppableId == 4) {
+      setCompleted(removeItemById(draggableId, completed));
+    } else if (source.droppableId == 3) {
+      setinProgress(removeItemById(draggableId, inProgress));
+    } else if (source.droppableId == 2) {
+      setNewStatus(removeItemById(draggableId, newStatus));
+    } else {
+      setBacklog(removeItemById(draggableId, backlog));
     }
 
-    function removeItemById(id, array) {
-        return array.filter((item) => item.id != id)
+    // GET ITEM
+    const task = findItemById(draggableId, [
+      ...newStatus,
+      ...completed,
+      ...backlog,
+      ...inProgress,
+    ]);
+
+    // ADD ITEM
+    if (destination.droppableId == 4) {
+      // fetch(`http://localhost:8080/api/issues/${issue.id}`, {
+      //     method: "PATCH",
+      //     headers: {
+      //         "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(issueStatus)
+      // })
+      // .then(() =>
+      setCompleted([...completed, { ...task, completed: !task.completed }]);
+    } else if (destination.droppableId == 3) {
+      setinProgress([...inProgress, { ...task, completed: !task.completed }]);
+    } else if (destination.droppableId == 2) {
+      setNewStatus([...newStatus, { ...task, completed: !task.completed }]);
+    } else {
+      setBacklog([...backlog, { ...task, completed: !task.completed }]);
     }
+  }
 
-    function handleDragEnd(result) {
-        const { destination, source, draggableId} = result;
+  return (
+    <div>
+      <div class="p-6">
+        <NewIssueForm />
+      </div>
 
-        if (source.droppableId == destination.droppableId) return;
-
-        //REMOVE FROM SOURCE ARRAY
-        if (source.droppableId == 4) {
-            setCompleted(removeItemById(draggableId, completed));
-        } else if (source.droppableId == 3) {
-            setinProgress(removeItemById(draggableId, inProgress));
-        } else if (source.droppableId == 2 ) {
-            setNewStatus(removeItemById(draggableId, newStatus));
-        } else {
-            setBacklog(removeItemById(draggableId, backlog));
-        }
-
-        // GET ITEM
-        const task = findItemById(draggableId, [...newStatus, ...completed, ...backlog, ...inProgress])
-
-        // ADD ITEM
-        if (destination.droppableId == 4 ) {
-            // fetch(`http://localhost:8080/api/issues/${issue.id}`, {
-            //     method: "PATCH",
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //     },
-            //     body: JSON.stringify(issueStatus)
-            // })
-                // .then(() =>
-                setCompleted([...completed, {...task, completed: !task.completed}]);
-
-        } else if (destination.droppableId == 3) {
-            setinProgress([ ...inProgress, {...task, completed: !task.completed}]);
-        } else if (destination.droppableId == 2) {
-            setNewStatus([ ...newStatus, {...task, completed: !task.completed}]);
-        } else {
-            setBacklog([...backlog, {...task, completed: !task.completed}]);
-        }
-    }
-
-
-    return (
-        <div>
-            <div class="p-6">
-                <NewIssueForm />
-            </div>
-
-            <DragDropContext onDragEnd={handleDragEnd}>
-                <div class="flex">
-                    <div class="grid grid-cols-4 gap-8">
-                    <Column
-                        title={"BACKLOG"}
-                        tasks={backlog}
-                        id={"1"}
-                    />
-                    <Column
-                        title={"TO DO"}
-                        tasks={newStatus}
-                        id={"2"}
-                    />
-                    <Column
-                        title={"IN PROGRESS"}
-                        tasks={inProgress}
-                        id={"3"}
-                    />
-                    <Column
-                        title={"COMPLETED"}
-                        tasks={completed}
-                        id={"4"}
-                    />
-                    </div>
-                </div>
-            </DragDropContext>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <div class="flex">
+          <div class="grid grid-cols-4 gap-8">
+            <Column title={"BACKLOG"} tasks={backlog} id={"1"} />
+            <Column title={"TO DO"} tasks={newStatus} id={"2"} />
+            <Column title={"IN PROGRESS"} tasks={inProgress} id={"3"} />
+            <Column title={"COMPLETED"} tasks={completed} id={"4"} />
+          </div>
         </div>
-    )
+      </DragDropContext>
+    </div>
+  );
 }
-
-
-
-
