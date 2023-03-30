@@ -16,7 +16,11 @@ const CreateIssueModal = ({closeModal}) => {
         dispatch(addDescription(e.target.value))
     }
     
-
+    const handleSave = (e) => {
+        e.preventDefault()
+        // make POST request and close modal
+        closeModal(false)
+    }
 
     return (
         <div className="modalBackground">
@@ -36,9 +40,10 @@ const CreateIssueModal = ({closeModal}) => {
                             <input type="text" name="name" onChange={handleDescription}/>
                         </label>
                     </form>
+                    <p>Created by: {useSelector(state => state.user.email)} </p>
                 </div>
                 <div className="footer">
-                    <button> Save </button>    
+                    <button onClick={handleSave}> Save </button>    
                  </div>
             </div>
         </div>

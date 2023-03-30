@@ -4,6 +4,8 @@ import { addEmail, addPassword, setToken} from '../store/userReducer';
 import axios from "axios"
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+// upon login use redux to set the user name in other components Reducer files
+
 const LoginForm = () => {
     const dispatch = useDispatch()
     const [email, setEmail] = useState()

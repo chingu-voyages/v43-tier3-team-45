@@ -6,13 +6,8 @@ function CreateIssue() {
 
     return (
         <div>
-
-            <button 
-                onClick={() => {
-                setOpenModal(true)
-                }}
-            >Open</button>
-            {openModal && <CreateIssueModal closeModal={setOpenModal}/>}
+            {openModal ? <CreateIssueModal closeModal={setOpenModal}/> :             
+                <button onClick={() => {setOpenModal(true)}}> Open </button>}
         </div>
     )
 }
