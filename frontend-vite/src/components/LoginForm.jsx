@@ -48,18 +48,6 @@ const LoginForm = () => {
         }
       );
 
-    // const loginUser = createAsyncThunk(
-    //     'auth/loginUser',
-    //     async (creds) => {
-    //       try {
-    //         const response = await axiosInstance.post(`/auth/login`, creds, {dispatch});
-    //         dispatch(setToken(response.data.token))
-    //         return response.data;
-    //       } catch (error) {
-    //       }
-    //     }
-    //   );
-  
     const handleEmail = (e) => {
         setEmail(e.target.value)
     };
