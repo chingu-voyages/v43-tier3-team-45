@@ -71,7 +71,7 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse register(RegisterRequest request) {
-        String avatarUrl = s3Service.upload(request.getProfileImage());
+        String avatarUrl = s3Service.uploadImage(request.getProfileImage());
         User user = new User(
                 request.getEmail(),
                 passwordEncoder.encode(request.getPassword()),

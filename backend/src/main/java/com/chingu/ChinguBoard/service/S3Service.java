@@ -11,10 +11,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetUrlRequest;
+import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
-import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 
 @Service
 public class S3Service {
@@ -30,7 +31,7 @@ public class S3Service {
         this.s3 = s3;
     }
 
-    public String upload(MultipartFile file) throws S3Exception {
+    public String uploadImage(MultipartFile file) throws S3Exception {
         try {
             String filename = StringUtils.cleanPath(file.getOriginalFilename());
             if (filename.equals("")) {
@@ -61,6 +62,14 @@ public class S3Service {
                     .cause(e)
                     .build();
         }
+    }
 
+    public void deleteImage(String key) {
+        DeleteObjectRequest deleteOb = DeleteObjectRequest.builder().bucket(BUCKET_NAME).key(key).build();
+        try {
+            s3.deleteObject(deleteOb);
+        } catch (S3Exception e) {
+            throw e;
+        }
     }
 }
