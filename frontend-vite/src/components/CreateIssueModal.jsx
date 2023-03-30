@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from 'react-redux'
 // import { Modal, Button, Box, Typography } from '@mui/material';
 import { addTitle, addDescription } from "../store/issueReducer"
 
-
 const CreateIssueModal = ({closeModal}) => {
     const dispatch = useDispatch()
 
