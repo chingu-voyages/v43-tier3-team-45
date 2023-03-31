@@ -40,8 +40,8 @@ const LoginForm = () => {
         async (creds) => {
           try {
             const response = await axiosInstance.post(`/auth/login`, creds);
-            console.log(response)
-            return response.data;
+            // console.log("token", response.data.token)
+            return response.data.token;
           } catch (error) {
           }
         }
