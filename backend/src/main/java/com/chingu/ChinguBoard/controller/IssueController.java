@@ -73,4 +73,6 @@ public class IssueController {
         Issue updatedIssue = issueService.updateIssueStatus(id, status);
         return ResponseEntity.ok(issueListDTOMapper.toDTO(updatedIssue));
     }
+
+    // add delete method
 }
