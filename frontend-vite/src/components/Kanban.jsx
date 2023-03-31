@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
-import Column from "../components/Column";
-import NewIssueForm from "../components/NewIssueForm";
+import Column from "./Column";
+import NewIssueForm from "./NewIssueForm";
 
-export default function Kanban({task}) {
+export default function Kanban() {
   const [backlog, setBacklog] = useState([]);
   const [newStatus, setNewStatus] = useState([]);
   const [inProgress, setinProgress] = useState([]);
@@ -17,7 +17,9 @@ export default function Kanban({task}) {
         // setAllIssues(json.issues)
         setBacklog(json.issues.filter((issue) => issue.status == "BACKLOG"));
         setNewStatus(json.issues.filter((issue) => issue.status == "NEW"));
-        setinProgress(json.issues.filter((issue) => issue.status == "IN_PROGRESS"));
+        setinProgress(
+          json.issues.filter((issue) => issue.status == "IN_PROGRESS")
+        );
         setCompleted(json.issues.filter((issue) => issue.status == "DONE"));
       });
   }, []);
@@ -32,10 +34,10 @@ export default function Kanban({task}) {
 
   function handleDragEnd(result) {
     const { destination, source, draggableId } = result;
-    console.log(draggableId)
+    console.log(draggableId);
 
     if (source.droppableId == destination.droppableId) return;
-    console.log(source.droppableId)
+    console.log(source.droppableId);
 
     //REMOVE FROM SOURCE ARRAY
     if (source.droppableId == 4) {
@@ -62,14 +64,13 @@ export default function Kanban({task}) {
       // issueId.status = "DONE"
 
       fetch(`http://localhost:8080/api/issues/${draggableId}?status=DONE`, {
-          method: "PATCH",
-          headers: {
-              "Content-Type": "application/json",
-          }
-      })
-      .then(() =>
-      setCompleted([...completed, { ...task, completed: !task.completed }]));
-
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(() =>
+        setCompleted([...completed, { ...task, completed: !task.completed }])
+      );
     } else if (destination.droppableId == 3) {
       setinProgress([...inProgress, { ...task, completed: !task.completed }]);
     } else if (destination.droppableId == 2) {
