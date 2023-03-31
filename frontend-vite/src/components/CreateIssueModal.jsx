@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux'
 // import { Modal, Button, Box, Typography } from '@mui/material';
 import { addTitle, addDescription } from "../store/issueReducer"
+import TypeDropdown from './TypeDropdown.jsx'
+import PriorityDropdown from './PriorityDropdown.jsx'
 
 const CreateIssueModal = ({closeModal}) => {
     const dispatch = useDispatch()
@@ -38,6 +40,20 @@ const CreateIssueModal = ({closeModal}) => {
                         Description:
                             <input type="text" name="name" onChange={handleDescription}/>
                         </label>
+                        <label>
+                        Assignees:
+                            <input type="text" name="name" onChange={handleDescription}/>
+                        </label>
+                        <label>
+                        Comments:
+                            <input type="text" name="name" onChange={handleDescription}/>
+                        </label>
+                        <div>
+                            <TypeDropdown />
+                        </div>
+                        <div>
+                            <PriorityDropdown />
+                        </div>
                     </form>
                     <p>Created by: {useSelector(state => state.user.email)} </p>
                 </div>
