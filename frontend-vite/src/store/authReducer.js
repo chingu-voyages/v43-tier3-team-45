@@ -4,7 +4,7 @@ import { setUser } from "./userReducer";
 
 const initialState = {
   token: null,
-  status: "idle",
+  status: "idle", // idle | loading | sucess | failed
   error: null,
 };
 
@@ -39,12 +39,12 @@ export const authSlice = createSlice({
       setUser(action.payload.user);
     });
     builder.addCase(loginUser.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
+      state.status = "failed";
+      state.error = action.error.message;
     });
   },
 });
 
-export const { setToken, logoutToken } = authReducer.actions;
+export const { setToken, logoutToken } = authSlice.actions;
 
 export default authSlice.reducer;
