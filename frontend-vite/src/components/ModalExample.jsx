@@ -25,7 +25,8 @@ const Example = ({closeModal}) => {
   
   const handleSave = (e) => {
       e.preventDefault()
-      // make POST request and close modal
+
+      // make POST request and close modal eventually connect to Shawn's API file
       closeModal(false)
   }
 
@@ -59,7 +60,6 @@ const Example = ({closeModal}) => {
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
               <div className="modalBackground">
             <div className="modalContainer">
-                <button onClick={() => closeModal(false)}>X</button>
                 <div className="title">
                     <h1>Create Issue</h1>     
                 </div>
@@ -71,10 +71,6 @@ const Example = ({closeModal}) => {
                         </label>
                         <label>
                         Description:
-                            <input type="text" name="name" onChange={handleDescription}/>
-                        </label>
-                        <label>
-                        Assignees:
                             <input type="text" name="name" onChange={handleDescription}/>
                         </label>
                         <label>
@@ -91,7 +87,8 @@ const Example = ({closeModal}) => {
                     <p>Created by: {useSelector(state => state.user.email)} </p>
                 </div>
                 <div className="footer">
-                    <button onClick={handleSave}> Save </button>    
+                    <button onClick={handleSave}> Save </button>
+                    <button onClick={() => closeModal(false)}>Cancel</button> 
                  </div>
             </div>
         </div>
