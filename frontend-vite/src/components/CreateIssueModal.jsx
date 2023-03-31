@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux'
-// import { Modal, Button, Box, Typography } from '@mui/material';
 import { addTitle, addDescription } from "../store/issueReducer"
 import TypeDropdown from './TypeDropdown.jsx'
 import PriorityDropdown from './PriorityDropdown.jsx'
@@ -12,7 +11,7 @@ const CreateIssueModal = ({closeModal}) => {
         dispatch(addTitle(e.target.value))
     }
 
-    const handleDescription = (e) => {
+    const handleDescription = (e) => { 
         e.preventDefault()
         dispatch(addDescription(e.target.value))
     }
