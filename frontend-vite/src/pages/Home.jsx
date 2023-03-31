@@ -5,11 +5,11 @@ import NavBar from "../components/NavBar";
 
 function Home() {
   // fetch ALL TEAMS
-  // useEffect(() => {
-  //     fetch("http://localhost:8080/api/teams")
-  //         .then((res) => res.json())
-  //         .then(teams => console.log(teams))
-  // })
+  useEffect(() => {
+      fetch("http://localhost:8080/api/teams")
+          .then((res) => res.json())
+          .then(teams => console.log(teams))
+  })
 
   return (
     <div>
