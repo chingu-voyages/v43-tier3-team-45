@@ -27,7 +27,8 @@ public class IssueController {
 
     private final IssueListDTOMapper issueListDTOMapper;
 
-    public IssueController(IssueService issueService, IssueDTOMapper issueDTOMapper, IssueListDTOMapper issueListDTOMapper) {
+    public IssueController(IssueService issueService, IssueDTOMapper issueDTOMapper,
+            IssueListDTOMapper issueListDTOMapper) {
         this.issueService = issueService;
         this.issueDTOMapper = issueDTOMapper;
         this.issueListDTOMapper = issueListDTOMapper;
@@ -50,7 +51,8 @@ public class IssueController {
      * Use this for updating entire IssueDTO
      * ex. http://localhost:8080/api/issues/{id}
      * 
-     * Client would send the changes to an issue all at once when user closes the issue modal so no need to send back IssueDTO,
+     * Client would send the changes to an issue all at once when user closes the
+     * issue modal so no need to send back IssueDTO,
      * will instead send back IssueListDTO for updating UI for the board
      */
     @PatchMapping("/{id}")
@@ -61,10 +63,11 @@ public class IssueController {
     }
 
     /**
-     * Use this to update an issue's status when dragging and dropping issue to new column
+     * Use this to update an issue's status when dragging and dropping issue to new
+     * column
      * ex. http://localhost:8080/api/issues/{id}?status={status}
      * 
-     * @param id - Issue ID
+     * @param id     - Issue ID
      * @param status - new Issue status
      * @return updated issue in IssueListDTO form
      */

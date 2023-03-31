@@ -58,9 +58,7 @@ export default function Kanban({task}) {
 
     // ADD ITEM
     if (destination.droppableId == 4) {
-
       // const issueId = allIssues.find((issue) => issue.id == draggableId)
-
       // issueId.status = "DONE"
 
       fetch(`http://localhost:8080/api/issues/${draggableId}?status=DONE`, {
