@@ -41,6 +41,7 @@ const LoginForm = () => {
           try {
             const response = await axiosInstance.post(`/auth/login`, creds);
             // console.log("token", response.data.token)
+            dispatch(setToken(response.data.token))
             return response.data.token;
           } catch (error) {
           }
