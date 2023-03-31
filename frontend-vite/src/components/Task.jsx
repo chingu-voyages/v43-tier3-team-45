@@ -2,7 +2,6 @@ import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 
 export default function Task({ task, index }) {
-
   return (
     <Draggable draggableId={`${task.id}`} key={task.id} index={index}>
       {(provided, snapshot) => (
@@ -29,13 +28,11 @@ export default function Task({ task, index }) {
             <div id="task-priority">
               <span>Priority: {task.priority}</span>
             </div>
-            <div>
-              {task.id}
-            </div>
+            <div>{task.id}</div>
             <div id="user-avatar"></div>
           </div>
 
-         {provided.placeholder}
+          {provided.placeholder}
         </div>
       )}
     </Draggable>
