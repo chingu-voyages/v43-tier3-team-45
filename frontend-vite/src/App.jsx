@@ -15,8 +15,8 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/profile" element={<Profile />}></Route>
-      </Routes> */}
-      {/* <Kanban /> */}
+      </Routes>
+      <Kanban /> */}
     </div>
   );
 }

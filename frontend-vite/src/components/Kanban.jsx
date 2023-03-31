@@ -63,7 +63,7 @@ export default function Kanban() {
       // const issueId = allIssues.find((issue) => issue.id == draggableId)
       // issueId.status = "DONE"
 
-      fetch(`http://localhost:8080/api/issues/${draggableId}?status=DONE`, {
+      fetch(`http://localhost:8080/api/issues/status/${draggableId}?status=DONE`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -72,11 +72,29 @@ export default function Kanban() {
         setCompleted([...completed, { ...task, completed: !task.completed }])
       );
     } else if (destination.droppableId == 3) {
-      setinProgress([...inProgress, { ...task, completed: !task.completed }]);
+      fetch(`http://localhost:8080/api/issues/status/${draggableId}?status=IN_PROGRESS`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(() =>
+      setinProgress([...inProgress, { ...task, completed: !task.completed }]));
     } else if (destination.droppableId == 2) {
-      setNewStatus([...newStatus, { ...task, completed: !task.completed }]);
+      fetch(`http://localhost:8080/api/issues/status/${draggableId}?status=NEW`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(() =>
+      setNewStatus([...newStatus, { ...task, completed: !task.completed }]));
     } else {
-      setBacklog([...backlog, { ...task, completed: !task.completed }]);
+      fetch(`http://localhost:8080/api/issues/status/${draggableId}?status=BACKLOG`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(() =>
+      setBacklog([...backlog, { ...task, completed: !task.completed }]));
     }
   }
 
