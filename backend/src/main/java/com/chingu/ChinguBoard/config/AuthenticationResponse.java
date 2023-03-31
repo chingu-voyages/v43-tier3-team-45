@@ -6,16 +6,14 @@ public class AuthenticationResponse {
 
     private String token;
 
-    // should probably change the variable name to user so when this object is
-    // serialized to JSON, it has user not userDTO
-    private UserDTO userDTO;
+    private UserDTO user;
 
     public AuthenticationResponse() {
     }
 
     public AuthenticationResponse(String token, UserDTO userDTO) {
         this.token = token;
-        this.userDTO = userDTO;
+        this.user = userDTO;
     }
 
     public String getToken() {
@@ -26,12 +24,12 @@ public class AuthenticationResponse {
         this.token = token;
     }
 
-    public UserDTO getUserDTO() {
-        return this.userDTO;
+    public UserDTO getUser() {
+        return this.user;
     }
 
-    public void setUserDTO(UserDTO userDTO) {
-        this.userDTO = userDTO;
+    public void setUser(UserDTO userDTO) {
+        this.user = userDTO;
     }
 
 }
