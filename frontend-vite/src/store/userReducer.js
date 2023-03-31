@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { loginUser } from "./authReducer";
 
 const initialState = {
   user: null,
@@ -10,8 +11,15 @@ const initialState = {
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  setUser: (state, action) => {
-    state.user = action.payload;
+  reducers: {
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      state.user = action.payload.user;
+    });
   },
 });
 

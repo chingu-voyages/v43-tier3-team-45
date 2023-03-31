@@ -36,7 +36,6 @@ export const authSlice = createSlice({
       state.status = "success";
       // not too sure about these two lines
       state.token = action.payload.token;
-      setUser(action.payload.user);
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       state.status = "failed";
