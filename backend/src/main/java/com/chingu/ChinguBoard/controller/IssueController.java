@@ -47,6 +47,9 @@ public class IssueController {
     }
 
     /**
+     * Use this for updating entire IssueDTO
+     * ex. http://localhost:8080/api/issues/{id}
+     * 
      * Client would send the changes to an issue all at once when user closes the issue modal so no need to send back IssueDTO,
      * will instead send back IssueListDTO for updating UI for the board
      */
@@ -54,6 +57,20 @@ public class IssueController {
     public ResponseEntity<IssueListDTO> updateIssue(@RequestBody IssueDTO issueDTO, @PathVariable String id) {
         Issue issue = issueDTOMapper.toEntity(issueDTO);
         Issue updatedIssue = issueService.updateIssue(issue);
+        return ResponseEntity.ok(issueListDTOMapper.toDTO(updatedIssue));
+    }
+
+    /**
+     * Use this to update an issue's status when dragging and dropping issue to new column
+     * ex. http://localhost:8080/api/issues/{id}?status={status}
+     * 
+     * @param id - Issue ID
+     * @param status - new Issue status
+     * @return updated issue in IssueListDTO form
+     */
+    @PatchMapping("/{id}")
+    public ResponseEntity<IssueListDTO> updateIssueStatus(@PathVariable String id, @RequestParam String status) {
+        Issue updatedIssue = issueService.updateIssueStatus(id, status);
         return ResponseEntity.ok(issueListDTOMapper.toDTO(updatedIssue));
     }
 }
