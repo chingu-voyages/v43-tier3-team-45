@@ -5,9 +5,6 @@ const initialState = {
   user: null,
 };
 
-//   use asyncthunk to fetch from backend and populate
-//   then use Selector in profile etc to proevide email and id
-
 export const userSlice = createSlice({
   name: "user",
   initialState,

@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../util/AxiosInstance";
-import { setUser } from "./userReducer";
 
 const initialState = {
   token: null,
@@ -34,8 +33,8 @@ export const authSlice = createSlice({
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.status = "success";
-      // not too sure about these two lines
       state.token = action.payload.token;
+      // can add some kind of navigate to go to the kanban board page
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       state.status = "failed";
