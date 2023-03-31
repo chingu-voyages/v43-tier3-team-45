@@ -28,19 +28,21 @@ public class TeamDTOMapper {
         team.setName(teamDTO.name());
 
         // List<User> members = teamDTO.members()
-        //         .stream()
-        //         .map(userDTOMapper::toEntity)
-        //         .collect(Collectors.toList());
+        // .stream()
+        // .map(userDTOMapper::toEntity)
+        // .collect(Collectors.toList());
         // team.setMembers(members);
+        // members list MUST not be null
         teamDTO.members().stream().forEach(userDTO -> {
             team.addMember(userDTOMapper.toEntity(userDTO));
         });
 
         // List<Project> projects = teamDTO.projects()
-        //         .stream()
-        //         .map(projectListDTOMapper::toEntity)
-        //         .collect(Collectors.toList());
+        // .stream()
+        // .map(projectListDTOMapper::toEntity)
+        // .collect(Collectors.toList());
         // team.setProjects(projects);
+        // projects list MUST not be null
         teamDTO.projects().stream().forEach(projectListDTO -> {
             team.addProject(projectListDTOMapper.toEntity(projectListDTO));
         });
