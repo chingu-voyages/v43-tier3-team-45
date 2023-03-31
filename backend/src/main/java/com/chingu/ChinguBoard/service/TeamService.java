@@ -26,13 +26,7 @@ public class TeamService {
         this.projectService = projectService;
     }
 
-    public List<Team> getAllTeams() {
-        return teamRepository.findAll();
-    }
-
-    public Team getTeam(String id) {
-        Team team = teamRepository.findById(id).orElseThrow();
-
+    public Team populateLists(Team team) {
         /**
          * team from DB doesn't contain the actual Project and User objects, just their
          * IDs
@@ -51,6 +45,16 @@ public class TeamService {
         team.setMembers(members);
 
         return team;
+    }
+
+    public List<Team> getAllTeams() {
+        List<Team> teams = teamRepository.findAll();
+        return teams.stream().map(this::populateLists).collect(Collectors.toList());
+    }
+
+    public Team getTeam(String id) {
+        Team team = teamRepository.findById(id).orElseThrow();
+        return populateLists(team);
     }
 
     public Team createTeam(Team team, String userId) {
