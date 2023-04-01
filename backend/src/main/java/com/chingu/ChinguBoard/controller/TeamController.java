@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chingu.ChinguBoard.dto.TeamDTO;
+import com.chingu.ChinguBoard.dto.UserDTO;
 import com.chingu.ChinguBoard.mapper.TeamDTOMapper;
+import com.chingu.ChinguBoard.mapper.UserDTOMapper;
 import com.chingu.ChinguBoard.model.Team;
+import com.chingu.ChinguBoard.model.User;
 import com.chingu.ChinguBoard.service.TeamService;
 
 @RestController
@@ -25,9 +28,12 @@ public class TeamController {
 
     private final TeamDTOMapper teamDTOMapper;
 
-    public TeamController(TeamService teamService, TeamDTOMapper teamDTOMapper) {
+    private final UserDTOMapper userDTOMapper;
+
+    public TeamController(TeamService teamService, TeamDTOMapper teamDTOMapper, UserDTOMapper userDTOMapper) {
         this.teamService = teamService;
         this.teamDTOMapper = teamDTOMapper;
+        this.userDTOMapper = userDTOMapper;
     }
 
     @GetMapping()
@@ -60,14 +66,17 @@ public class TeamController {
     }
 
     @PutMapping("/{id}/{userId}/add")
-    public ResponseEntity<TeamDTO> addMemberToTeam(@PathVariable String id, @PathVariable String userId) {
-        Team team = teamService.addMember(id, userId);
-        return ResponseEntity.ok(teamDTOMapper.toDTO(team));
+    public ResponseEntity<UserDTO> addMemberToTeam(@PathVariable String id, @PathVariable String userId) {
+        User user = teamService.addMember(id, userId);
+        return ResponseEntity.ok(userDTOMapper.toDTO(user));
     }
 
     @PutMapping("/{id}/{userId}/remove")
-    public ResponseEntity<TeamDTO> removeMemberFromTeam(@PathVariable String id, @PathVariable String userId) {
-        Team team = teamService.removeMember(id, userId);
-        return ResponseEntity.ok(teamDTOMapper.toDTO(team));
+    public ResponseEntity<List<UserDTO>> removeMemberFromTeam(@PathVariable String id, @PathVariable String userId) {
+        List<UserDTO> members = teamService.removeMember(id, userId)
+                .stream()
+                .map(userDTOMapper::toDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(members);
     }
 }

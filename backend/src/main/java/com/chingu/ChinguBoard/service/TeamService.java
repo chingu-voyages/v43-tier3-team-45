@@ -67,17 +67,25 @@ public class TeamService {
         return teamRepository.save(team);
     }
 
-    public Team addMember(String teamId, String userId) {
+    public User addMember(String teamId, String userId) {
         Team team = getTeam(teamId);
         User user = userService.getUser(userId);
         team.addMember(user);
-        return teamRepository.save(team);
+        teamRepository.save(team);
+        return user;
     }
 
-    public Team removeMember(String teamId, String userId) {
+    /**
+     * 
+     * @param teamId
+     * @param userId
+     * @return list of users in team after removal
+     */
+    public List<User> removeMember(String teamId, String userId) {
         Team team = getTeam(teamId);
-        team.removeMember(userId);
-        return teamRepository.save(team);
+        List<User> membersAfterRemove = team.removeMember(userId);
+        teamRepository.save(team);
+        return membersAfterRemove;
     }
 
     public void addProject(Project project, String teamId) {
