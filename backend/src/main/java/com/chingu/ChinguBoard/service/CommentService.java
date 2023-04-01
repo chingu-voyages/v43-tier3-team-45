@@ -33,4 +33,8 @@ public class CommentService {
         issueService.addComment(savedComment, issueId);
         return savedComment;
     }
+
+    public Comment editComment(Comment comment) {
+        return commentRepository.save(comment);
+    }
 }

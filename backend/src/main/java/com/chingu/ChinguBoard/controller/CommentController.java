@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,4 +40,13 @@ public class CommentController {
         Comment savedComment = commentService.createComment(comment, issueId);
         return ResponseEntity.ok(commentDTOMapper.toDTO(savedComment));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CommentDTO> editComment(@PathVariable String id, @RequestBody CommentDTO commentDTO) {
+        Comment comment = commentDTOMapper.toEntity(commentDTO);
+        Comment editedComment = commentService.editComment(comment);
+        return ResponseEntity.ok(commentDTOMapper.toDTO(editedComment));
+    }
+
+    // add method to delete comment
 }

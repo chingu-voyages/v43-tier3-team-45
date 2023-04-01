@@ -1,5 +1,6 @@
 package com.chingu.ChinguBoard.service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.chingu.ChinguBoard.model.Comment;
 import com.chingu.ChinguBoard.model.Issue;
+import com.chingu.ChinguBoard.model.Status;
 import com.chingu.ChinguBoard.model.User;
 import com.chingu.ChinguBoard.repository.IssueRepository;
 
@@ -63,6 +65,7 @@ public class IssueService {
      * it belongs to and updates the project as well.
      */
     public Issue createIssue(Issue issue, String projectId) {
+        issue.setCreatedAt(Instant.now());
         Issue savedIssue = issueRepository.save(issue);
         projectService.addIssue(savedIssue, projectId);
         return savedIssue;
@@ -76,6 +79,7 @@ public class IssueService {
          */
         Issue issue = getIssue(issueId);
         issue.addComment(comment);
+        issue.setUpdatedAt(Instant.now());
         issueRepository.save(issue);
     }
 
@@ -86,6 +90,24 @@ public class IssueService {
         Issue issue = getIssue(issueId);
         issue.addAssignee(assignee);
         issueRepository.save(issue);
+    }
+
+    public Issue updateIssue(Issue issue) {
+        Issue dbIssue = getIssue(issue.getId());
+        /**
+         * copying over the list of issue IDs so the client doesn't have to send list of
+         * CommentDTOs, no need for copying Comments since no need to display
+         */
+        issue.setCommentIds(dbIssue.getCommentIds());
+        issue.setUpdatedAt(Instant.now());
+        return issueRepository.save(issue);
+    }
+
+    public Issue updateIssueStatus(String id, String status) {
+        Issue issue = getIssue(id);
+        issue.setStatus(Status.valueOf(status));
+        issue.setUpdatedAt(Instant.now());
+        return issueRepository.save(issue);
     }
 
 }
