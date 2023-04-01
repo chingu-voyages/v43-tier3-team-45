@@ -32,6 +32,7 @@ public class IssueService {
         this.userService = userService;
     }
 
+    // can look into data loader here
     public Issue populateLists(Issue issue) {
         /**
          * Issue from DB will only have a list of comment IDs and user IDs

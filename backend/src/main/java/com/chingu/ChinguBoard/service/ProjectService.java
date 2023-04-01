@@ -26,6 +26,7 @@ public class ProjectService {
         this.issueService = issueService;
     }
 
+    // can look into data loader here
     public Project populateLists(Project project) {
         List<Issue> issues = project.getIssueIds()
                 .stream()
