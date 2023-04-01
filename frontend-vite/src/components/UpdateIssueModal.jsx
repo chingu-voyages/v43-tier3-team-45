@@ -3,7 +3,6 @@ import { addTitle, addDescription } from "../store/issueReducer"
 import TypeDropdown from './TypeDropdown.jsx'
 import PriorityDropdown from './PriorityDropdown.jsx'
 
-
 const UpdateIssueModal = ({closeModal}) => {
 
     const dispatch = useDispatch()
