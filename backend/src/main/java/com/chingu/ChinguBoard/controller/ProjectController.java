@@ -47,6 +47,5 @@ public class ProjectController {
         return ResponseEntity.ok(projectDTOMapper.toDTO(updatedProject));
     }
 
-    // add UPDATE method
     // add DELETE method
 }

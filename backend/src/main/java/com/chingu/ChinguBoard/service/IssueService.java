@@ -94,8 +94,10 @@ public class IssueService {
 
     public Issue updateIssue(Issue issue) {
         Issue dbIssue = getIssue(issue.getId());
-        // copying over the list of issue IDs so the client doesn't have to send list of
-        // CommentDTOs, no need for copying Comments since no need to display
+        /**
+         * copying over the list of issue IDs so the client doesn't have to send list of
+         * CommentDTOs, no need for copying Comments since no need to display
+         */
         issue.setCommentIds(dbIssue.getCommentIds());
         issue.setUpdatedAt(Instant.now());
         return issueRepository.save(issue);

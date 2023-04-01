@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.chingu.ChinguBoard.config.RegisterRequest;
 import com.chingu.ChinguBoard.model.User;
@@ -11,7 +12,7 @@ import com.chingu.ChinguBoard.repository.UserRepository;
 
 @Service
 public class UserService {
-    
+
     private final UserRepository userRepository;
 
     private final S3Service s3Service;
@@ -46,14 +47,27 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    /**
+     * used for updating al user information except for user's profile image. Use
+     * updateUserProfileImage for that instead
+     */
     public User updateUser(RegisterRequest request, String id) {
         User user = getUser(id);
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        String avatarUrl = s3Service.uploadImage(request.getProfileImage());
-        user.setAvatarUrl(avatarUrl);
         return updateUser(user);
+    }
+
+    public String updateUserProfileImage(MultipartFile image, String id) {
+        User user = getUser(id);
+        // delete original image first
+        s3Service.deleteImage(user.getAvatarUrl());
+        String avatarUrl = s3Service.uploadImage(image);
+        user.setAvatarUrl(avatarUrl);
+        // save change to image url to db
+        updateUser(user);
+        return avatarUrl;
     }
 
 }
