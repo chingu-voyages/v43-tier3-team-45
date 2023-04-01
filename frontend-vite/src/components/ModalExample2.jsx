@@ -4,7 +4,7 @@ import TypeDropdown from './TypeDropdown.jsx'
 import PriorityDropdown from './PriorityDropdown.jsx'
 
 
-const UpdateIssueModal = ({closeModal}) => {
+const ModalExample2 = ({closeModal}) => {
 
     const dispatch = useDispatch()
   
@@ -130,7 +130,7 @@ const UpdateIssueModal = ({closeModal}) => {
           "
           onClick={handleSave}
             >
-              Update
+              Save
             </button>
           </div>
           <div class="mb-6">
@@ -161,4 +161,4 @@ const UpdateIssueModal = ({closeModal}) => {
   );
 };
 
-export default UpdateIssueModal;
+export default ModalExample2;

@@ -34,6 +34,7 @@ const Example = ({closeModal}) => {
 
 
   return (
+    <div bg-white-200 opacity-80 fixed inset-o z-50>
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
         <Transition.Child
@@ -100,6 +101,7 @@ const Example = ({closeModal}) => {
         </div>
       </Dialog>
     </Transition.Root>
+    </div>
   )
 }
 
