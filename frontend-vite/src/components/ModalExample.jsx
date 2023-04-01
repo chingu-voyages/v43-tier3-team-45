@@ -5,6 +5,8 @@ import { addTitle, addDescription } from "../store/issueReducer"
 import TypeDropdown from './TypeDropdown.jsx'
 import PriorityDropdown from './PriorityDropdown.jsx'
 
+// GET route /api/projects${projectId} associate with project
+// POST route /api/issues/${issueId} post new issue
 
 const Example = ({closeModal}) => {
   const [open, setOpen] = useState(true)
