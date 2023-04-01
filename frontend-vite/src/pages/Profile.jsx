@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import Avatar from "../components/Avatar";
 import UpdateProfile from "./UpdateProfile";
 import axios from "axios";
@@ -28,17 +28,16 @@ const Profile = () => {
     console.log("edit button clicked");
   };
   return (
-    <>
-      <div className="flex flex-col items-center justify-center mt-10">
-        <Avatar
-          className="w-12 h-12 rounded-full border-2 border-gray-400 overflow-hidden"
+    <Fragment>
+      <Fragment>
+        <Avatar className="w-12 h-12 rounded-full border-2 border-gray-400 overflow-hidden">
           src={avatarURl}
           alt="avatar"
-        />
+        </Avatar>
         <h1 className="text-xl font-bold py-2">{firstName}</h1>
         <h1 className="text-xl font-bold py-2">{lastName}</h1>
         <p className="text-lg py-2">{role}</p>
-      </div>
+      </Fragment>
       <hr />
       <div className="flex flex-col items-center justify-center">
         <p className="text-lg py-2">{email}</p>
@@ -48,9 +47,9 @@ const Profile = () => {
         >
           Edit Profile
         </button>
-        {showUpdateProfile ? <UpdateProfile /> : null}
+        {showUpdateProfile ? <UpdateProfile user={user} avatarURL={avatarURL}/> : null}
       </div>
-    </>
+  </Fragment>
   );
 };
 
