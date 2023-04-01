@@ -14,6 +14,17 @@ export const addMemberToTeam = createAsyncThunk(
   }
 );
 
+export const removeMemberFromTeam = createAsyncThunk(
+  "teams/removeMember",
+  async (userId, { getState }) => {
+    const teamId = getState().team.team.id;
+    const response = await axiosInstance.put(
+      `/teams/${teamId}/${userId}/remove`
+    );
+    return response.data;
+  }
+);
+
 const teamSlice = createSlice({
   name: "team",
   initialState,
@@ -25,6 +36,9 @@ const teamSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(addMemberToTeam.fulfilled, (state, action) => {
       state.team.members.push(action.payload);
+    });
+    builder.addCase(removeMemberFromTeam.fulfilled, (state, action) => {
+      state.team.members = action.payload;
     });
   },
 });
