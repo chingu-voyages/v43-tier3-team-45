@@ -36,6 +36,17 @@ public class ProjectService {
         return project;
     }
 
+    /**
+     * There is no need to populate the issues list for individual project because
+     * the porjects are only used for displaying project names
+     * 
+     * @param ids - list of project IDs from a Team object
+     * @return list of Projects
+     */
+    public List<Project> getProjects(List<String> ids) {
+        return projectRepository.findAllById(ids);
+    }
+
     public Project getProject(String id) {
         Project project = projectRepository.findById(id).orElseThrow();
         return populateLists(project);
