@@ -22,6 +22,8 @@ public class Comment {
 
     private Instant createdAt;
 
+    // could add an Instant for editedTime
+
     public Comment() {
     }
 
@@ -64,5 +66,5 @@ public class Comment {
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
-    
+
 }
