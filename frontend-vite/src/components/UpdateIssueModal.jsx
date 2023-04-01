@@ -25,11 +25,10 @@ const UpdateIssueModal = ({closeModal}) => {
     
     const handleSave = (e) => {
         e.preventDefault()
-  
+        dispatch(addCreatedBy(useSelector()))
         // make POST request and close modal eventually connect to Shawn's API file
         closeModal(false)
     }
-  
 
   return (
     <div class="modal">
