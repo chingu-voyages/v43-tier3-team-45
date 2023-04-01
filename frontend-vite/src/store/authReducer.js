@@ -34,7 +34,7 @@ export const authSlice = createSlice({
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.status = "success";
       state.token = action.payload.token;
-      // can add some kind of navigate to go to the kanban board page
+      state.error = null;
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       state.status = "failed";

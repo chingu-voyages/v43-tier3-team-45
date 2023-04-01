@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../store/authReducer";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const navigate = useNavigate();
 
   const creds = {
     email: email,
@@ -20,9 +22,15 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
-  const handleAPI = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(loginUser(creds));
+    dispatch(loginUser(creds))
+      .then(() => {
+        navigate("/home");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -38,7 +46,7 @@ const LoginForm = () => {
       </label>
 
       {/* <button onClick={handleSubmit}>Log in</button> */}
-      <button onClick={handleAPI}>API Call</button>
+      <button onClick={handleLogin}>Login</button>
     </form>
   );
 };
