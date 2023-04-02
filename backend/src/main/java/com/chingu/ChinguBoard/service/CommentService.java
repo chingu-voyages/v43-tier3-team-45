@@ -1,6 +1,7 @@
 package com.chingu.ChinguBoard.service;
 
 import java.time.Instant;
+import java.util.List;
 
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,10 @@ public class CommentService {
         Comment comment = commentRepository.findById(id).orElseThrow();
         comment.setCreatedBy(userService.getUser(comment.getCreatedById()));
         return comment;
+    }
+
+    public List<Comment> getComments(List<String> ids) {
+        return commentRepository.findAllById(ids);
     }
 
     public Comment createComment(Comment comment, String issueId) {

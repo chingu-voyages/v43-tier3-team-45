@@ -1,7 +1,6 @@
 package com.chingu.ChinguBoard.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -26,12 +25,9 @@ public class ProjectService {
         this.issueService = issueService;
     }
 
-    // can look into data loader here
+    // batch query to reduce number of queries
     public Project populateLists(Project project) {
-        List<Issue> issues = project.getIssueIds()
-                .stream()
-                .map(issueService::getIssue)
-                .collect(Collectors.toList());
+        List<Issue> issues = issueService.getIssues(project.getIssueIds());
         project.setIssues(issues);
 
         return project;

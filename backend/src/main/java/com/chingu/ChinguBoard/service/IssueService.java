@@ -34,20 +34,12 @@ public class IssueService {
 
     // can look into data loader here
     public Issue populateLists(Issue issue) {
-        /**
-         * Issue from DB will only have a list of comment IDs and user IDs
-         * from these lists, lists of User and Comment are
-         */
-        List<Comment> comments = issue.getCommentIds()
-                .stream()
-                .map(commentService::getComment)
-                .collect(Collectors.toList());
+
+        // "data loader" to batch queries for N + 1 issue.
+        List<Comment> comments = commentService.getComments(issue.getCommentIds());
         issue.setComments(comments);
 
-        List<User> assignees = issue.getAssigneeIds()
-                .stream()
-                .map(userService::getUser)
-                .collect(Collectors.toList());
+        List<User> assignees = userService.getUsers(issue.getAssigneeIds());
         issue.setAssignees(assignees);
 
         return issue;
@@ -57,6 +49,10 @@ public class IssueService {
         Issue issue = issueRepository.findById(id).orElseThrow();
         issue.setCreatedBy(userService.getUser(issue.getCreatedById()));
         return populateLists(issue);
+    }
+
+    public List<Issue> getIssues(List<String> ids) {
+        return issueRepository.findAllById(ids);
     }
 
     public List<Issue> getAllIssues() {
