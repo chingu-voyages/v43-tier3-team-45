@@ -14,7 +14,7 @@ import com.chingu.ChinguBoard.service.AuthenticationService;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
-    
+
     private final AuthenticationService authService;
 
     public AuthenticationController(AuthenticationService authService) {
@@ -27,13 +27,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest request) throws Exception {
-        try {
-            return ResponseEntity.ok(authService.login(request));
-        } catch (Exception e) {
-            System.out.print(e.getMessage());
-            return ResponseEntity.ok(null);
-        }
-       
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest request) {
+        return ResponseEntity.ok(authService.login(request));
     }
 }
