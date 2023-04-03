@@ -9,23 +9,38 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@auth0/auth0-react": "^2.0.1",
-    "@auth0/auth0-spa-js": "^2.0.4",
+    "@chakra-ui/react": "^2.5.2",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@headlessui/react": "^1.7.13",
+    "@heroicons/react": "^2.0.17",
     "@reduxjs/toolkit": "^1.9.3",
     "axios": "^1.3.4",
-    "node-modules": "^1.0.1",
+    "heroicons": "^2.0.17",
+    "framer-motion": "^10.8.3",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
-    "react-redux": "^8.0.5"
+    "react-icons": "^4.8.0",
+    "react-router": "^6.10.0",
+    "react-router-dom": "^6.10.0",
+    "styled-components": "^5.3.9",
+    "uuid": "^9.0.0",
+    "react-router-dom": "^6.9.0",
+    "redux": "^4.2.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.2",
+    "styled-components": "^5.3.9"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.14",
-    "dotenv": "^16.0.3",
     "postcss": "^8.4.21",
-    "tailwindcss": "^3.3.0",
+    "tailwindcss": "^3.2.7",
     "vite": "^4.2.0"
   }
 }

@@ -39,4 +39,7 @@ public class CommentController {
         Comment savedComment = commentService.createComment(comment, issueId);
         return ResponseEntity.ok(commentDTOMapper.toDTO(savedComment));
     }
+
+    // add method to edit comment
+    // add method to delete comment
 }

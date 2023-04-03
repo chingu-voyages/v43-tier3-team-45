@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.chingu.ChinguBoard.model.Comment;
 import com.chingu.ChinguBoard.model.Issue;
+import com.chingu.ChinguBoard.model.Status;
 import com.chingu.ChinguBoard.model.User;
 import com.chingu.ChinguBoard.repository.IssueRepository;
 
@@ -86,6 +87,20 @@ public class IssueService {
         Issue issue = getIssue(issueId);
         issue.addAssignee(assignee);
         issueRepository.save(issue);
+    }
+
+    public Issue updateIssue(Issue issue) {
+        Issue dbIssue = getIssue(issue.getId());
+        // copying over the list of issue IDs so the client doesn't have to send list of
+        // CommentDTOs, no need for copying Comments since no need to display
+        issue.setCommentIds(dbIssue.getCommentIds());
+        return issueRepository.save(issue);
+    }
+
+    public Issue updateIssueStatus(String id, String status) {
+        Issue issue = getIssue(id);
+        issue.setStatus(Status.valueOf(status));
+        return issueRepository.save(issue);
     }
 
 }

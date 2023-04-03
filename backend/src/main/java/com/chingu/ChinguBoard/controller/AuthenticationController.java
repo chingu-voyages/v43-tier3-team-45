@@ -1,6 +1,7 @@
 package com.chingu.ChinguBoard.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,7 @@ import com.chingu.ChinguBoard.service.AuthenticationService;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
-    
+
     private final AuthenticationService authService;
 
     public AuthenticationController(AuthenticationService authService) {
@@ -22,7 +23,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<AuthenticationResponse> register(@ModelAttribute RegisterRequest request) {
         return ResponseEntity.ok(authService.register(request));
     }
 
