@@ -5,7 +5,8 @@ public record UserDTO(
     String email,
     String firstName,
     String lastName,
-    String role
+    String role,
+    String avatarUrl
 ) {
     
 }

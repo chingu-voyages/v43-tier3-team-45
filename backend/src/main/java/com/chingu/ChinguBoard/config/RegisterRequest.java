@@ -1,5 +1,7 @@
 package com.chingu.ChinguBoard.config;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class RegisterRequest {
     
     private String email;
@@ -10,16 +12,17 @@ public class RegisterRequest {
 
     private String lastName;
 
-    // add other fields in User
+    private MultipartFile profileImage;
 
     public RegisterRequest() {
     }
 
-    public RegisterRequest(String email, String password, String firstName, String lastName) {
+    public RegisterRequest(String email, String password, String firstName, String lastName, MultipartFile profileImage) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.profileImage = profileImage;
     }
 
     public String getEmail() {
@@ -52,6 +55,14 @@ public class RegisterRequest {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public MultipartFile getProfileImage() {
+        return this.profileImage;
+    }
+
+    public void setProfileImage(MultipartFile profileImage) {
+        this.profileImage = profileImage;
     }
     
 }

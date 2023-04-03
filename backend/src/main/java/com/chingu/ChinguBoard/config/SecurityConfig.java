@@ -54,8 +54,8 @@ public class SecurityConfig {
                 .cors(withDefaults()) // withDefaults() uses Bean with name CorsConfigurationSource
                 .csrf(csrf -> csrf.disable()) // change for deploy
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .anyRequest().authenticated())
+                        .requestMatchers("/api/auth/**").permitAll())
+                        // .anyRequest().permitAll())
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())

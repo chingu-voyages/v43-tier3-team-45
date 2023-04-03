@@ -61,4 +61,8 @@ public class ProjectService {
         project.addIssue(issue);
         projectRepository.save(project);
     }
+
+    public Project updateProject(Project project) {
+        return projectRepository.save(project);
+    }
 }
