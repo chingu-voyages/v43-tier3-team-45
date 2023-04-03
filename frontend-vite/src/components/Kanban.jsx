@@ -10,6 +10,8 @@ export default function Kanban() {
   const [completed, setCompleted] = useState([]);
   // const [allIssues, setAllIssues] = useState([])
 
+  console.log(backlog)
+
   useEffect(() => {
     fetch("http://localhost:8080/api/projects/641ba8e494ba927d1a1e932d")
       .then((r) => r.json())
@@ -23,6 +25,17 @@ export default function Kanban() {
         setCompleted(json.issues.filter((issue) => issue.status == "DONE"));
       });
   }, []);
+
+  function updatedBacklogArray(updatedTask) {
+    const updatedArray = backlog.map((task) => {
+      if(task.id === updatedTask.id) {
+        return updatedTask
+      } else {
+        return task
+      }
+    })
+    setBacklog(updatedArray)
+  }
 
   function findItemById(id, array) {
     return array.find((item) => item.id == id);
@@ -47,7 +60,7 @@ export default function Kanban() {
     } else if (source.droppableId == 2) {
       setNewStatus(removeItemById(draggableId, newStatus));
     } else {
-      setBacklog(removeItemById(draggableId, backlog));
+      setBacklog(removeItemById(draggableId, backlog))
     }
 
     // GET ITEM
@@ -94,7 +107,7 @@ export default function Kanban() {
           "Content-Type": "application/json",
         },
       }).then(() =>
-      setBacklog([...backlog, { ...task, completed: !task.completed }]));
+      updatedBacklogArray([...backlog, { ...task, completed: !task.completed }]));
     }
   }
 
