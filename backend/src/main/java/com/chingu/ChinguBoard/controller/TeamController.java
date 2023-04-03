@@ -59,9 +59,15 @@ public class TeamController {
         return ResponseEntity.ok(teamDTOMapper.toDTO(updatedTeam));
     }
 
-    @PutMapping("/{id}/{userId}")
+    @PutMapping("/{id}/{userId}/add")
     public ResponseEntity<TeamDTO> addMemberToTeam(@PathVariable String id, @PathVariable String userId) {
         Team team = teamService.addMember(id, userId);
+        return ResponseEntity.ok(teamDTOMapper.toDTO(team));
+    }
+
+    @PutMapping("/{id}/{userId}/remove")
+    public ResponseEntity<TeamDTO> removeMemberFromTeam(@PathVariable String id, @PathVariable String userId) {
+        Team team = teamService.removeMember(id, userId);
         return ResponseEntity.ok(teamDTOMapper.toDTO(team));
     }
 }

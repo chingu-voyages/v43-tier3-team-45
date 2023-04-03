@@ -5,10 +5,13 @@ import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chingu.ChinguBoard.config.RegisterRequest;
 import com.chingu.ChinguBoard.dto.UserDTO;
 import com.chingu.ChinguBoard.mapper.UserDTOMapper;
 import com.chingu.ChinguBoard.service.UserService;
@@ -41,5 +44,16 @@ public class UserController {
                 .map(userDTOMapper::toDTO)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(list);
+    }
+    
+    /**
+     * @param request - using RegisterRequest since all fields would be between creating and editing a profile. name can change later
+     * @param id - ID of the user under edit
+     * @return newly updated UserDTO
+     */
+    @PatchMapping("/{id}")
+    public ResponseEntity<UserDTO> updateUser(@ModelAttribute RegisterRequest request, @PathVariable String id) {
+        UserDTO userDTO = userDTOMapper.toDTO(userService.updateUser(request, id));
+        return ResponseEntity.ok(userDTO);
     }
 }

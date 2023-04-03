@@ -26,15 +26,10 @@ public class TeamService {
         this.projectService = projectService;
     }
 
-    public List<Team> getAllTeams() {
-        return teamRepository.findAll();
-    }
-
-    public Team getTeam(String id) {
-        Team team = teamRepository.findById(id).orElseThrow();
-
+    public Team populateLists(Team team) {
         /**
-         * team from DB doesn't contain the actual Project and User objects, just their IDs
+         * team from DB doesn't contain the actual Project and User objects, just their
+         * IDs
          * the ID lists are used to make the objects
          */
         List<Project> projects = team.getProjectIds()
@@ -52,6 +47,16 @@ public class TeamService {
         return team;
     }
 
+    public List<Team> getAllTeams() {
+        List<Team> teams = teamRepository.findAll();
+        return teams.stream().map(this::populateLists).collect(Collectors.toList());
+    }
+
+    public Team getTeam(String id) {
+        Team team = teamRepository.findById(id).orElseThrow();
+        return populateLists(team);
+    }
+
     public Team createTeam(Team team, String userId) {
         User user = userService.getUser(userId);
         team.addMember(user);
@@ -66,6 +71,12 @@ public class TeamService {
         Team team = getTeam(teamId);
         User user = userService.getUser(userId);
         team.addMember(user);
+        return teamRepository.save(team);
+    }
+
+    public Team removeMember(String teamId, String userId) {
+        Team team = getTeam(teamId);
+        team.removeMember(userId);
         return teamRepository.save(team);
     }
 

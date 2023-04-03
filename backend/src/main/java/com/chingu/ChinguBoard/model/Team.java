@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "teams")
 public class Team {
-    
+
     @Id
     private String id;
 
@@ -40,6 +40,12 @@ public class Team {
     public List<User> addMember(User user) {
         this.members.add(user);
         this.memberIds.add(user.getId());
+        return this.members;
+    }
+
+    public List<User> removeMember(String userId) {
+        this.members.removeIf(user -> user.getId() == userId);
+        this.memberIds.remove(userId);
         return this.members;
     }
 

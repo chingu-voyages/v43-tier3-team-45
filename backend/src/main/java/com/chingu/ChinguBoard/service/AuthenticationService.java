@@ -27,6 +27,8 @@ public class AuthenticationService {
 
     private final UserService userService;
 
+    private final S3Service s3Service;
+
     private final UserDTOMapper userDTOMapper;
 
     private final JwtEncoder encoder;
@@ -35,10 +37,10 @@ public class AuthenticationService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public AuthenticationService(UserService userService, UserDTOMapper userDTOMapper, JwtEncoder encoder,
-            AuthenticationManager authManager,
-            PasswordEncoder passwordEncoder) {
+    public AuthenticationService(UserService userService, S3Service s3Service, UserDTOMapper userDTOMapper,
+            JwtEncoder encoder, AuthenticationManager authManager, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.s3Service = s3Service;
         this.userDTOMapper = userDTOMapper;
         this.encoder = encoder;
         this.authManager = authManager;
@@ -69,12 +71,14 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse register(RegisterRequest request) {
+        String avatarUrl = s3Service.uploadImage(request.getProfileImage());
         User user = new User(
                 request.getEmail(),
                 passwordEncoder.encode(request.getPassword()),
                 request.getFirstName(),
                 request.getLastName(),
-                Role.ROLE_USER);
+                Role.ROLE_USER,
+                avatarUrl);
         user = userService.addUser(user);
         UserDTO userDTO = userDTOMapper.toDTO(user);
         String token = generateToken(user);
