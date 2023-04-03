@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { addPriority } from '../store/issueReducer'
 
-
 const PriorityDropdown = () => {
 
     const dispatch = useDispatch()
@@ -10,7 +9,6 @@ const PriorityDropdown = () => {
         e.preventDefault()
         dispatch(addPriority(e.target.value))
     }
-
 
     return (
         <div className="relative w-full lg:max-w-sm">
