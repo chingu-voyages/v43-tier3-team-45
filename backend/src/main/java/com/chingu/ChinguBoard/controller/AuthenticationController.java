@@ -15,7 +15,7 @@ import com.chingu.ChinguBoard.service.AuthenticationService;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
-    
+
     private final AuthenticationService authService;
 
     public AuthenticationController(AuthenticationService authService) {
