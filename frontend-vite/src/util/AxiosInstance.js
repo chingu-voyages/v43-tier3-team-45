@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import axios from "axios";
 import store from "../store/store";
 
@@ -25,4 +23,3 @@ axiosInstance.interceptors.request.use(
 );
 
 export default axiosInstance;
->>>>>>> 5d9e119b (looking at thunk async)
