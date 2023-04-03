@@ -20,7 +20,7 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (creds, {dispa
 })
 
 export const authSlice = createSlice({
->>>>>>> 5d9e119b (looking at thunk async)
+// >>>>>>> 5d9e119b (looking at thunk async)
     name: 'auth',
     initialState,
     reducers: {

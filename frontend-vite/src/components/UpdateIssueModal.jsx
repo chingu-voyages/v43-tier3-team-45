@@ -4,6 +4,9 @@ import TypeDropdown from './TypeDropdown.jsx'
 import PriorityDropdown from './PriorityDropdown.jsx'
 
 const UpdateIssueModal = ({closeModal}) => {
+    // put contents in component state
+    // no need for redux
+    // get issue id from kanban - where to call API for full issue content?
 
     const dispatch = useDispatch()
   
