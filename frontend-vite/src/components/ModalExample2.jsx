@@ -1,35 +1,76 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { addTitle, addDescription } from "../store/issueReducer"
 import TypeDropdown from './TypeDropdown.jsx'
 import PriorityDropdown from './PriorityDropdown.jsx'
-
+// import axiosInstance from '../util/AxiosInstance.js'
+import axios from 'axios'
+import { Fragment, useRef, useState } from 'react'
+import { Dialog, Transition } from '@headlessui/react'
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 
 const ModalExample2 = ({closeModal}) => {
+  const [title, setTitle ] = useState()
+  const [description, setDescription ] = useState()
+  const [comment, setComment ] = useState()
+  const [priority, setPriority] = useState()
+  const [type, setType ] = useState()
 
-    const dispatch = useDispatch()
-  
-    const handleTitle = (e) => {
-        e.preventDefault()
-        dispatch(addTitle(e.target.value))
-    }
-  
-    const handleDescription = (e) => { 
-        e.preventDefault()
-        dispatch(addDescription(e.target.value))
-    }
+  // const currentUser = useSelector(state => state.user.currentUser)
 
-    const handleComment = (e) => { 
-        e.preventDefault()
-        dispatch(addDescription(e.target.value))
-    }
-    
-    const handleSave = (e) => {
-        e.preventDefault()
+  const testUser = {
+      "id": "641ba87494ba927d1a1e932c",
+      "email": "test1@gmail.com",
+      "firstName": "Test",
+      "lastName": "One",
+      "role": "ROLE_USER",
+      "avatarUrl": "https://chinguboard-dev.s3.us-east-2.amazonaws.com/f805ce7c-5dba-46f3-be54-90c27983aacc_29348169ecc5b8d01ac28beb2c5a4a79.png"
+  }
+
+  const testIssue = {
+    "title": "testTitle",
+    "description": "testDescription",
+    "assignees": [],
+    "comments": [],
+    "createdBy": testUser
+  }
   
-        // make POST request and close modal eventually connect to Shawn's API file
+  const handleTitle = (e) => {
+        e.preventDefault()
+        setTitle(e.target.value)
+  }
+  
+  const handleDescription = (e) => { 
+        e.preventDefault()
+        setDescription(e.target.value)
+  }
+
+  const handleComment = (e) => { 
+        e.preventDefault()
+        setComment(e.target.value)
+  }
+
+  const handlePriority = (priority) => {
+    setPriority(priority)
+  }
+
+  const handleType = (type) => {
+      setType(type)
+  };
+
+  const handleSave = (e) => {
+        e.preventDefault()
+        // console.log(title, description, comment, priority, type, userEmail)
+        postIssue(testIssue)
         closeModal(false)
-    }
+  }
   
+  const postIssue = async (testIssue) => {
+      try {
+        const response = await axios.post(`http://localhost/8080/api/issues/create?projectId=641ba8e494ba927d1a1e932d`, testIssue);
+        return response.data;
+      } catch (error) {
+        console.log("error", error)
+      }
+    }
 
   return (
     <div class="modal">
@@ -63,10 +104,10 @@ const ModalExample2 = ({closeModal}) => {
             </label>
           </div>
           <div>
-                <TypeDropdown />
+                <TypeDropdown handleType={handleType} />
             </div>
             <div>
-                <PriorityDropdown />
+                <PriorityDropdown handlePriority={handlePriority}/>
             </div>
           <div className="mb-2">
             <label>

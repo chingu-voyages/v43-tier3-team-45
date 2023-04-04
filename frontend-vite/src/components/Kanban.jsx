@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import Column from "./Column";
 import NewIssueForm from "./NewIssueForm";
+import CreateIssue from "../pages/CreateIssue";
 
 export default function Kanban() {
   const [backlog, setBacklog] = useState([]);
@@ -114,7 +115,8 @@ export default function Kanban() {
   return (
     <div>
       <div class="p-6">
-        <NewIssueForm />
+        {/* <NewIssueForm /> */}
+        <CreateIssue />
       </div>
 
       <DragDropContext onDragEnd={handleDragEnd}>

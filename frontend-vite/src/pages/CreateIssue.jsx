@@ -14,7 +14,6 @@ function CreateIssue() {
                 <button onClick={() => {setOpenModal(true)}}> Open </button>}
         </div>
     )
-
 }
 
 export default CreateIssue

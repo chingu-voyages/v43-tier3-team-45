@@ -35,15 +35,6 @@ export const authSlice = createSlice({
 
 export const { setToken, logoutToken } = authReducer.actions;
 
-// export const loginUser = createAsyncThunk('auth/loginUser', async (formData, {dispatch}) => {
-//   try {
-//       const response = await axiosInstance.post(`/auth/login`, formData);
-//       dispatch(setToken(response.data.token));
-//       // dispatch() // would need action from userSlice to set user information. if this is the case why even used thunk to define async function within the slice
-//   } catch (error) { 
-//   }
-// })
-
 export const selectToken = (state) => state.auth;
 
 export default authReducer.reducer;

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { addEmail, addPassword, selectToken, setToken} from '../store/userReducer';
-import axios from "axios"
+import { addEmail, addPassword, setToken } from '../store/userReducer';
+// import { loginUser, setToken } from '../store/authReducer';
+// import axios from "axios"
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import axiosInstance from '../util/AxiosInstance';
 
 const LoginForm = () => {
     const dispatch = useDispatch()
@@ -14,39 +16,41 @@ const LoginForm = () => {
         "password": password
     }
 
-    const BASE_URL = "http://localhost:8080/api"; // URL for AWS EBS dev deployment
+    // const BASE_URL = "http://localhost:5000/api"; 
+    // URL for AWS EBS dev deployment
     // Chinguboarddev2-env.eba-3gsq927u.us-east-2.elasticbeanstalk.com/api
   
-    const axiosInstance = axios.create({
-        baseURL: BASE_URL,
-    });
+    // const axiosInstance = axios.create({
+    //     baseURL: BASE_URL,
+    // });
 
-    const token = useSelector(state => state.user.token);
+    // const token = useSelector(state => state.user.token);
   
-    axiosInstance.interceptors.request.use(
-        (config) => {
-            if (token) {
-                config.headers.Authorization = `Bearer ${token}`;
-            }
-            return config;
-        },
-        (error) => {
-            return Promise.reject(error);
-        }
-    );
+    // axiosInstance.interceptors.request.use(
+    //     (config) => {
+    //         if (token) {
+    //             config.headers.Authorization = `Bearer ${token}`;
+    //         }
+    //         return config;
+    //     },
+    //     (error) => {
+    //         return Promise.reject(error);
+    //     }
+    // );
   
     const loginUser = createAsyncThunk(
         'auth/loginUser',
         async (creds) => {
           try {
             const response = await axiosInstance.post(`/auth/login`, creds);
-            // console.log("token", response.data.token)
+            console.log("token", response)
             dispatch(setToken(response.data.token))
             return response.data.token;
           } catch (error) {
+            console.log("error", error)
           }
         }
-      );
+    );
   
     const handleEmail = (e) => {
         setEmail(e.target.value)
@@ -83,7 +87,7 @@ const LoginForm = () => {
             </label>
         
             {/* <button onClick={handleSubmit}>Log in</button> */}
-            <button onClick={handleAPI}>API Call</button>
+            <button onClick={handleAPI}>Login</button>
         </form>
     )
 
