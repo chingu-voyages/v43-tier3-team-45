@@ -30,7 +30,10 @@ const ModalExample2 = ({closeModal}) => {
     "description": "testDescription",
     "assignees": [],
     "comments": [],
-    "createdBy": testUser
+    "createdBy": testUser,
+    issueType: "TASK",
+    priority: "LOW",
+    status: "BACKLOG",
   }
   
   const handleTitle = (e) => {
@@ -65,7 +68,7 @@ const ModalExample2 = ({closeModal}) => {
   
   const postIssue = async (testIssue) => {
       try {
-        const response = await axios.post(`http://localhost/8080/api/issues/create?projectId=641ba8e494ba927d1a1e932d`, testIssue);
+        const response = await axios.post(`http://localhost:8080/api/issues/create?projectId=641ba8e494ba927d1a1e932d`, testIssue);
         return response.data;
       } catch (error) {
         console.log("error", error)
