@@ -47,10 +47,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User updateUser(User user) {
-        return userRepository.save(user);
-    }
-
     /**
      * used for updating al user information except for user's profile image. Use
      * updateUserProfileImage for that instead
@@ -60,7 +56,7 @@ public class UserService {
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        return updateUser(user);
+        return userRepository.save(user);
     }
 
     public String updateUserProfileImage(MultipartFile image, String id) {
@@ -70,7 +66,7 @@ public class UserService {
         String avatarUrl = s3Service.uploadImage(image);
         user.setAvatarUrl(avatarUrl);
         // save change to image url to db
-        updateUser(user);
+        userRepository.save(user);
         return avatarUrl;
     }
 

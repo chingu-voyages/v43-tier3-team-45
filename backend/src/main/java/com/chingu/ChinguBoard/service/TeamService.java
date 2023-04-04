@@ -86,7 +86,6 @@ public class TeamService {
     }
 
     /**
-     * 
      * @param teamId
      * @param userId
      * @return list of users in team after removal
