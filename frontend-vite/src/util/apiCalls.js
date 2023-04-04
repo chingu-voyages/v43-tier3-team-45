@@ -7,5 +7,19 @@ import axiosInstance from "./AxiosInstance";
 export const getAllTeams = async () => {
   try {
     const response = await axiosInstance.get("/teams");
-  } catch (error) {}
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const changeIssueStatus = async (issueId, status) => {
+  try {
+    const response = await axiosInstance.patch(
+      `/status/${issueId}?status=${status}`
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
