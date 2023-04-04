@@ -8,13 +8,14 @@ export default function Kanban() {
   const [newStatus, setNewStatus] = useState([]);
   const [inProgress, setinProgress] = useState([]);
   const [completed, setCompleted] = useState([]);
-  // const [allIssues, setAllIssues] = useState([])
+
+  console.log(newStatus);
+  console.log(inProgress);
 
   useEffect(() => {
     fetch("http://localhost:8080/api/projects/641ba8e494ba927d1a1e932d")
       .then((r) => r.json())
       .then((json) => {
-        // setAllIssues(json.issues)
         setBacklog(json.issues.filter((issue) => issue.status == "BACKLOG"));
         setNewStatus(json.issues.filter((issue) => issue.status == "NEW"));
         setinProgress(
@@ -24,17 +25,6 @@ export default function Kanban() {
       });
   }, []);
 
-  // function updatedBacklogArray(updatedTask) {
-  //   const updatedArray = backlog.map((task) => {
-  //     if(task.id === updatedTask.id) {
-  //       return updatedTask
-  //     } else {
-  //       return task
-  //     }
-  //   })
-  //   setBacklog(updatedArray)
-  // }
-
   function findItemById(id, array) {
     return array.find((item) => item.id == id);
   }
@@ -43,12 +33,30 @@ export default function Kanban() {
     return array.filter((item) => item.id != id);
   }
 
+  // function updatedBacklogArray(updatedTask) {
+  //   const updatedArray = backlog.map((task) => {
+  //     if (task.id === updatedTask.id) {
+  //       return [...backlog, updatedTask];
+  //     } else {
+  //       return task;
+  //     }
+  //   });
+  //   setBacklog(updatedArray);
+  // }
+
+  // function updatedBacklogArray(updatedTask) {
+  //   setBacklog((prev) => {
+  //     const filtered = prev.filter((task) => task.id !== updatedTask.id);
+  //     return [...filtered, updatedTask];
+  //   });
+  // }
+
   function handleDragEnd(result) {
     const { destination, source, draggableId } = result;
     console.log(draggableId);
 
     if (source.droppableId == destination.droppableId) return;
-    console.log(source.droppableId);
+    // console.log(source.droppableId);
 
     //REMOVE FROM SOURCE ARRAY
     if (source.droppableId == 4) {
@@ -58,7 +66,7 @@ export default function Kanban() {
     } else if (source.droppableId == 2) {
       setNewStatus(removeItemById(draggableId, newStatus));
     } else {
-      setBacklog(removeItemById(draggableId, backlog))
+      setBacklog(removeItemById(draggableId, backlog));
     }
 
     // GET ITEM
@@ -74,38 +82,58 @@ export default function Kanban() {
       // const issueId = allIssues.find((issue) => issue.id == draggableId)
       // issueId.status = "DONE"
 
-      fetch(`http://localhost:8080/api/issues/status/${draggableId}?status=DONE`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then(() =>
+      fetch(
+        `http://localhost:8080/api/issues/status/${draggableId}?status=DONE`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then(() =>
         setCompleted([...completed, { ...task, completed: !task.completed }])
       );
     } else if (destination.droppableId == 3) {
-      fetch(`http://localhost:8080/api/issues/status/${draggableId}?status=IN_PROGRESS`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then(() =>
-      setinProgress([...inProgress, { ...task, completed: !task.completed }]));
+      fetch(
+        `http://localhost:8080/api/issues/status/${draggableId}?status=IN_PROGRESS`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then(() =>
+        setinProgress([...inProgress, { ...task, completed: !task.completed }])
+      );
     } else if (destination.droppableId == 2) {
-      fetch(`http://localhost:8080/api/issues/status/${draggableId}?status=NEW`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then(() =>
-      setNewStatus([...newStatus, { ...task, completed: !task.completed }]));
+      fetch(
+        `http://localhost:8080/api/issues/status/${draggableId}?status=NEW`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then(() =>
+        setNewStatus([...newStatus, { ...task, completed: !task.completed }])
+      );
     } else {
-      fetch(`http://localhost:8080/api/issues/status/${draggableId}?status=BACKLOG`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then(() =>
-      setBacklog([...backlog, { ...task, completed: !task.completed }]));
+      fetch(
+        `http://localhost:8080/api/issues/status/${draggableId}?status=BACKLOG`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then((updatedTask) =>
+        // updatedBacklogArray([...backlog, updatedTask])
+        setBacklog([
+          ...backlog,
+          updatedTask,
+          { ...task, completed: !task.completed },
+        ])
+      );
     }
   }
 

@@ -10,7 +10,7 @@ function CreateIssue() {
 
     return (
         <div>
-            {openModal ? <ModalExample2 closeModal={setOpenModal}/> :             
+            {openModal ? <ModalExample2 closeModal={setOpenModal}/> :
                 <button onClick={() => {setOpenModal(true)}}> Open </button>}
         </div>
     )

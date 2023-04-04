@@ -8,7 +8,7 @@ function Home() {
   useEffect(() => {
       fetch("http://localhost:8080/api/teams")
           .then((res) => res.json())
-          .then(teams => console.log(teams))
+          // .then(teams => console.log(teams))
   })
 
   return (
