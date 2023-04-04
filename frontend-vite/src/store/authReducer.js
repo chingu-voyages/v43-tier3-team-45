@@ -12,9 +12,17 @@ const initialState = {
  * @param creds - { email, password }
  */
 export const loginUser = createAsyncThunk("auth/loginUser", async (creds) => {
-  const response = await axiosInstance.post(`/auth/login`, creds);
+  const response = await axiosInstance.post("/auth/login", creds);
   return response.data;
 });
+
+export const createUser = createAsyncThunk(
+  "auth/createUser",
+  async (formData) => {
+    const response = await axiosInstance.post("/auth/register", formData);
+    return response.data;
+  }
+);
 
 export const authSlice = createSlice({
   name: "auth",
@@ -39,6 +47,9 @@ export const authSlice = createSlice({
     builder.addCase(loginUser.rejected, (state, action) => {
       state.status = "failed";
       state.error = action.error.message;
+    });
+    builder.addCase(createUser.fulfilled, (state, action) => {
+      state.token = action.payload.token;
     });
   },
 });

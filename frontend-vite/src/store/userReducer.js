@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, logoutToken } from "./authReducer";
+import { createUser, loginUser } from "./authReducer";
 
 const initialState = {
   user: null,
@@ -20,10 +20,12 @@ export const userSlice = createSlice({
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.user = action.payload.user;
     });
+    builder.addCase(createUser.fulfilled, (state, action) => {
+      state.user = action.payload.user;
+    });
   },
 });
 
 export const { setUser } = userSlice.actions;
-// use dispatch to set and selector to get
 
 export default userSlice.reducer;
