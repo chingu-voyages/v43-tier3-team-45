@@ -1,7 +1,6 @@
 package com.chingu.ChinguBoard.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -26,14 +25,23 @@ public class ProjectService {
         this.issueService = issueService;
     }
 
+    // batch query to reduce number of queries
     public Project populateLists(Project project) {
-        List<Issue> issues = project.getIssueIds()
-                .stream()
-                .map(issueService::getIssue)
-                .collect(Collectors.toList());
+        List<Issue> issues = issueService.getIssues(project.getIssueIds());
         project.setIssues(issues);
 
         return project;
+    }
+
+    /**
+     * There is no need to populate the issues list for individual project because
+     * the porjects are only used for displaying project names
+     * 
+     * @param ids - list of project IDs from a Team object
+     * @return list of Projects
+     */
+    public List<Project> getProjects(List<String> ids) {
+        return projectRepository.findAllById(ids);
     }
 
     public Project getProject(String id) {
