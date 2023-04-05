@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../util/AxiosInstance";
 
 const initialState = {
-  team: null,
+  currentTeam: null,
 };
 
 /**
@@ -11,7 +11,7 @@ const initialState = {
 export const addMemberToTeam = createAsyncThunk(
   "teams/addMember",
   async (userId, { getState }) => {
-    const teamId = getState().team.team.id;
+    const teamId = getState().team.currentTeam.id;
     const response = await axiosInstance.put(`/teams/${teamId}/${userId}/add`);
     return response.data;
   }
@@ -36,15 +36,15 @@ const teamSlice = createSlice({
   initialState,
   reducers: {
     setTeam: (state, action) => {
-      state.team = action.payload;
+      state.currentTeam = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(addMemberToTeam.fulfilled, (state, action) => {
-      state.team.members.push(action.payload);
+      state.currentTeam.members.push(action.payload);
     });
     builder.addCase(removeMemberFromTeam.fulfilled, (state, action) => {
-      state.team.members = action.payload;
+      state.currentTeam.members = action.payload;
     });
   },
 });
