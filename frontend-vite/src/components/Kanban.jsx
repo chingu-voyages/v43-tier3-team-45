@@ -34,13 +34,6 @@ export default function Kanban() {
     return array.filter((item) => item.id != id);
   }
 
-  function updatedBacklogArray(updatedTask) {
-    setBacklog((prev) => {
-      const filtered = prev.filter((task) => task.id !== updatedTask.id);
-      return [...filtered, updatedTask];
-    });
-  }
-
   function handleDragEnd(result) {
     const { destination, source, draggableId } = result;
     // console.log(draggableId);
@@ -53,7 +46,7 @@ export default function Kanban() {
       setCompleted(removeItemById(draggableId, completed));
     } else if (source.droppableId == 3) {
       setinProgress(removeItemById(draggableId, inProgress));
-    } else if (source.droppableId == 2) {
+    } else if (source.droppableId == 1) {
       setNewStatus(removeItemById(draggableId, newStatus));
     } else {
       setBacklog(removeItemById(draggableId, backlog));
@@ -69,9 +62,6 @@ export default function Kanban() {
 
     // ADD ITEM
     if (destination.droppableId == 4) {
-      // const issueId = allIssues.find((issue) => issue.id == draggableId)
-      // issueId.status = "DONE"
-
       fetch(
         `http://localhost:8080/api/issues/status/${draggableId}?status=DONE`,
         {
@@ -95,7 +85,7 @@ export default function Kanban() {
       ).then(() =>
         setinProgress([...inProgress, { ...task, status: "IN_PROGRESS" }])
       );
-    } else if (destination.droppableId == 2) {
+    } else if (destination.droppableId == 1) {
       fetch(
         `http://localhost:8080/api/issues/status/${draggableId}?status=NEW`,
         {
@@ -136,8 +126,8 @@ export default function Kanban() {
       <DragDropContext onDragEnd={handleDragEnd}>
         <div class="flex">
           <div class="grid grid-cols-4 gap-8">
-            <Column title={"BACKLOG"} tasks={backlog} id={"1"} />
-            <Column title={"TO DO"} tasks={newStatus} id={"2"} />
+            <Column title={"NEW"} tasks={newStatus} id={"1"} />
+            <Column title={"BACKLOG"} tasks={backlog} id={"2"} />
             <Column title={"IN PROGRESS"} tasks={inProgress} id={"3"} />
             <Column title={"COMPLETED"} tasks={completed} id={"4"} />
           </div>
