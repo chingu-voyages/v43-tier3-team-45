@@ -52,14 +52,16 @@ public class UserService {
     }
 
     /**
-     * used for updating al user information except for user's profile image. Use
+     * used for updating user information except for user's profile image. Use
      * updateUserProfileImage for that instead
+     * currently email is used as unique identifier for user so not sure about being
+     * able to change this
+     * looking at better way to reset password than chaning it in a profile page
      */
     public User updateUser(RegisterRequest request, String id) {
         User user = getUser(id);
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
         return userRepository.save(user);
     }
 
