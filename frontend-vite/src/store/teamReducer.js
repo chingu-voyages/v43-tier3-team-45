@@ -5,6 +5,9 @@ const initialState = {
   team: null,
 };
 
+/**
+ * returns user that has been added
+ */
 export const addMemberToTeam = createAsyncThunk(
   "teams/addMember",
   async (userId, { getState }) => {
@@ -14,6 +17,9 @@ export const addMemberToTeam = createAsyncThunk(
   }
 );
 
+/**
+ * returns updated list with the member removed
+ */
 export const removeMemberFromTeam = createAsyncThunk(
   "teams/removeMember",
   async (userId, { getState }) => {
