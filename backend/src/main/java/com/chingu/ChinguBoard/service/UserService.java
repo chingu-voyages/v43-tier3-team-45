@@ -43,6 +43,10 @@ public class UserService {
         return userRepository.findByEmail(email).orElseThrow();
     }
 
+    public boolean checkUniqueEmail(String email) {
+        return userRepository.findByEmail(email).isPresent();
+    }
+
     public User addUser(User user) {
         return userRepository.save(user);
     }
