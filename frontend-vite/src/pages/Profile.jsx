@@ -15,10 +15,13 @@ const Profile = () => {
   return (
     <Fragment>
       <Fragment>
-        <Avatar className="w-12 h-12 rounded-full border-2 border-gray-400 overflow-hidden">
-          src={currentUser.avatarUrl}
-          alt="avatar"
-        </Avatar>
+        <div className="flex items-center justify-center mb-1">
+          <Avatar
+            className="w-12 h-12 rounded-full border-2 border-gray-400 overflow-hidden"
+            src={currentUser.avatarUrl}
+            alt="avatar"
+          />
+        </div>
         <h1 className="text-xl font-bold py-2">{currentUser.firstName}</h1>
         <h1 className="text-xl font-bold py-2">{currentUser.lastName}</h1>
         <p className="text-lg py-2">{currentUser.role}</p>
@@ -32,6 +35,7 @@ const Profile = () => {
         >
           Edit Profile
         </button>
+        {/* i think its best to move update profile to a separate page and navigate to it with the button */}
         {showUpdateProfile ? <UpdateProfile /> : null}
       </div>
     </Fragment>

@@ -2,7 +2,6 @@ package com.chingu.ChinguBoard.service;
 
 import java.util.List;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,12 +16,9 @@ public class UserService {
 
     private final S3Service s3Service;
 
-    private final PasswordEncoder passwordEncoder;
-
-    public UserService(UserRepository userRepository, S3Service s3Service, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, S3Service s3Service) {
         this.userRepository = userRepository;
         this.s3Service = s3Service;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public User getUser(String id) {
