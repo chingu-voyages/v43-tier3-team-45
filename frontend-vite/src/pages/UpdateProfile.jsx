@@ -2,16 +2,17 @@ import React, { useState, useEffect } from "react";
 import Avatar from "../components/Avatar";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserFirstName, setUserLastName } from "../store/userReducer";
+import {
+  updateUserProfile,
+  updateUserProfileImage,
+} from "../store/userReducer";
 import axiosInstance from "../util/AxiosInstance";
 
 const UpdateProfile = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
 
-  const handleSubmit = async (user) => {
-    const response = await axiosInstance.patch(`/users/${user.id}`, user);
-    return response.data;
-  };
+  // TODO: use dispatch(updateUserProfileImage(data)) after creating FormData with the image in it
 
   return (
     <>
@@ -26,7 +27,10 @@ const UpdateProfile = () => {
         />
       </div>
 
-      <form className=" w-full max-w-lg" onSubmit={handleSubmit(user)}>
+      <form
+        className=" w-full max-w-lg"
+        onSubmit={dispatch(updateUserProfile(user))}
+      >
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -68,7 +72,7 @@ const UpdateProfile = () => {
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-role"
               type="text"
-              placeholder="Software Engineer"
+              disabled
               value={user.role}
             />
           </div>
@@ -98,7 +102,7 @@ const UpdateProfile = () => {
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-email"
               type="email"
-              placeholder="example@domain.com"
+              disabled
               value={user.email}
             />
           </div>
