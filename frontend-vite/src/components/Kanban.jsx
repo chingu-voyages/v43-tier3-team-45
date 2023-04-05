@@ -9,8 +9,9 @@ export default function Kanban() {
   const [inProgress, setinProgress] = useState([]);
   const [completed, setCompleted] = useState([]);
 
-  console.log(newStatus);
-  console.log(inProgress);
+  // console.log(newStatus);
+  // console.log(inProgress);
+  // console.log(backlog)
 
   useEffect(() => {
     fetch("http://localhost:8080/api/projects/641ba8e494ba927d1a1e932d")
@@ -33,27 +34,16 @@ export default function Kanban() {
     return array.filter((item) => item.id != id);
   }
 
-  // function updatedBacklogArray(updatedTask) {
-  //   const updatedArray = backlog.map((task) => {
-  //     if (task.id === updatedTask.id) {
-  //       return [...backlog, updatedTask];
-  //     } else {
-  //       return task;
-  //     }
-  //   });
-  //   setBacklog(updatedArray);
-  // }
-
-  // function updatedBacklogArray(updatedTask) {
-  //   setBacklog((prev) => {
-  //     const filtered = prev.filter((task) => task.id !== updatedTask.id);
-  //     return [...filtered, updatedTask];
-  //   });
-  // }
+  function updatedBacklogArray(updatedTask) {
+    setBacklog((prev) => {
+      const filtered = prev.filter((task) => task.id !== updatedTask.id);
+      return [...filtered, updatedTask];
+    });
+  }
 
   function handleDragEnd(result) {
     const { destination, source, draggableId } = result;
-    console.log(draggableId);
+    // console.log(draggableId);
 
     if (source.droppableId == destination.droppableId) return;
     // console.log(source.droppableId);
@@ -91,7 +81,7 @@ export default function Kanban() {
           },
         }
       ).then(() =>
-        setCompleted([...completed, { ...task, completed: !task.completed }])
+        setCompleted([...completed, { ...task, status: "DONE" }])
       );
     } else if (destination.droppableId == 3) {
       fetch(
@@ -103,7 +93,7 @@ export default function Kanban() {
           },
         }
       ).then(() =>
-        setinProgress([...inProgress, { ...task, completed: !task.completed }])
+        setinProgress([...inProgress, { ...task, status: "IN_PROGRESS" }])
       );
     } else if (destination.droppableId == 2) {
       fetch(
@@ -115,7 +105,7 @@ export default function Kanban() {
           },
         }
       ).then(() =>
-        setNewStatus([...newStatus, { ...task, completed: !task.completed }])
+        setNewStatus([...newStatus, { ...task, status: "NEW" }])
       );
     } else {
       fetch(
@@ -126,12 +116,12 @@ export default function Kanban() {
             "Content-Type": "application/json",
           },
         }
-      ).then((updatedTask) =>
-        // updatedBacklogArray([...backlog, updatedTask])
+      )
+      // .then((res) => (res.json().then((data) => console.log(data)))
+      .then(() =>
         setBacklog([
           ...backlog,
-          updatedTask,
-          { ...task, completed: !task.completed },
+          { ...task, status: "BACKLOG"},
         ])
       );
     }
