@@ -5,12 +5,13 @@ import { Route, Routes } from "react-router-dom";
 // import SideNavBar from "./components/SideNavBar";
 // import Profile from "./pages/Profile";
 // import NavBar from "./components/NavBar";
+import CreateProfile from "./pages/CreateProfile";
 import Home from "./pages/Home";
 
 function App() {
   return (
     <div>
-      <Home />
+      <CreateProfile />
       {/* <SideNavBar />
       <NavBar />
       <Routes>
