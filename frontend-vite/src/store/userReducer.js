@@ -10,22 +10,28 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.user = action.payload;
+      state.currentUser = action.payload;
     },
     logoutUser: (state) => {
-      state.user = null;
+      state.currentUser = null;
+    },
+    setUserFirstName: (state, action) => {
+      state.currentUser.firstName = action.payload;
+    },
+    setUserLastName: (state, action) => {
+      state.currentUser.lastName = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.user = action.payload.user;
+      state.currentUser = action.payload.user;
     });
     builder.addCase(createUser.fulfilled, (state, action) => {
-      state.user = action.payload.user;
+      state.currentUser = action.payload.user;
     });
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, setUserFirstName, setUserLastName } = userSlice.actions;
 
 export default userSlice.reducer;
