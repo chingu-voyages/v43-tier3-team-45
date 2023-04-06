@@ -13,7 +13,8 @@ function App() {
       <Route exact path="/" element={<Login />} />
       <Route exact path="register" element={<CreateProfile />} />
       <Route element={<PrivateRoutes />}>
-        <Route exact path="/home" element={<Profile />} />
+        <Route exact path="/home" element={<Home />} />
+        <Route exact path="/profile" element={<Profile />} />
       </Route>
     </Routes>
   );
