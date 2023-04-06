@@ -1,5 +1,8 @@
 import React, { useState, Fragment } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { createUser } from "../store/authReducer";
+import { useNavigate } from "react-router";
 
 function CreateProfile() {
   const [firstName, setFirstName] = useState();
@@ -7,36 +10,32 @@ function CreateProfile() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [profileImage, setProfileImage] = useState();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const data = new FormData();
     data.append("firstName", firstName);
     data.append("lastName", lastName);
     data.append("email", email);
     data.append("password", password);
     data.append("profileImage", profileImage);
-    axios
-      .post("http://localhost:8080/api/auth/register", data)
-      .then((response) => {
-        console.log("hi");
-        // handle successful response
-      })
-      .catch((error) => {
-        console.log(error);
-        // handle error
-      });
+    dispatch(createUser(data)).then(() => navigate("/home"));
   };
 
   return (
     <div className="flex justify-center">
-      <form className="w-full max-w-md" onSubmit={handleSubmit}>
+      <form className="w-full max-w-md" onSubmit={(e) => handleSubmit(e)}>
         <div className="flex flex-col">
           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
             Choose Image
           </label>
-          <input type="file" name="profileImage" onChange={(e) => setProfileImage(e.target.files[0])} />
+          <input
+            type="file"
+            name="profileImage"
+            onChange={(e) => setProfileImage(e.target.files[0])}
+          />
           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mt-5 mb-2">
             First Name
           </label>

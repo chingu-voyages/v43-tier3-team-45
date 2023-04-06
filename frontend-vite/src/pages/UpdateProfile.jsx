@@ -6,11 +6,22 @@ import {
   updateUserProfile,
   updateUserProfileImage,
 } from "../store/userReducer";
-import axiosInstance from "../util/AxiosInstance";
 
 const UpdateProfile = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updateUserProfile(user));
+  };
+
+  const handleImageUpdate = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("profileImage", e.target.files[0]);
+    dispatch(updateUserProfileImage(formData));
+  };
 
   // TODO: use dispatch(updateUserProfileImage(data)) after creating FormData with the image in it
 
@@ -26,11 +37,14 @@ const UpdateProfile = () => {
           alt={"user"}
         />
       </div>
+      <input
+        type="file"
+        name="profileImage"
+        accept=".png,.jpg,.jpeg"
+        onChange={(e) => handleImageUpdate(e)}
+      />
 
-      <form
-        className=" w-full max-w-lg"
-        onSubmit={dispatch(updateUserProfile(user))}
-      >
+      <form className=" w-full max-w-lg" onSubmit={(e) => handleSubmit(e)}>
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -108,7 +122,10 @@ const UpdateProfile = () => {
           </div>
         </div>
       </form>
-      <button className=" bg-blue-400 hover:bg-blue-700 text-black hover:text-white font-bold py-2 px-4 rounded mr-2 mt-8">
+      <button
+        className=" bg-blue-400 hover:bg-blue-700 text-black hover:text-white font-bold py-2 px-4 rounded mr-2 mt-8"
+        onClick={(e) => handleSubmit(e)}
+      >
         Submit
       </button>
     </>
