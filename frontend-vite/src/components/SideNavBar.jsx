@@ -16,21 +16,19 @@ function SideNavBar() {
   const [inProgress, setinProgress] = useState([]);
   const [completed, setCompleted] = useState([]);
 
-  const selectedTeamProjects = useSelector((state) => state.team.currentTeam.projects);
-
-  console.log(selectedTeamProjects)
-
-  const teamProjectArray = selectedTeamProjects.map((project, index) => (
-    <TeamProjects
-      project={project}
-      index={index}
-      key={index}/>
-  ));
+  const selectedTeam = useSelector((state) => state.team.currentTeam);
+  let selectedTeamProjects;
+  let teamProjectArray;
+  if (selectedTeam !== null) {
+    selectedTeamProjects = selectedTeam.projects;
+    teamProjectArray = selectedTeamProjects.map((project, index) => (
+      <TeamProjects project={project} index={index} key={index} />
+    ));
+  }
 
   function showSidebar() {
     setSidebar(!sidebar);
   }
-
 
   return (
     <>
@@ -47,7 +45,7 @@ function SideNavBar() {
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
-            {teamProjectArray}
+            {selectedTeamProjects && teamProjectArray}
           </ul>
         </nav>
       </IconContext.Provider>

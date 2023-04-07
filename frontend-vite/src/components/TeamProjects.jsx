@@ -1,27 +1,21 @@
 import React from "react";
 import axiosInstance from "../util/AxiosInstance";
+import { useDispatch } from "react-redux";
+import { getProject } from "../store/projectReducer";
 
-export default function TeamProjects({project}) {
-    const getProject = () => {
-        axiosInstance.get(`/projects/${project.id}`)
-          .then((json) => {
-            setBacklog(json.issues.filter((issue) => issue.status == "BACKLOG"));
-            setNewStatus(json.issues.filter((issue) => issue.status == "NEW"));
-            setinProgress(
-              json.issues.filter((issue) => issue.status == "IN_PROGRESS")
-            );
-            setCompleted(json.issues.filter((issue) => issue.status == "DONE"));
-          });
-    }
-
+export default function TeamProjects({ project }) {
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(getProject(project.id));
+  };
 
   return (
-        <li>
-          <button onClick={(e) => getProject()}>
-            <span>{project.name}</span>
-            <br></br>
-            <span>{project.id}</span>
-          </button>
-        </li>
-      );
+    <li>
+      <button onClick={() => handleClick()}>
+        <span>{project.name}</span>
+        <br></br>
+        <span>{project.id}</span>
+      </button>
+    </li>
+  );
 }
