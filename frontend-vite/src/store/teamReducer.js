@@ -1,38 +1,54 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axiosInstance from "../util/AxiosInstance";
 
 const initialState = {
-   teamId: "",
-   teamName: "",
-   members: [],
-   projects: [],
-  };
-  
-export const teamReducer = createSlice({
-    name: 'team',
-    initialState,
-    reducers: {
-        addTeamId: (state, action) => {
-            state.teamId = action.payload;
-        },
-        addTeamName: (state, action) => {
-            state.teamName = action.payload;
-        },
-        addMembers: (state, action) => {
-            const newMember = action.payload;
-            state.members = [...state.members, newMember];
-        },
-        addTeamProjects: (state, action) => {
-            const newProject = action.payload;
-            state.projects = [...state.items, newProject];
-        },
-        resetState: () => initialState,
-    },
-  });
-  
-export const { addTeamId, addTeamName, 
-    addMembers, addTeamProjects, 
-    resetState } = teamReducer.actions;
-  
-export const selectTeam = (state) => state.team;
+  currentTeam: null,
+};
 
-export default teamReducer.reducer;
+/**
+ * returns user that has been added
+ */
+export const addMemberToTeam = createAsyncThunk(
+  "teams/addMember",
+  async (userId, { getState }) => {
+    const teamId = getState().team.currentTeam.id;
+    const response = await axiosInstance.put(`/teams/${teamId}/${userId}/add`);
+    return response.data;
+  }
+);
+
+/**
+ * returns updated list with the member removed
+ */
+export const removeMemberFromTeam = createAsyncThunk(
+  "teams/removeMember",
+  async (userId, { getState }) => {
+    const teamId = getState().team.team.id;
+    const response = await axiosInstance.put(
+      `/teams/${teamId}/${userId}/remove`
+    );
+    return response.data;
+  }
+);
+
+const teamSlice = createSlice({
+  name: "team",
+  initialState,
+  reducers: {
+    setTeam: (state, action) => {
+      state.currentTeam = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(addMemberToTeam.fulfilled, (state, action) => {
+      state.currentTeam.members.push(action.payload);
+    });
+    builder.addCase(removeMemberFromTeam.fulfilled, (state, action) => {
+      state.currentTeam.members = action.payload;
+    });
+  },
+});
+
+export const { setTeam } = teamSlice.actions;
+
+export default teamSlice.reducer;
