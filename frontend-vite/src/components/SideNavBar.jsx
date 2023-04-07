@@ -3,29 +3,29 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { IconContext } from "react-icons/lib";
-import SidebarData from "./SidebarData";
+// import SidebarData from "./SidebarData";
 import "../App.css";
 // import TeamProjects from "./TeamProjects";
 import { useSelector } from "react-redux";
+import TeamProjects from "./TeamProjects";
 
 function SideNavBar() {
   const [sidebar, setSidebar] = useState(false);
+  const [backlog, setBacklog] = useState([]);
+  const [newStatus, setNewStatus] = useState([]);
+  const [inProgress, setinProgress] = useState([]);
+  const [completed, setCompleted] = useState([]);
 
   const selectedTeamProjects = useSelector((state) => state.team.currentTeam.projects);
 
   console.log(selectedTeamProjects)
 
-  const teamProjectArray = selectedTeamProjects.map((project, index) => {
-    return (
-      <li key={index}>
-        <button>
-          <span>{project.name}</span>
-          <br></br>
-          <span>{project.id}</span>
-        </button>
-      </li>
-    );
-  });
+  const teamProjectArray = selectedTeamProjects.map((project, index) => (
+    <TeamProjects
+      project={project}
+      index={index}
+      key={index}/>
+  ));
 
   function showSidebar() {
     setSidebar(!sidebar);

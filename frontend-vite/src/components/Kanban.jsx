@@ -4,27 +4,27 @@ import Column from "./Column";
 import NewIssueForm from "./NewIssueForm";
 
 export default function Kanban() {
-  const [backlog, setBacklog] = useState([]);
-  const [newStatus, setNewStatus] = useState([]);
-  const [inProgress, setinProgress] = useState([]);
-  const [completed, setCompleted] = useState([]);
+  // const [backlog, setBacklog] = useState([]);
+  // const [newStatus, setNewStatus] = useState([]);
+  // const [inProgress, setinProgress] = useState([]);
+  // const [completed, setCompleted] = useState([]);
 
-  // console.log(newStatus);
-  // console.log(inProgress);
-  // console.log(backlog)
+  // // console.log(newStatus);
+  // // console.log(inProgress);
+  // // console.log(backlog)
 
-  useEffect(() => {
-    fetch("http://localhost:8080/api/projects/641ba8e494ba927d1a1e932d")
-      .then((r) => r.json())
-      .then((json) => {
-        setBacklog(json.issues.filter((issue) => issue.status == "BACKLOG"));
-        setNewStatus(json.issues.filter((issue) => issue.status == "NEW"));
-        setinProgress(
-          json.issues.filter((issue) => issue.status == "IN_PROGRESS")
-        );
-        setCompleted(json.issues.filter((issue) => issue.status == "DONE"));
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch(`http://localhost:8080/api/projects/${project.id}`)
+  //     .then((r) => r.json())
+  //     .then((json) => {
+  //       setBacklog(json.issues.filter((issue) => issue.status == "BACKLOG"));
+  //       setNewStatus(json.issues.filter((issue) => issue.status == "NEW"));
+  //       setinProgress(
+  //         json.issues.filter((issue) => issue.status == "IN_PROGRESS")
+  //       );
+  //       setCompleted(json.issues.filter((issue) => issue.status == "DONE"));
+  //     });
+  // }, []);
 
   function findItemById(id, array) {
     return array.find((item) => item.id == id);
