@@ -1,7 +1,5 @@
-// import CreateIssueModal from "../components/CreateIssueModal"
 import { useState } from "react"
-// import Example from "../components/ModalExample"
-import ModalExample2 from '../components/ModalExample2.jsx'
+import CreateIssueModal from '../components/CreateIssueModal'
 
 // make API call here to get issue info? kanban board shares issueId and this component makes a fetch?
 
@@ -10,7 +8,7 @@ function CreateIssue() {
 
     return (
         <div>
-            {openModal ? <ModalExample2 closeModal={setOpenModal}/> :             
+            {openModal ? <CreateIssueModal closeModal={setOpenModal}/> :             
                 <button onClick={() => {setOpenModal(true)}}> Open </button>}
         </div>
     )
