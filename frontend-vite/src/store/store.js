@@ -13,6 +13,7 @@ import storage from "redux-persist/lib/storage";
 import authReducer from "./authReducer";
 import userReducer from "./userReducer";
 import teamReducer from "./teamReducer";
+import projectReducer from "./projectReducer";
 
 const persistConfig = {
   key: "root",
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   auth: authReducer,
   team: teamReducer,
+  project: projectReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

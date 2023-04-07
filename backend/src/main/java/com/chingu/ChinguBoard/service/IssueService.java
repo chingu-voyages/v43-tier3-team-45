@@ -42,17 +42,19 @@ public class IssueService {
         List<User> assignees = userService.getUsers(issue.getAssigneeIds());
         issue.setAssignees(assignees);
 
+        issue.setCreatedBy(userService.getUser(issue.getCreatedById()));
+
         return issue;
     }
 
     public Issue getIssue(String id) {
         Issue issue = issueRepository.findById(id).orElseThrow();
-        issue.setCreatedBy(userService.getUser(issue.getCreatedById()));
         return populateLists(issue);
     }
 
     public List<Issue> getIssues(List<String> ids) {
-        return issueRepository.findAllById(ids);
+        List<Issue> issues = issueRepository.findAllById(ids);
+        return issues.stream().map(this::populateLists).collect(Collectors.toList());
     }
 
     public List<Issue> getAllIssues() {
