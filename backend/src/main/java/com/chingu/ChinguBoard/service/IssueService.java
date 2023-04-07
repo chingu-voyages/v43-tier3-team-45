@@ -1,5 +1,6 @@
 package com.chingu.ChinguBoard.service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,32 +32,32 @@ public class IssueService {
         this.userService = userService;
     }
 
-    public Issue getIssue(String id) {
-        Issue issue = issueRepository.findById(id).orElseThrow();
+    // can look into data loader here
+    public Issue populateLists(Issue issue) {
 
-        /**
-         * Issue from DB will only have a list of comment IDs and user IDs
-         * from these lists, lists of User and Comment are
-         */
-        List<Comment> comments = issue.getCommentIds()
-                .stream()
-                .map(commentService::getComment)
-                .collect(Collectors.toList());
+        // "data loader" to batch queries for N + 1 issue.
+        List<Comment> comments = commentService.getComments(issue.getCommentIds());
         issue.setComments(comments);
 
-        List<User> assignees = issue.getAssigneeIds()
-                .stream()
-                .map(userService::getUser)
-                .collect(Collectors.toList());
+        List<User> assignees = userService.getUsers(issue.getAssigneeIds());
         issue.setAssignees(assignees);
-
-        issue.setCreatedBy(userService.getUser(issue.getCreatedById()));
 
         return issue;
     }
 
+    public Issue getIssue(String id) {
+        Issue issue = issueRepository.findById(id).orElseThrow();
+        issue.setCreatedBy(userService.getUser(issue.getCreatedById()));
+        return populateLists(issue);
+    }
+
+    public List<Issue> getIssues(List<String> ids) {
+        return issueRepository.findAllById(ids);
+    }
+
     public List<Issue> getAllIssues() {
-        return issueRepository.findAll();
+        List<Issue> issues = issueRepository.findAll();
+        return issues.stream().map(this::populateLists).collect(Collectors.toList());
     }
 
     /**
@@ -64,6 +65,7 @@ public class IssueService {
      * it belongs to and updates the project as well.
      */
     public Issue createIssue(Issue issue, String projectId) {
+        issue.setCreatedAt(Instant.now());
         Issue savedIssue = issueRepository.save(issue);
         projectService.addIssue(savedIssue, projectId);
         return savedIssue;
@@ -77,6 +79,7 @@ public class IssueService {
          */
         Issue issue = getIssue(issueId);
         issue.addComment(comment);
+        issue.setUpdatedAt(Instant.now());
         issueRepository.save(issue);
     }
 
@@ -91,16 +94,30 @@ public class IssueService {
 
     public Issue updateIssue(Issue issue) {
         Issue dbIssue = getIssue(issue.getId());
-        // copying over the list of issue IDs so the client doesn't have to send list of
-        // CommentDTOs, no need for copying Comments since no need to display
+        /**
+         * copying over the list of issue IDs so the client doesn't have to send list of
+         * CommentDTOs, no need for copying Comments since no need to display
+         */
         issue.setCommentIds(dbIssue.getCommentIds());
+        issue.setUpdatedAt(Instant.now());
         return issueRepository.save(issue);
     }
 
     public Issue updateIssueStatus(String id, String status) {
         Issue issue = getIssue(id);
         issue.setStatus(Status.valueOf(status));
+        issue.setUpdatedAt(Instant.now());
         return issueRepository.save(issue);
     }
+
+    /**
+     * need 2 delete methods
+     * - one for deleting the issue itself from the issue (will have to iterate
+     * through the comments and delete those as well) and delete it's reference from
+     * project
+     * - one for deleting the issue as a result of deleting a project, no need to
+     * delete it's reference from the project as the project will be deleted and it
+     * is unnecessary DB access
+     */
 
 }
