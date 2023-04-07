@@ -5,7 +5,7 @@ import PriorityDropdown from './PriorityDropdown.jsx'
 import axios from 'axios'
 import { useState } from 'react'
 
-const CreateIssueModal = ({setShowing}) => {
+const CreateIssueModal = ({onClose}) => {
   const [title, setTitle ] = useState()
   const [description, setDescription ] = useState()
   const [comment, setComment ] = useState()
@@ -61,7 +61,7 @@ const CreateIssueModal = ({setShowing}) => {
         e.preventDefault()
         // console.log(title, description, comment, priority, type, userEmail)
         postIssue(testIssue)
-        setShowing()
+        onClose()
   }
   
   const postIssue = async (testIssue) => {
@@ -192,7 +192,7 @@ const CreateIssueModal = ({setShowing}) => {
                       focus:shadow-outline
                       hover:bg-indigo-800
                       "
-                  onClick={(setShowing) => setShowing()}
+                  onClick={onClose}
                 >
                   Cancel
                 </button>

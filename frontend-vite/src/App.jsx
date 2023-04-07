@@ -5,17 +5,17 @@ import "./App.css";
 // import SideNavBar from "./components/SideNavBar";
 // import Profile from "./pages/Profile";
 // import NavBar from "./components/NavBar";
-// import Home from "./pages/Home";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
-import CreateIssue from "./pages/CreateIssue";
+// import CreateIssue from "./pages/CreateIssue";
 
 
 function App() {
   return (
     <div>
       <Login />
-      <CreateIssue />
-      {/* <Home /> */}
+      {/* <CreateIssue /> */}
+      <Home />
       {/* <SideNavBar /> */}
       {/* <NavBar /> */}
       {/* <Routes> */}

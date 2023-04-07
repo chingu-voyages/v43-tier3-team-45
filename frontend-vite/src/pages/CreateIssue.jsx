@@ -5,16 +5,8 @@ import { Transition } from '@headlessui/react'
 function CreateIssue() {
     const [isShowing, setIsShowing] = useState(false)
 
-    const setShowing = (e) => {
-        e.preventDefault
-        // not sure why DOM refresh is still happening
-        setIsShowing((isShowing) => !isShowing)
-    }
-
     return (
         <div>
-            {/* {openModal ? <CreateIssueModal setOpenModal={setOpenModal}/> :             
-                <button onClick={() => {setOpenModal(true)}}> Open </button>} */}
             <button onClick={() => setIsShowing((isShowing) => !isShowing)}>
                 Create Issue
             </button>
@@ -27,11 +19,12 @@ function CreateIssue() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <CreateIssueModal setShowing={setShowing}/>
+                <div>
+                    {isShowing ? (<CreateIssueModal onClose={() => setIsShowing(false)} />) : null }
+                </div>
             </Transition>
         </div>
     )
 }
 
 export default CreateIssue
-
