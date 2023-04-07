@@ -1,22 +1,23 @@
-import React, { useEffect } from "react";
-import SideNavBar from "../components/SideNavBar";
-import Kanban from "../components/Kanban";
-import NavBar from "../components/NavBar";
+import React, { useEffect, useState } from "react";
+import { getAllTeams } from "../util/apiCalls";
+import TeamDropdown from "../components/TeamDropdown";
+import TeamMemberDropdown from "../components/TeamMemberDropdown";
 
-function Home() {
-  // fetch ALL TEAMS
+const Home = () => {
+  const [teams, setTeams] = useState();
+
   useEffect(() => {
-      fetch("http://localhost:8080/api/teams")
-          .then((res) => res.json())
-          // .then(teams => console.log(teams))
-  })
+    getAllTeams()
+      .then((res) => setTeams(res))
+      .catch((err) => console.log(err))
+      .finally(console.log("finally"));
+  }, []);
 
   return (
-    <div>
-      <SideNavBar />
-      <Kanban />
-      <NavBar />
+    <div className="h-screen w-screen bg-slate-400">
+      {teams && <TeamDropdown teams={teams} />}
     </div>
   );
-}
+};
+
 export default Home;
