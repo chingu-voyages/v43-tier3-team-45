@@ -9,9 +9,10 @@ export default function Kanban() {
   const [newStatus, setNewStatus] = useState([]);
   const [inProgress, setinProgress] = useState([]);
   const [completed, setCompleted] = useState([]);
+  const [taskId, setTaskId] = useState([])
   // const [allIssues, setAllIssues] = useState([])
 
-  console.log(backlog)
+  // console.log(backlog)
 
   useEffect(() => {
     fetch("http://localhost:8080/api/projects/641ba8e494ba927d1a1e932d")
@@ -48,10 +49,12 @@ export default function Kanban() {
 
   function handleDragEnd(result) {
     const { destination, source, draggableId } = result;
-    console.log(draggableId);
+    console.log("me", draggableId);
+    setTaskId(draggableId)
+
 
     if (source.droppableId == destination.droppableId) return;
-    console.log(source.droppableId);
+    // console.log(source.droppableId);
 
     //REMOVE FROM SOURCE ARRAY
     if (source.droppableId == 4) {
@@ -122,10 +125,10 @@ export default function Kanban() {
       <DragDropContext onDragEnd={handleDragEnd}>
         <div class="flex">
           <div class="grid grid-cols-4 gap-8">
-            <Column title={"BACKLOG"} tasks={backlog} id={"1"} />
-            <Column title={"TO DO"} tasks={newStatus} id={"2"} />
-            <Column title={"IN PROGRESS"} tasks={inProgress} id={"3"} />
-            <Column title={"COMPLETED"} tasks={completed} id={"4"} />
+            <Column title={"BACKLOG"} tasks={backlog} id={"1"} taskId={taskId}/>
+            <Column title={"TO DO"} tasks={newStatus} id={"2"} taskId={taskId}/>
+            <Column title={"IN PROGRESS"} tasks={inProgress} id={"3"} taskId={taskId}/>
+            <Column title={"COMPLETED"} tasks={completed} id={"4"} taskId={taskId}/>
           </div>
         </div>
       </DragDropContext>
