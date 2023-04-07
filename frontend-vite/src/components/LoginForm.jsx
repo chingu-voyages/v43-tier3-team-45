@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
-import { addEmail, addPassword, setToken } from '../store/userReducer';
-// import { loginUser, setToken } from '../store/authReducer';
-// import axios from "axios"
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axiosInstance from '../util/AxiosInstance';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../store/authReducer";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
-    const dispatch = useDispatch()
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const navigate = useNavigate();
 
     const creds = {
         "email": email,
@@ -56,23 +54,20 @@ const LoginForm = () => {
         setEmail(e.target.value)
     };
 
-    const handlePassword = (e) => {
-        setPassword(e.target.value)
-    };
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
 
-    const handleAPI = (e) => {
-        e.preventDefault();
-        dispatch(addPassword(password));
-        dispatch(addEmail(email));
-        dispatch(loginUser(creds))
-          .then((result) => {
-            console.log('API success', result);
-          })
-          .catch((error) => {
-            console.log('API error', error);
-          });
-      }
-
+  const handleLogin = (e) => {
+    e.preventDefault();
+    dispatch(loginUser(creds))
+      .then(() => {
+        navigate("/home");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
     return (
         <form >
@@ -91,6 +86,4 @@ const LoginForm = () => {
         </form>
     )
 
-}
-
-export default LoginForm
+export default LoginForm;

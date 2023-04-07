@@ -2,39 +2,58 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../util/AxiosInstance";
 
 const initialState = {
-    token: null,
-}
+  token: null,
+  status: "idle", // idle | loading | sucess | failed
+  error: null,
+};
 
 /**
  * thunk to make an async call to authenticate user credentials with backend server and store token and user information it receives back
  * @param creds - { email, password }
  */
-export const loginUser = createAsyncThunk('auth/loginUser', async (creds, {dispatch}) => {
-    try {
-        const response = await axiosInstance.post(`/auth/login`, creds);
-        dispatch(setToken(response.data.token));
-        dispatch() // would need action from userSlice to set user information. if this is the case why even used thunk to define async function within the slice
-    } catch (error) {
-        
-    }
-})
-
-export const authSlice = createSlice({
-// >>>>>>> 5d9e119b (looking at thunk async)
-    name: 'auth',
-    initialState,
-    reducers: {
-        setToken: (state, action) => {
-            state.token = action.payload;
-        },
-        logoutToken: (state) => {
-            state.token = null;
-        },
-    },
+export const loginUser = createAsyncThunk("auth/loginUser", async (creds) => {
+  const response = await axiosInstance.post("/auth/login", creds);
+  return response.data;
 });
 
-export const { setToken, logoutToken } = authReducer.actions;
+export const createUser = createAsyncThunk(
+  "auth/createUser",
+  async (formData) => {
+    const response = await axiosInstance.post("/auth/register", formData);
+    return response.data;
+  }
+);
 
-export const selectToken = (state) => state.auth;
+export const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {
+    setToken: (state, action) => {
+      state.token = action.payload;
+    },
+    logoutToken: (state) => {
+      state.token = null;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(loginUser.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      state.status = "success";
+      state.token = action.payload.token;
+      state.error = null;
+    });
+    builder.addCase(loginUser.rejected, (state, action) => {
+      state.status = "failed";
+      state.error = action.error.message;
+    });
+    builder.addCase(createUser.fulfilled, (state, action) => {
+      state.token = action.payload.token;
+    });
+  },
+});
 
-export default authReducer.reducer;
+export const { setToken, logoutToken } = authSlice.actions;
+
+export default authSlice.reducer;

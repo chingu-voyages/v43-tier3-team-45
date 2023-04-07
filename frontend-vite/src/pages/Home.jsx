@@ -1,22 +1,7 @@
-import React, { useEffect } from "react";
-import SideNavBar from "../components/SideNavBar";
-import Kanban from "../components/Kanban";
-import NavBar from "../components/NavBar";
+import React from "react";
 
-function Home() {
-  // fetch ALL TEAMS
-  useEffect(() => {
-      fetch("http://localhost:8080/api/teams")
-          .then((res) => res.json())
-          .then(teams => console.log(teams))
-  })
+const Home = () => {
+  return <div>Home</div>;
+};
 
-  return (
-    <div>
-      <SideNavBar />
-      <Kanban />
-      <NavBar />
-    </div>
-  );
-}
 export default Home;

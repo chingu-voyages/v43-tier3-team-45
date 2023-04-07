@@ -5,11 +5,13 @@ import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.chingu.ChinguBoard.config.RegisterRequest;
 import com.chingu.ChinguBoard.dto.UserDTO;
@@ -45,15 +47,22 @@ public class UserController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(list);
     }
-    
+
     /**
-     * @param request - using RegisterRequest since all fields would be between creating and editing a profile. name can change later
-     * @param id - ID of the user under edit
+     * @param request - using RegisterRequest since all fields would be between
+     *                creating and editing a profile. name can change later
+     * @param id      - ID of the user under edit
      * @return newly updated UserDTO
      */
     @PatchMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@ModelAttribute RegisterRequest request, @PathVariable String id) {
+    public ResponseEntity<UserDTO> updateUser(@PathVariable String id, @RequestBody RegisterRequest request) {
         UserDTO userDTO = userDTOMapper.toDTO(userService.updateUser(request, id));
         return ResponseEntity.ok(userDTO);
+    }
+
+    @PatchMapping("/image/{id}")
+    public ResponseEntity<String> updateProfileImage(@PathVariable String id,
+            @RequestParam MultipartFile profileImage) {
+        return ResponseEntity.ok(userService.updateUserProfileImage(profileImage, id));
     }
 }

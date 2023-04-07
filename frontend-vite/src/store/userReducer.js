@@ -1,50 +1,67 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createUser, loginUser } from "./authReducer";
+import axiosInstance from "../util/AxiosInstance";
 
 const initialState = {
-    userId: null,
-    token: null,
-    email: "",
-    firstName: "",
-    lastName: "",
-    role: "",
-    password: "",
-  };
+  currentUser: null,
+};
 
-export const userReducer = createSlice({
-    name: 'user',
-    initialState,
-    reducers: {
-      setToken: (state, action) => {
-        state.token = action.payload;
-      },
-      addUserId: (state, action) => {
-        state.userId = action.payload;
-      },
-      addEmail: (state, action) => {
-        state.email = action.payload;
-      },
-      addFirstName: (state, action) => {
-        state.firstName = action.payload;
-      },
-      addLastName: (state, action) => {
-        state.lastName = action.payload;
-      },
-      addRole: (state, action) => {
-        state.role = action.payload;
-      },
-      addPassword: (state, action) => {
-        state.password = action.payload;
-      },
-      logoutToken: (state) => {
-        state.token = null;
-      },
-      resetState: () => initialState,
+export const updateUserProfile = createAsyncThunk(
+  "user/updateProfile",
+  async (updatedInfo, { getState }) => {
+    const userId = getState().user.currentUser.id;
+    const response = await axiosInstance.patch(`/users/${userId}`, updatedInfo);
+    return response.date;
+  }
+);
+
+/**
+ * use this to update use the user's profile image
+ * @param formData - FormData with key "profileImage" and the file as its value
+ * @returns string url of where the image is stored
+ */
+export const updateUserProfileImage = createAsyncThunk(
+  "user/updateProfileImage",
+  async (formData, { getState }) => {
+    const userId = getState().user.currentUser.id;
+    const response = await axiosInstance.patch(
+      `/users/image/${userId}`,
+      formData
+    );
+    return response.data;
+  }
+);
+
+export const userSlice = createSlice({
+  name: "user",
+  initialState,
+  reducers: {
+    setUser: (state, action) => {
+      state.currentUser = action.payload;
     },
-  });
-  
-export const { addUserId, addEmail, addFirstName, addLastName, addRole, addPassword, resetState, setToken, logoutToken } = userReducer.actions;
-  
-export const selectUser = (state) => state.user;
-export const selectToken = (state) => state.user.token;
+    logoutUser: (state) => {
+      state.currentUser = null;
+    },
+    setUserFirstName: (state, action) => {
+      state.currentUser.firstName = action.payload;
+    },
+    setUserLastName: (state, action) => {
+      state.currentUser.lastName = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      state.currentUser = action.payload.user;
+    });
+    builder.addCase(createUser.fulfilled, (state, action) => {
+      state.currentUser = action.payload.user;
+    });
+    builder.addCase(updateUserProfileImage.fulfilled, (state, action) => {
+      state.currentUser.avatarUrl = action.payload;
+    });
+  },
+});
 
-export default userReducer.reducer;
+export const { setUser, setUserFirstName, setUserLastName } = userSlice.actions;
+
+export default userSlice.reducer;

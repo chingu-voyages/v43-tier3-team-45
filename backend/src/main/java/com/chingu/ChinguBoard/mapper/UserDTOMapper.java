@@ -16,6 +16,7 @@ public class UserDTOMapper {
         user.setFirstName(userDTO.firstName());
         user.setLastName(userDTO.lastName());
         user.setRole(Role.valueOf(userDTO.role()));
+        user.setAvatarUrl(userDTO.avatarUrl());
         return user;
     }
 
