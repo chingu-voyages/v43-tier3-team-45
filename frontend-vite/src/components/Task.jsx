@@ -1,13 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import { Draggable } from "react-beautiful-dnd";
-import UpdateIssueModal from '../components/UpdateIssueModal.jsx'
-import { Transition } from '@headlessui/react'
-
 
 export default function Task({ task, index }) {
-    // console.log("task", task.id)
-    const [isShowing, setIsShowing] = useState(false)
-
   return (
     <Draggable draggableId={`${task.id}`} key={task.id} index={index}>
       {(provided, snapshot) => (
@@ -36,26 +30,8 @@ export default function Task({ task, index }) {
             </div>
             <div>{task.id}</div>
             <div id="user-avatar"></div>
-            <div>
-            <button onClick={() => setIsShowing((isShowing) => !isShowing)}>
-                Edit
-            </button>
-            <Transition
-                show={isShowing}
-                enter="transition-opacity duration-125"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="transition-opacity duration-150"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-            >
-                <div>
-                    {isShowing ? (<UpdateIssueModal taskId={task.id} onClose={() => setIsShowing(false)} />) : null }
-                </div>
-            </Transition>
-        </div>
-            {/* <div>{<button onClick={(() => console.log("edit", task.id))}>Edit</button>} </div> */}
           </div>
+
           {provided.placeholder}
         </div>
       )}
