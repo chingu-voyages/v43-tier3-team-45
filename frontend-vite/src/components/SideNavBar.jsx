@@ -5,13 +5,32 @@ import { Link } from "react-router-dom";
 import { IconContext } from "react-icons/lib";
 import SidebarData from "./SidebarData";
 import "../App.css";
+// import TeamProjects from "./TeamProjects";
+import { useSelector } from "react-redux";
 
 function SideNavBar() {
   const [sidebar, setSidebar] = useState(false);
 
+  const selectedTeamProjects = useSelector((state) => state.team.currentTeam.projects);
+
+  console.log(selectedTeamProjects)
+
+  const teamProjectArray = selectedTeamProjects.map((project, index) => {
+    return (
+      <li key={index}>
+        <button>
+          <span>{project.name}</span>
+          <br></br>
+          <span>{project.id}</span>
+        </button>
+      </li>
+    );
+  });
+
   function showSidebar() {
     setSidebar(!sidebar);
   }
+
 
   return (
     <>
@@ -28,16 +47,7 @@ function SideNavBar() {
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
-            {SidebarData.map((item, index) => {
-              return (
-                <li key={index} className={item.cName}>
-                  <Link to={item.path}>
-                    {item.icon}
-                    <span>{item.title}</span>
-                  </Link>
-                </li>
-              );
-            })}
+            {teamProjectArray}
           </ul>
         </nav>
       </IconContext.Provider>

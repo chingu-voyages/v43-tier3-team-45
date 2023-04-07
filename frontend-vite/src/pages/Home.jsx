@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getAllTeams } from "../util/apiCalls";
 import TeamDropdown from "../components/TeamDropdown";
-import TeamMemberDropdown from "../components/TeamMemberDropdown";
+import SideNavBar from "../components/SideNavBar";
+// import TeamMemberDropdown from "../components/TeamMemberDropdown";
 
 const Home = () => {
   const [teams, setTeams] = useState();
@@ -16,6 +17,7 @@ const Home = () => {
   return (
     <div className="h-screen w-screen bg-slate-400">
       {teams && <TeamDropdown teams={teams} />}
+      <SideNavBar />
     </div>
   );
 };
