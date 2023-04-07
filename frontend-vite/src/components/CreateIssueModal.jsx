@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import TypeDropdown from './TypeDropdown.jsx'
 import PriorityDropdown from './PriorityDropdown.jsx'
 // import axiosInstance from '../util/AxiosInstance.js'
@@ -82,6 +82,7 @@ const CreateIssueModal = ({setShowing}) => {
       <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
       <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
              <form className="mt-6">
+
            <div className="mb-2">
              <label>
               <span className="text-gray-700">{useSelector(state => state.user.email)}</span>
@@ -89,17 +90,16 @@ const CreateIssueModal = ({setShowing}) => {
                 type="text"
                 name="name"
                 className="
-
-            w-full
-            block px-16 py-2 mt-2
-            border-gray-300
-            rounded-md
-            shadow-sm
-            focus:border-indigo-300
-            focus:ring
-            focus:ring-indigo-200
-            focus:ring-opacity-50
-          "
+                  w-full
+                  block px-16 py-2 mt-2
+                  border-gray-300
+                  rounded-md
+                  shadow-sm
+                  focus:border-indigo-300
+                  focus:ring
+                  focus:ring-indigo-200
+                  focus:ring-opacity-50
+                "
                 placeholder="Title"
                 onChange={handleTitle}
               />
@@ -111,24 +111,25 @@ const CreateIssueModal = ({setShowing}) => {
             <div>
                 <PriorityDropdown handlePriority={handlePriority}/>
             </div>
+
           <div className="mb-2">
             <label>
               <span class="text-gray-700">Description</span>
               <textarea
                 name="message"
                 className="
-            block
-            w-full
-            mt-2 px-16 py-8
-            border-gray-300
-            rounded-md
-            shadow-sm
-            focus:border-indigo-300
-            focus:ring
-            focus:ring-indigo-200
-            focus:ring-opacity-50
-          "
-                rows="5"
+                    block
+                    w-full
+                    mt-2 px-16 py-8
+                    border-gray-300
+                    rounded-md
+                    shadow-sm
+                    focus:border-indigo-300
+                    focus:ring
+                    focus:ring-indigo-200
+                    focus:ring-opacity-50
+                  "
+                  rows="5"
                 onChange={handleDescription}
               ></textarea>
             </label>
@@ -140,17 +141,17 @@ const CreateIssueModal = ({setShowing}) => {
               <textarea
                 name="message"
                 className="
-            block
-            w-full
-            mt-2 px-16 py-8
-            border-gray-300
-            rounded-md
-            shadow-sm
-            focus:border-indigo-300
-            focus:ring
-            focus:ring-indigo-200
-            focus:ring-opacity-50
-          "
+                    block
+                    w-full
+                    mt-2 px-16 py-8
+                    border-gray-300
+                    rounded-md
+                    shadow-sm
+                    focus:border-indigo-300
+                    focus:ring
+                    focus:ring-indigo-200
+                    focus:ring-opacity-50
+                  "
                 rows="5"
                 onChange={handleComment}
               ></textarea>
@@ -161,36 +162,37 @@ const CreateIssueModal = ({setShowing}) => {
             <button
               type="submit"
               className="
-            h-10
-            px-5
-            text-indigo-100
-            bg-indigo-700
-            rounded-lg
-            transition-colors
-            duration-150
-            focus:shadow-outline
-            hover:bg-indigo-800
-          "
-          onClick={handleSave}
+                  h-10
+                  px-5
+                  text-indigo-100
+                  bg-indigo-700
+                  rounded-lg
+                  transition-colors
+                  duration-150
+                  focus:shadow-outline
+                  hover:bg-indigo-800
+                "
+                onClick={handleSave}
             >
               Save
             </button>
           </div>
+
           <div class="mb-6">
             <button
-              type="submit"
-              className="
-            h-10
-            px-5
-            text-indigo-100
-            bg-indigo-700
-            rounded-lg
-            transition-colors
-            duration-150
-            focus:shadow-outline
-            hover:bg-indigo-800
-          "
-          onClick={() => setShowing()}
+                type="submit"
+                className="
+                  h-10
+                  px-5
+                  text-indigo-100
+                  bg-indigo-700
+                  rounded-lg
+                  transition-colors
+                  duration-150
+                  focus:shadow-outline
+                  hover:bg-indigo-800
+                  "
+              onClick={(setShowing) => setShowing()}
             >
               Cancel
             </button>
@@ -204,7 +206,7 @@ const CreateIssueModal = ({setShowing}) => {
       </div>
     </div>
   </div>
-    )
+)
 
 };
 

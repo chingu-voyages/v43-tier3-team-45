@@ -1,27 +1,39 @@
 import { Transition } from '@headlessui/react'
-import { useState } from 'react'
-import CreateIssueModal from './CreateIssueModal'
+import { useState } from "react"
 
-function TestModal() {
-  const [isShowing, setIsShowing] = useState(false)
+
+function TestModal({ isShowing }) {
+  // const [isShowing, setIsShowing] = useState(false)
+
+
 
   return (
-    <>
-      <button onClick={() => setIsShowing((isShowing) => !isShowing)}>
-        Toggle
-      </button>
-      <Transition
-        show={isShowing}
-        enter="transition-opacity duration-75"
+    /* The `show` prop controls all nested `Transition.Child` components. */
+    <Transition show={true}>
+      {/* Background overlay */}
+      <Transition.Child
+        enter="transition-opacity ease-linear duration-300"
         enterFrom="opacity-0"
         enterTo="opacity-100"
-        leave="transition-opacity duration-150"
+        leave="transition-opacity ease-linear duration-300"
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <CreateIssueModal />
-      </Transition>
-    </>
+       Hello
+      </Transition.Child>
+
+      {/* Sliding sidebar */}
+      <Transition.Child
+        enter="transition ease-in-out duration-300 transform"
+        enterFrom="-translate-x-full"
+        enterTo="translate-x-0"
+        leave="transition ease-in-out duration-300 transform"
+        leaveFrom="translate-x-0"
+        leaveTo="-translate-x-full"
+      >
+      Bye
+      </Transition.Child>
+    </Transition>
   )
 }
 
