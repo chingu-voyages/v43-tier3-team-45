@@ -3,12 +3,9 @@ import TypeDropdown from './TypeDropdown.jsx'
 import PriorityDropdown from './PriorityDropdown.jsx'
 // import axiosInstance from '../util/AxiosInstance.js'
 import axios from 'axios'
-import { Fragment, useRef, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
+import { useState } from 'react'
 
-
-const CreateIssueModal = ({closeModal}) => {
+const CreateIssueModal = ({setShowing}) => {
   const [title, setTitle ] = useState()
   const [description, setDescription ] = useState()
   const [comment, setComment ] = useState()
@@ -27,14 +24,14 @@ const CreateIssueModal = ({closeModal}) => {
   }
 
   const testIssue = {
-    "title": "testTitle",
-    "description": "testDescription",
-    "assignees": [],
-    "comments": [],
-    "createdBy": testUser,
-    issueType: "TASK",
-    priority: "LOW",
-    status: "BACKLOG",
+      "title": "testTitle",
+      "description": "testDescription",
+      "assignees": [],
+      "comments": [],
+      "createdBy": testUser,
+      issueType: "TASK",
+      priority: "LOW",
+      status: "BACKLOG",
   }
   
   const handleTitle = (e) => {
@@ -64,7 +61,7 @@ const CreateIssueModal = ({closeModal}) => {
         e.preventDefault()
         // console.log(title, description, comment, priority, type, userEmail)
         postIssue(testIssue)
-        closeModal(false)
+        setShowing()
   }
   
   const postIssue = async (testIssue) => {
@@ -193,7 +190,7 @@ const CreateIssueModal = ({closeModal}) => {
             focus:shadow-outline
             hover:bg-indigo-800
           "
-          onClick={() => closeModal(false)}
+          onClick={() => setShowing()}
             >
               Cancel
             </button>
