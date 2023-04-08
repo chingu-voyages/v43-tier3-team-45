@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { useDispatch, useSelector } from "react-redux";
-import { setTeam } from "../store/teamReducer";
+import { setMembers, setTeam } from "../store/teamReducer";
 
 const TeamDropdown = ({ teams }) => {
   const dispatch = useDispatch();
@@ -10,10 +10,11 @@ const TeamDropdown = ({ teams }) => {
 
   const handleSelect = (team) => {
     dispatch(setTeam(team));
+    dispatch(setMembers(team.members));
   };
 
   return (
-    <div className="bg-indigo-500">
+    <div>
       <Listbox value={selectedTeam} onChange={handleSelect}>
         <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
           <span className="block truncate">
@@ -47,7 +48,7 @@ const TeamDropdown = ({ teams }) => {
                       {team.name}
                     </span>
                     {selected ? (
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-red-600">
                         <CheckIcon className="h-5 w-5" aria-hidden="true" />
                       </span>
                     ) : null}
