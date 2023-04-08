@@ -49,34 +49,48 @@ export default function Kanban() {
 
     //REMOVE FROM SOURCE ARRAY
     if (source.droppableId == 4) {
-      dispatch(removeFromCompleted(draggableId));
+      dispatch(removeFromCompleted(source.index));
     } else if (source.droppableId == 3) {
-      dispatch(removeFromInProgress(draggableId));
+      dispatch(removeFromInProgress(source.index));
     } else if (source.droppableId == 1) {
-      dispatch(removeFromNewStatus(draggableId));
+      dispatch(removeFromNewStatus(source.index));
     } else {
-      dispatch(removeFromBacklog(draggableId));
+      dispatch(removeFromBacklog(source.index));
     }
-
-    // GET ITEM
-    const task = findItemById(draggableId, [
-      ...newStatus,
-      ...completed,
-      ...backlog,
-      ...inProgress,
-    ]);
 
     // ADD ITEM
     if (destination.droppableId == 4) {
-      dispatch(updateStatus({ draggableId: draggableId, status: "DONE" }));
+      dispatch(
+        updateStatus({
+          draggableId: draggableId,
+          status: "DONE",
+          index: destination.index,
+        })
+      );
     } else if (destination.droppableId == 3) {
       dispatch(
-        updateStatus({ draggableId: draggableId, status: "IN_PROGRESS" })
+        updateStatus({
+          draggableId: draggableId,
+          status: "IN_PROGRESS",
+          index: destination.index,
+        })
       );
     } else if (destination.droppableId == 1) {
-      dispatch(updateStatus({ draggableId: draggableId, status: "NEW" }));
+      dispatch(
+        updateStatus({
+          draggableId: draggableId,
+          status: "NEW",
+          index: destination.index,
+        })
+      );
     } else {
-      dispatch(updateStatus({ draggableId: draggableId, status: "BACKLOG" }));
+      dispatch(
+        updateStatus({
+          draggableId: draggableId,
+          status: "BACKLOG",
+          index: destination.index,
+        })
+      );
     }
   }
 

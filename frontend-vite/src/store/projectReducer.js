@@ -8,6 +8,7 @@ const initialState = {
   inProgress: [],
   completed: [],
   status: "idle", // idle | loading | sucess | failed
+  dndIssue: null,
 };
 
 export const getProject = createAsyncThunk(
@@ -18,14 +19,30 @@ export const getProject = createAsyncThunk(
   }
 );
 
+/**
+ * @param payload - { draggabeId, new_status, destination_index }
+ */
 export const updateStatus = createAsyncThunk(
   "status/update",
-  async (payload) => {
-    const { draggableId, status } = payload;
+  async (payload, { dispatch }) => {
+    const { draggableId, status, index } = payload;
+    switch (status) {
+      case "NEW":
+        dispatch(addToNewStatus(index));
+        break;
+      case "BACKLOG":
+        dispatch(addToBacklog(index));
+        break;
+      case "IN_PROGRESS":
+        dispatch(addToInProgress(index));
+        break;
+      case "DONE":
+        dispatch(addToCompleted(index));
+        break;
+    }
     const response = await axiosInstance.patch(
       `/issues/status/${draggableId}?status=${status}`
     );
-    console.log(response.data);
     return response.data;
   }
 );
@@ -40,26 +57,35 @@ const projectSlice = createSlice({
       state.backlog = [];
       state.inProgress = [];
       state.completed = [];
+      state.dndIssue = null;
     },
     removeFromNewStatus: (state, action) => {
-      state.newStatus = state.newStatus.filter(
-        (item) => item.id !== action.payload
-      );
+      state.dndIssue = state.newStatus.splice(action.payload, 1)[0];
     },
     removeFromBacklog: (state, action) => {
-      state.backlog = state.backlog.filter(
-        (item) => item.id !== action.payload
-      );
+      state.dndIssue = state.backlog.splice(action.payload, 1)[0];
     },
     removeFromInProgress: (state, action) => {
-      state.inProgress = state.inProgress.filter(
-        (item) => item.id !== action.payload
-      );
+      state.dndIssue = state.inProgress.splice(action.payload, 1)[0];
     },
     removeFromCompleted: (state, action) => {
-      state.completed = state.completed.filter(
-        (item) => item.id !== action.payload
-      );
+      state.dndIssue = state.completed.splice(action.payload, 1)[0];
+    },
+    addToNewStatus: (state, action) => {
+      state.dndIssue.status = "NEW";
+      state.newStatus.splice(action.payload, 0, state.dndIssue);
+    },
+    addToBacklog: (state, action) => {
+      state.dndIssue.status = "BACKLOG";
+      state.backlog.splice(action.payload, 0, state.dndIssue);
+    },
+    addToInProgress: (state, action) => {
+      state.dndIssue.status = "IN_PROGRESS";
+      state.inProgress.splice(action.payload, 0, state.dndIssue);
+    },
+    addToCompleted: (state, action) => {
+      state.dndIssue.status = "DONE";
+      state.completed.splice(action.payload, 0, state.dndIssue);
     },
   },
   extraReducers: (builder) => {
@@ -81,22 +107,6 @@ const projectSlice = createSlice({
     });
     builder.addCase(getProject.pending, (state) => {
       state.status = "loading";
-    });
-    builder.addCase(updateStatus.fulfilled, (state, action) => {
-      switch (action.payload.status) {
-        case "NEW":
-          state.newStatus.push(action.payload);
-          break;
-        case "BACKLOG":
-          state.backlog.push(action.payload);
-          break;
-        case "IN_PROGRESS":
-          state.inProgress.push(action.payload);
-          break;
-        case "DONE":
-          state.completed.push(action.payload);
-          break;
-      }
     });
   },
 });
