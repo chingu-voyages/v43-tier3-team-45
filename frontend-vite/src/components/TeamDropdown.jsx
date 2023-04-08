@@ -3,12 +3,14 @@ import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { setTeam } from "../store/teamReducer";
+import { resetProject } from "../store/projectReducer";
 
 const TeamDropdown = ({ teams }) => {
   const dispatch = useDispatch();
   const selectedTeam = useSelector((state) => state.team.currentTeam);
 
   const handleSelect = (team) => {
+    dispatch(resetProject());
     dispatch(setTeam(team));
   };
 

@@ -11,10 +11,6 @@ import TeamProjects from "./TeamProjects";
 
 function SideNavBar() {
   const [sidebar, setSidebar] = useState(false);
-  const [backlog, setBacklog] = useState([]);
-  const [newStatus, setNewStatus] = useState([]);
-  const [inProgress, setinProgress] = useState([]);
-  const [completed, setCompleted] = useState([]);
 
   const selectedTeam = useSelector((state) => state.team.currentTeam);
   let selectedTeamProjects;

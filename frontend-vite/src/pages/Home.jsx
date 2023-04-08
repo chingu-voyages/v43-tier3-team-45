@@ -19,7 +19,7 @@ const Home = () => {
     <div className="h-screen w-screen bg-slate-400">
       {teams && <TeamDropdown teams={teams} />}
       <SideNavBar />
-      {/* <Kanban /> */}
+      <Kanban />
     </div>
   );
 };

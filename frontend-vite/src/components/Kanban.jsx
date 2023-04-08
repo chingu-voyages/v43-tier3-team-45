@@ -2,6 +2,14 @@ import React, { useState, useEffect } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import Column from "./Column";
 import NewIssueForm from "./NewIssueForm";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  removeFromBacklog,
+  removeFromCompleted,
+  removeFromInProgress,
+  removeFromNewStatus,
+  updateStatus,
+} from "../store/projectReducer";
 
 export default function Kanban() {
   // const [backlog, setBacklog] = useState([]);
@@ -26,6 +34,13 @@ export default function Kanban() {
   //     });
   // }, []);
 
+  const backlog = useSelector((state) => state.project.backlog);
+  const newStatus = useSelector((state) => state.project.newStatus);
+  const inProgress = useSelector((state) => state.project.inProgress);
+  const completed = useSelector((state) => state.project.completed);
+
+  const dispatch = useDispatch();
+
   function findItemById(id, array) {
     return array.find((item) => item.id == id);
   }
@@ -43,13 +58,13 @@ export default function Kanban() {
 
     //REMOVE FROM SOURCE ARRAY
     if (source.droppableId == 4) {
-      setCompleted(removeItemById(draggableId, completed));
+      dispatch(removeFromCompleted(draggableId));
     } else if (source.droppableId == 3) {
-      setinProgress(removeItemById(draggableId, inProgress));
+      dispatch(removeFromInProgress(draggableId));
     } else if (source.droppableId == 1) {
-      setNewStatus(removeItemById(draggableId, newStatus));
+      dispatch(removeFromNewStatus(draggableId));
     } else {
-      setBacklog(removeItemById(draggableId, backlog));
+      dispatch(removeFromBacklog(draggableId));
     }
 
     // GET ITEM
@@ -62,64 +77,21 @@ export default function Kanban() {
 
     // ADD ITEM
     if (destination.droppableId == 4) {
-      fetch(
-        `http://localhost:8080/api/issues/status/${draggableId}?status=DONE`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      ).then(() =>
-        setCompleted([...completed, { ...task, status: "DONE" }])
-      );
+      dispatch(updateStatus({ draggableId: draggableId, status: "DONE" }));
     } else if (destination.droppableId == 3) {
-      fetch(
-        `http://localhost:8080/api/issues/status/${draggableId}?status=IN_PROGRESS`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      ).then(() =>
-        setinProgress([...inProgress, { ...task, status: "IN_PROGRESS" }])
+      dispatch(
+        updateStatus({ draggableId: draggableId, status: "IN_PROGRESS" })
       );
     } else if (destination.droppableId == 1) {
-      fetch(
-        `http://localhost:8080/api/issues/status/${draggableId}?status=NEW`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      ).then(() =>
-        setNewStatus([...newStatus, { ...task, status: "NEW" }])
-      );
+      dispatch(updateStatus({ draggableId: draggableId, status: "NEW" }));
     } else {
-      fetch(
-        `http://localhost:8080/api/issues/status/${draggableId}?status=BACKLOG`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      // .then((res) => (res.json().then((data) => console.log(data)))
-      .then(() =>
-        setBacklog([
-          ...backlog,
-          { ...task, status: "BACKLOG"},
-        ])
-      );
+      dispatch(updateStatus({ draggableId: draggableId, status: "BACKLOG" }));
     }
   }
 
   return (
     <div>
-      <div class="p-6">
+      <div className="p-6">
         <NewIssueForm />
       </div>
 
