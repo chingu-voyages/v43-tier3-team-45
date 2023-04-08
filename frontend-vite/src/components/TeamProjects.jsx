@@ -12,11 +12,11 @@ export default function TeamProjects({ project, sidebarOpen }) {
 
   return (
     <li className="text-grey-300 text-md flex-items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md mt-2">
-      <button onClick={() => handleClick()} className="flex">
-        <span className={`text-2xl block float-left ${sidebarOpen && "mr-2"}`}>
+      <button onClick={() => handleClick()} className="flex items-center justify-center">
+        <div className={`text-2xl block float-left ${sidebarOpen && "mr-2"}`}>
           <BsReverseLayoutTextSidebarReverse />
-          <span className="text-base font-md">{project.name}</span>
-        </span>
+        </div>
+        <div className="text-base font-md">{project.name}</div>
         {/* <span>{project.id}</span> */}
       </button>
     </li>

@@ -35,7 +35,7 @@ function SideNavBar({ sidebarOpen }) {
   return (
     <>
       <div
-        className={`flex items-center rounded-md bg-light-white mt-6 ${
+        className={`flex items-center rounded-md bg-light-white my-4 ${
           !sidebarOpen ? "px-2.5" : "px-4"
         } py-2`}
       >
