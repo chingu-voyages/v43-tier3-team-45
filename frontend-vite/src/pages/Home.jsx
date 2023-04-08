@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getAllTeams } from "../util/apiCalls";
-import TeamDropdown from "../components/TeamDropdown";
+import TeamDropdown from "../components/TeamDropDown";
 import SideNavBar from "../components/SideNavBar";
 import Kanban from "../components/Kanban";
 // import TeamMemberDropdown from "../components/TeamMemberDropdown";
@@ -15,15 +15,16 @@ const Home = () => {
   useEffect(() => {
     getAllTeams()
       .then((res) => setTeams(res))
-      .catch((err) => console.log(err))
-      // .finally(console.log("finally"));
+      .catch((err) => console.log(err));
+    // .finally(console.log("finally"));
   }, []);
 
   return (
     <div>
-      <div className="bg-red-600">
-        <h1>TOP NAVIGATION BAR</h1>
-        {teams && <TeamDropdown teams={teams} />}
+      <div>
+        {/* <h1>TOP NAVIGATION BAR</h1> */}
+        <NavBar teams={teams} />
+        {/* {teams && <TeamDropdown teams={teams} />} */}
       </div>
 
       <div className="h-screen w-screen flex">
@@ -55,9 +56,8 @@ const Home = () => {
         </div>
         <div className="p-7">
           <div className="text-2xl font-semibold">
-            <h1>Kanban Board Goes Here</h1>
+            <Kanban />
           </div>
-          {/* <Kanban />  */}
         </div>
       </div>
     </div>

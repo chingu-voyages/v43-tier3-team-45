@@ -7,8 +7,8 @@ export default function NavBar({teams}) {
   const user = useSelector((state) => state.user.currentUser);
   const currentTeam = useSelector((state) => state.team.currentTeam);
   
-  const teamMembers = useSelector((state) => state.team.members);
-  console.log(teamMembers)
+  // const teamMembers = useSelector((state) => state.team.members);
+  // console.log(teamMembers)
   // const teamAvatars = teamMembers.map((member, index) => (
   //   <Avatar key={index} size="small" src={member.avatarUrl} alt="team member" />
   // ));
