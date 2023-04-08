@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import Column from "./Column";
 import NewIssueForm from "./NewIssueForm";
@@ -12,19 +12,6 @@ import {
 } from "../store/projectReducer";
 
 export default function Kanban() {
-  // useEffect(() => {
-  //   fetch(`http://localhost:8080/api/projects/${project.id}`)
-  //     .then((r) => r.json())
-  //     .then((json) => {
-  //       setBacklog(json.issues.filter((issue) => issue.status == "BACKLOG"));
-  //       setNewStatus(json.issues.filter((issue) => issue.status == "NEW"));
-  //       setinProgress(
-  //         json.issues.filter((issue) => issue.status == "IN_PROGRESS")
-  //       );
-  //       setCompleted(json.issues.filter((issue) => issue.status == "DONE"));
-  //     });
-  // }, []);
-
   const backlog = useSelector((state) => state.project.backlog);
   const newStatus = useSelector((state) => state.project.newStatus);
   const inProgress = useSelector((state) => state.project.inProgress);
@@ -32,20 +19,10 @@ export default function Kanban() {
 
   const dispatch = useDispatch();
 
-  function findItemById(id, array) {
-    return array.find((item) => item.id == id);
-  }
-
-  function removeItemById(id, array) {
-    return array.filter((item) => item.id != id);
-  }
-
   function handleDragEnd(result) {
     const { destination, source, draggableId } = result;
-    // console.log(draggableId);
 
     if (source.droppableId == destination.droppableId) return;
-    // console.log(source.droppableId);
 
     //REMOVE FROM SOURCE ARRAY
     if (source.droppableId == 4) {
@@ -58,7 +35,7 @@ export default function Kanban() {
       dispatch(removeFromBacklog(source.index));
     }
 
-    // ADD ITEM
+    // ADD AND UPDATE ITEM
     if (destination.droppableId == 4) {
       dispatch(
         updateStatus({
@@ -99,7 +76,6 @@ export default function Kanban() {
       <div className="p-6">
         <NewIssueForm />
       </div>
-
       <DragDropContext onDragEnd={handleDragEnd}>
         <div class="flex">
           <div class="grid grid-cols-4 gap-8">

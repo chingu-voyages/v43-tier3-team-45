@@ -117,10 +117,6 @@ export const {
   removeFromNewStatus,
   removeFromInProgress,
   removeFromCompleted,
-  addToBacklog,
-  addToNewStatus,
-  addToInProgress,
-  addToCompleted,
 } = projectSlice.actions;
 
 export default projectSlice.reducer;
