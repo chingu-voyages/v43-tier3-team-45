@@ -3,6 +3,7 @@ import axiosInstance from "../util/AxiosInstance";
 
 const initialState = {
   currentTeam: null,
+  members: null
 };
 
 /**
@@ -38,6 +39,9 @@ const teamSlice = createSlice({
     setTeam: (state, action) => {
       state.currentTeam = action.payload;
     },
+    setMembers: (state, action) => {
+      state.members = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(addMemberToTeam.fulfilled, (state, action) => {
@@ -49,6 +53,6 @@ const teamSlice = createSlice({
   },
 });
 
-export const { setTeam } = teamSlice.actions;
+export const { setTeam, setMembers } = teamSlice.actions;
 
 export default teamSlice.reducer;
