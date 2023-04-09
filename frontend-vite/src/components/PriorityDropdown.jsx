@@ -1,21 +1,17 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { addPriority } from '../store/issueReducer'
 
+const PriorityDropdown = (props) => {
 
-const PriorityDropdown = () => {
+    let handlePriority = props.handlePriority
 
-    const dispatch = useDispatch()
-
-    const handlePriority = (e) => {
+    const listener = (e) => {
         e.preventDefault()
-        dispatch(addPriority(e.target.value))
+       handlePriority(e.target.value)
     }
-
 
     return (
         <div className="relative w-full lg:max-w-sm">
             <select className="w-half  p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600" 
-                onChange={handlePriority}
+                onChange={(e) => listener(e)}
                 >
                 <option>Priority:</option>
                 <option> 1</option>
