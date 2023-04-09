@@ -10,7 +10,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import { PrivateRoutes } from "./util/PrivateRoute";
 import Profile from "./pages/Profile";
-// import CreateProfile from "./pages/CreateProfile";
+import CreateProfile from "./pages/CreateProfile";
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
       <Route exact path="/" element={<Login />} />
       <Route exact path="register" element={<CreateProfile />} />
       <Route element={<PrivateRoutes />}>
-        <Route exact path="/home" element={<Home />} />
+        <Route exact path="/home" element={<Kanban />} />
         <Route exact path="/profile" element={<Profile />} />
       </Route>
     </Routes>
