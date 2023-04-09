@@ -1,15 +1,17 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Popover, Transition } from "@headlessui/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addMemberToSelectedList } from "../store/teamReducer";
 
 const TeamMemberDropdown = () => {
-  const members = useSelector((state) => state.team.members);
-  let selectedList = [];
-  let filteredList = [];
+  const dispatch = useDispatch();
+  const selectedList = useSelector((state) => state.team.selectedList);
+  const filteredList = useSelector((state) => state.team.filteredList);
 
   const handleClick = (member) => {
-    selectedList.push(member);
+    dispatch(addMemberToSelectedList(member.id));
     console.log({ selectedList });
+    console.log({ filteredList });
   };
 
   return (
@@ -25,12 +27,13 @@ const TeamMemberDropdown = () => {
         leaveTo="opacity-0 translate-y-1"
       >
         <Popover.Panel className="absolute z-10">
-          {members.map((member) => (
-            <button className="outline" onClick={(e) => handleClick(member)}>
-              <img src={member.avatarUrl} alt={"avatar"} />
-              <div>{member.lastName}</div>
-            </button>
-          ))}
+          {filteredList &&
+            filteredList.map((member) => (
+              <button className="outline" onClick={(e) => handleClick(member)}>
+                <img src={member.avatarUrl} alt={"avatar"} />
+                <div>{member.firstName}</div>
+              </button>
+            ))}
         </Popover.Panel>
       </Transition>
     </Popover>
