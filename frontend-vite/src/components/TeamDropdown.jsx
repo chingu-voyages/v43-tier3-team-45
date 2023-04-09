@@ -16,9 +16,9 @@ const TeamDropdown = ({ teams }) => {
   };
 
   return (
-    <div>
+    <div className="w-48">
       <Listbox value={selectedTeam} onChange={handleSelect}>
-        <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+        <Listbox.Button className="relative w-full cursor-pointer rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
           <span className="block truncate">
             {selectedTeam ? selectedTeam.name : "Choose a Team"}
           </span>
@@ -29,7 +29,7 @@ const TeamDropdown = ({ teams }) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-orange py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          <Listbox.Options className="absolute mt-1 max-h-60 w-1/5 z-10 rounded-md bg-orange py-1 text-base shadow-lg ring-1 bg-yellow-300 ring-black ring-opacity-5 focus:outline-none sm:text-sm truncate">
             {teams.map((team, i) => (
               <Listbox.Option
                 key={i}
