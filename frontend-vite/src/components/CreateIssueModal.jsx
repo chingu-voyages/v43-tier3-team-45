@@ -1,9 +1,8 @@
 import { useSelector } from 'react-redux'
 import TypeDropdown from './TypeDropdown.jsx'
 import PriorityDropdown from './PriorityDropdown.jsx'
-// import axiosInstance from '../util/AxiosInstance.js'
-import axios from 'axios'
 import { useState } from 'react'
+import axiosInstance from '../util/AxiosInstance.js'
 
 const CreateIssueModal = ({onClose}) => {
   const [title, setTitle ] = useState()
@@ -66,7 +65,7 @@ const CreateIssueModal = ({onClose}) => {
   
   const postIssue = async (testIssue) => {
         try {
-          const response = await axios.post(`http://localhost:8080/api/issues/create?projectId=641ba8e494ba927d1a1e932d`, testIssue);
+          const response = await axiosInstance.post(`http://localhost:8080/api/issues/create?projectId=641ba8e494ba927d1a1e932d`, testIssue);
           return response.data;
         } catch (error) {
           console.log("error", error)
