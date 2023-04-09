@@ -14,17 +14,14 @@ import Profile from "./pages/Profile";
 
 function App() {
   return (
-    <div>
-      <Login />
-      {/* <CreateIssue /> */}
-      {/* <Home /> */}
-      {/* <SideNavBar /> */}
-      {/* <NavBar /> */}
-      {/* <Routes> */}
-        {/* <Route path="/profile" element={<Profile />}></Route> */}
-      {/* </Routes> */}
-      <Kanban />
-    </div>
+    <Routes>
+      <Route exact path="/" element={<Login />} />
+      <Route exact path="register" element={<CreateProfile />} />
+      <Route element={<PrivateRoutes />}>
+        <Route exact path="/home" element={<Home />} />
+        <Route exact path="/profile" element={<Profile />} />
+      </Route>
+    </Routes>
   );
 }
 
