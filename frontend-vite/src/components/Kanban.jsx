@@ -10,6 +10,7 @@ import {
   removeFromNewStatus,
   updateStatus,
 } from "../store/projectReducer";
+import CreateIssue from "../pages/CreateIssue";
 
 export default function Kanban() {
   const backlog = useSelector((state) => state.project.backlog);
@@ -73,8 +74,9 @@ export default function Kanban() {
 
   return (
     <div>
-      <div className="p-6">
-        <NewIssueForm />
+      <div class="p-6">
+        {/* <NewIssueForm /> */}
+        <CreateIssue />
       </div>
       <DragDropContext onDragEnd={handleDragEnd}>
         <div class="flex">
