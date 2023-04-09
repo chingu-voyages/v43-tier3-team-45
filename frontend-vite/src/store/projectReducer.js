@@ -47,6 +47,22 @@ export const updateStatus = createAsyncThunk(
   }
 );
 
+/**
+ * @param {IssueDTO} issue
+ * @returns {IssueListDTO}
+ */
+export const createNewIssue = createAsyncThunk(
+  "issue/create",
+  async (issue, { getState }) => {
+    const projectId = getState().currentProject.id;
+    const response = await axiosInstance.post(
+      `/issues/create?projectId=${projectId}`,
+      issue
+    );
+    return response.data;
+  }
+);
+
 const projectSlice = createSlice({
   name: "project",
   initialState,
@@ -107,6 +123,10 @@ const projectSlice = createSlice({
     });
     builder.addCase(getProject.pending, (state) => {
       state.status = "loading";
+    });
+    builder.addCase(createNewIssue.fulfilled, (state, action) => {
+      state.currentProject.issues.push(action.payload);
+      state.newStatus.unshift(action.payload);
     });
   },
 });
