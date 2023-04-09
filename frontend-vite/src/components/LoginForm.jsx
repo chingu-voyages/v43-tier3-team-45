@@ -42,7 +42,7 @@ const LoginForm = () => {
         'auth/loginUser',
         async (creds) => {
           try {
-            const response = await axios.post(`http://Chinguboarddev2-env.eba-3gsq927u.us-east-2.elasticbeanstalk.com/api/auth/login`, creds);
+            const response = await axios.post(`http://localhost:8080/api/auth/login`, creds);
             console.log("token", response)
             dispatch(setToken(response.data.token))
             return response.data.token;
