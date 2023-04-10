@@ -15,13 +15,11 @@ const Home = () => {
     getAllTeams()
       .then((res) => setTeams(res))
       .catch((err) => console.log(err));
-    // .finally(console.log("finally"));
   }, []);
 
   return (
     <div>
       <div>
-        {/* <h1>TOP NAVIGATION BAR</h1> */}
         <NavBar teams={teams} />
       </div>
 
