@@ -54,7 +54,7 @@ export const updateStatus = createAsyncThunk(
 export const createNewIssue = createAsyncThunk(
   "issue/create",
   async (issue, { getState }) => {
-    const projectId = getState().currentProject.id;
+    const projectId = getState().project.currentProject.id;
     const response = await axiosInstance.post(
       `/issues/create?projectId=${projectId}`,
       issue
