@@ -1,5 +1,4 @@
 import React, { useState, Fragment } from "react";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { createUser } from "../store/authReducer";
 import { useNavigate } from "react-router";

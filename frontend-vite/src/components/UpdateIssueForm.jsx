@@ -1,11 +1,12 @@
 import { useSelector } from 'react-redux'
 import TypeDropdown from './TypeDropdown.jsx'
 import PriorityDropdown from './PriorityDropdown.jsx'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import axiosInstance from '../util/AxiosInstance.js'
+import TeamDropdown from './TeamMemberDropdown.jsx'
 
 const UpdateIssueForm = ({taskId, onClose, data} ) => {
-    console.log("data.title", data.title)
+  console.log("data.title", data.title)
   const [title, setTitle ] = useState(data.title)
   const [description, setDescription ] = useState(data.description)
   const [comment, setComment ] = useState(data.comment)
@@ -76,7 +77,7 @@ const UpdateIssueForm = ({taskId, onClose, data} ) => {
     }
 
 return (
-        <div className="fixed z-10 inset-0 overflow-y-auto">
+        <div className="fixed z-10 inset-0 overflow-y-auto text-black">
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <div className="fixed inset-0 transition-opacity" aria-hidden="true">
             <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
@@ -115,6 +116,9 @@ return (
                 </div>
                 <div>
                     <PriorityDropdown handlePriority={handlePriority} priority={priority}/>
+                </div>
+                <div>
+                  <TeamDropdown />
                 </div>
 
               <div className="mb-2">

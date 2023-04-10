@@ -3,6 +3,7 @@ import TypeDropdown from './TypeDropdown.jsx'
 import PriorityDropdown from './PriorityDropdown.jsx'
 import { useState } from 'react'
 import axiosInstance from '../util/AxiosInstance.js'
+import TeamMemberDropdown from './TeamMemberDropdown.jsx'
 
 const CreateIssueModal = ({onClose}) => {
   const [title, setTitle ] = useState()
@@ -73,7 +74,7 @@ const CreateIssueModal = ({onClose}) => {
     }
 
     return (
-        <div className="fixed z-10 inset-0 overflow-y-auto">
+        <div className="fixed z-10 inset-0 overflow-y-auto text-black">
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <div className="fixed inset-0 transition-opacity" aria-hidden="true">
             <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
@@ -109,6 +110,9 @@ const CreateIssueModal = ({onClose}) => {
                 </div>
                 <div>
                     <PriorityDropdown handlePriority={handlePriority}/>
+                </div>
+                <div>
+                  <TeamMemberDropdown />
                 </div>
 
               <div className="mb-2">
