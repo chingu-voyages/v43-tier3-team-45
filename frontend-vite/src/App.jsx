@@ -10,7 +10,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import { PrivateRoutes } from "./util/PrivateRoute";
 import Profile from "./pages/Profile";
-// import CreateProfile from "./pages/CreateProfile";
+import CreateProfile from "./pages/CreateProfile";
 
 function App() {
   return (

@@ -2,6 +2,8 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import UpdateIssueForm from './UpdateIssueForm.jsx'
+import axiosInstance from '../util/AxiosInstance.js';
+import { GiAxeInLog } from 'react-icons/gi';
 
 const CreateIssueModal = ({onClose, taskId} ) => {
   const [ data, setData ] = useState([])
@@ -15,8 +17,7 @@ const CreateIssueModal = ({onClose, taskId} ) => {
   //   })
 
   useEffect(()  => {
-    fetch(`http://localhost:8080/api/issues/${taskId}`)
-    .then((r) => r.json())
+    axiosInstance.get(`http://localhost:8080/api/issues/${taskId}`)
     .then((data) => setData(data))
   }, [])
 
@@ -26,7 +27,7 @@ if(data.length < 1)
   )
     else
     return (
-      <UpdateIssueForm data={data} onClose={onClose}/>   
+      <UpdateIssueForm taskId={taskId} data={data} onClose={onClose}/>   
     )
 
 

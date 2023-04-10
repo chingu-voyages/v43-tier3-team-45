@@ -11,6 +11,7 @@ import {
   updateStatus,
 } from "../store/projectReducer";
 import CreateIssue from "../pages/CreateIssue";
+import axiosInstance from "../util/AxiosInstance";
 
 export default function Kanban() {
   const backlog = useSelector((state) => state.project.backlog);
