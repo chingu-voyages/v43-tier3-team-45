@@ -3,9 +3,14 @@ import SignupButton from "../components/SignupButton";
 
 function Login() {
   return (
-    <div>
-      <SignupButton />
-      <LoginForm />
+    <div className="flex justify-center">
+    <form className="w-full max-w-md">
+       <div className="flex flex-col">
+        <LoginForm />
+        <br/>
+        <SignupButton />
+      </div>
+    </form>
     </div>
   );
 }

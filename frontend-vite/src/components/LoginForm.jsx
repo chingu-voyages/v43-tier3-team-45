@@ -35,18 +35,30 @@ const LoginForm = () => {
 
   return (
     <form>
-      <label>
+      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mt-5 mb-2">
         Email:
-        <input type="text" name="name" onChange={handleEmail} />
+        <input 
+        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        type="email"
+        placeholder="example@domain.com"
+        name="email"
+        onChange={handleEmail} />
       </label>
 
-      <label>
+      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mt-5 mb-2">
         Password:
-        <input type="text" name="name" onChange={handlePassword} />
+        <input 
+        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        type="password"
+        placeholder="******************"
+        name="password"
+        onChange={handlePassword} />
       </label>
 
       {/* <button onClick={handleSubmit}>Log in</button> */}
-      <button onClick={handleLogin}>Login</button>
+      <button 
+        className=" bg-blue-400 hover:bg-blue-700 text-black hover:text-white font-bold py-2 px-4 rounded mr-2 mt-8"
+        onClick={handleLogin}>Login</button>
     </form>
   );
 };
