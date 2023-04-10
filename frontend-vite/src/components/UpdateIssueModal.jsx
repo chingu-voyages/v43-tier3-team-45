@@ -1,12 +1,9 @@
-// import axiosInstance from '../util/AxiosInstance.js'
-import axios from 'axios'
-import { useState, useEffect } from 'react'
-import UpdateIssueForm from './UpdateIssueForm.jsx'
-import axiosInstance from '../util/AxiosInstance.js';
-import { GiAxeInLog } from 'react-icons/gi';
+import React, { useState, useEffect } from "react";
+import UpdateIssueForm from "./UpdateIssueForm.jsx";
+import { getIssueDetail } from "../util/apiCalls.js";
 
-const CreateIssueModal = ({onClose, taskId} ) => {
-  const [ data, setData ] = useState([])
+const CreateIssueModal = ({ onClose, taskId }) => {
+  const [data, setData] = useState(null);
 
   // const [ data, setData ] = useState({
   //       title: "",
@@ -16,21 +13,12 @@ const CreateIssueModal = ({onClose, taskId} ) => {
   //       type: ""
   //   })
 
-  useEffect(()  => {
-    axiosInstance.get(`http://localhost:8080/api/issues/${taskId}`)
-    .then((data) => setData(data))
-  }, [])
+  useEffect(() => {
+    getIssueDetail(taskId).then((res) => setData(res));
+  }, []);
 
-if(data.length < 1)
-  return (
-       <div>Loading </div>      
-  )
-    else
-    return (
-      <UpdateIssueForm taskId={taskId} data={data} onClose={onClose}/>   
-    )
-
-
+  if (data == null) return <div>Loading </div>;
+  else return <UpdateIssueForm taskId={taskId} data={data} onClose={onClose} />;
 };
 
 export default CreateIssueModal;
