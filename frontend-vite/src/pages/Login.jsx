@@ -6,6 +6,8 @@ function Login() {
     <div className="flex justify-center">
     <form className="w-full max-w-md">
        <div className="flex flex-col">
+        <br/>
+        <br/>
         <LoginForm />
         <br/>
         <SignupButton />
