@@ -23,8 +23,6 @@ const UpdateProfile = () => {
     dispatch(updateUserProfileImage(formData));
   };
 
-  // TODO: use dispatch(updateUserProfileImage(data)) after creating FormData with the image in it
-
   return (
     <>
       <h1 className="flex items-center justify-center text-2xl font-bold py-2">

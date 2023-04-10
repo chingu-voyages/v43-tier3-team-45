@@ -6,12 +6,14 @@ import { PrivateRoutes } from "./util/PrivateRoute";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import CreateProfile from "./pages/CreateProfile";
+import NavBar from "./components/NavBar"
 
 function App() {
   return (
     <Routes>
       <Route exact path="/" element={<Login />} />
       <Route exact path="register" element={<CreateProfile />} />
+      <Route exact path="navbar" element={<NavBar />} />
       <Route element={<PrivateRoutes />}>
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/profile" element={<Profile />} />
