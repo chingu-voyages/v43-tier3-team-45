@@ -1,30 +1,32 @@
-import { useState, Fragment } from "react"
-import CreateIssueModal from '../components/CreateIssueModal'
-import { Transition } from '@headlessui/react'
+import { useState, Fragment } from "react";
+import CreateIssueModal from "../components/CreateIssueModal";
+import { Transition } from "@headlessui/react";
 
 function CreateIssue() {
-    const [isShowing, setIsShowing] = useState(false)
+  const [isShowing, setIsShowing] = useState(false);
 
-    return (
+  return (
+    <div>
+      <button onClick={() => setIsShowing((isShowing) => !isShowing)}>
+        Create Issue
+      </button>
+      <Transition
+        show={isShowing}
+        enter="transition-opacity duration-125"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-150"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
         <div>
-            <button onClick={() => setIsShowing((isShowing) => !isShowing)}>
-                Create Issue
-            </button>
-            <Transition
-                show={isShowing}
-                enter="transition-opacity duration-125"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="transition-opacity duration-150"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-            >
-                <div>
-                    {isShowing ? (<CreateIssueModal onClose={() => setIsShowing(false)} />) : null }
-                </div>
-            </Transition>
+          {isShowing ? (
+            <CreateIssueModal onClose={() => setIsShowing(false)} />
+          ) : null}
         </div>
-    )
+      </Transition>
+    </div>
+  );
 }
 
-export default CreateIssue
+export default CreateIssue;

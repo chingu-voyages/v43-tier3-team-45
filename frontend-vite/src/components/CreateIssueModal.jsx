@@ -1,60 +1,52 @@
-import { useSelector } from 'react-redux'
-import TypeDropdown from './TypeDropdown.jsx'
-import PriorityDropdown from './PriorityDropdown.jsx'
-import { useState } from 'react'
-import axiosInstance from '../util/AxiosInstance.js'
-import TeamMemberDropdown from './TeamMemberDropdown.jsx'
+import { useDispatch, useSelector } from "react-redux";
+import TypeDropdown from "./TypeDropdown.jsx";
+import PriorityDropdown from "./PriorityDropdown.jsx";
+import { useState } from "react";
+import axiosInstance from "../util/AxiosInstance.js";
+import { createNewIssue } from "../store/projectReducer.js";
 
-const CreateIssueModal = ({onClose}) => {
-  const [title, setTitle ] = useState()
-  const [description, setDescription ] = useState()
-  const [comment, setComment ] = useState()
-  const [priority, setPriority] = useState()
-  const [type, setType ] = useState()
+const CreateIssueModal = ({ onClose }) => {
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState();
+  const [comment, setComment] = useState();
+  const [priority, setPriority] = useState();
+  const [type, setType] = useState();
+  const dispatch = useDispatch();
 
-  // const currentUser = useSelector(state => state.user.currentUser)
-
-  const testUser = {
-      "id": "641ba87494ba927d1a1e932c",
-      "email": "test1@gmail.com",
-      "firstName": "Test",
-      "lastName": "One",
-      "role": "ROLE_USER",
-      "avatarUrl": "https://chinguboard-dev.s3.us-east-2.amazonaws.com/f805ce7c-5dba-46f3-be54-90c27983aacc_29348169ecc5b8d01ac28beb2c5a4a79.png"
-  }
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   const testIssue = {
-      "title": "testTitle",
-      "description": "testDescription",
-      "assignees": [],
-      "comments": [],
-      "createdBy": testUser,
-      issueType: "TASK",
-      priority: "LOW",
-      status: "BACKLOG",
-  }
-  
-  const handleTitle = (e) => {
-        e.preventDefault()
-        setTitle(e.target.value)
-  }
-  
-  const handleDescription = (e) => { 
-        e.preventDefault()
-        setDescription(e.target.value)
-  }
+    title: "Test createNewIssue",
+    description: "testDescription",
+    assignees: [],
+    comments: [],
+    createdBy: currentUser,
+    issueType: "TASK",
+    priority: "LOW",
+    status: "NEW",
+  };
 
-  const handleComment = (e) => { 
-        e.preventDefault()
-        setComment(e.target.value)
-  }
+  const handleTitle = (e) => {
+    e.preventDefault();
+    setTitle(e.target.value);
+  };
+
+  const handleDescription = (e) => {
+    e.preventDefault();
+    setDescription(e.target.value);
+  };
+
+  const handleComment = (e) => {
+    e.preventDefault();
+    setComment(e.target.value);
+  };
 
   const handlePriority = (priority) => {
-        setPriority(priority)
-  }
+    setPriority(priority);
+  };
 
   const handleType = (type) => {
-        setType(type)
+    setType(type);
   };
 
   const handleSave = (e) => {
@@ -115,56 +107,56 @@ const CreateIssueModal = ({onClose}) => {
                   <TeamMemberDropdown />
                 </div>
 
-              <div className="mb-2">
-                <label>
-                  <span class="text-gray-700">Description</span>
-                  <textarea
-                    name="message"
-                    className="
-                        block
-                        w-full
-                        mt-2 px-16 py-8
-                        border-gray-300
-                        rounded-md
-                        shadow-sm
-                        focus:border-indigo-300
-                        focus:ring
-                        focus:ring-indigo-200
-                        focus:ring-opacity-50
-                      "
-                      rows="5"
-                    onChange={handleDescription}
-                  ></textarea>
-                </label>
-              </div>
-
-              <div className="mb-2">
-                <label>
-                  <span class="text-gray-700">Comment</span>
-                  <textarea
-                    name="message"
-                    className="
-                        block
-                        w-full
-                        mt-2 px-16 py-8
-                        border-gray-300
-                        rounded-md
-                        shadow-sm
-                        focus:border-indigo-300
-                        focus:ring
-                        focus:ring-indigo-200
-                        focus:ring-opacity-50
-                      "
-                    rows="5"
-                    onChange={handleComment}
-                  ></textarea>
-                </label>
-              </div>
-
-              <div class="mb-6">
-                <button
-                  type="submit"
+            <div className="mb-2">
+              <label>
+                <span class="text-gray-700">Description</span>
+                <textarea
+                  name="message"
                   className="
+                        block
+                        w-full
+                        mt-2 px-16 py-8
+                        border-gray-300
+                        rounded-md
+                        shadow-sm
+                        focus:border-indigo-300
+                        focus:ring
+                        focus:ring-indigo-200
+                        focus:ring-opacity-50
+                      "
+                  rows="5"
+                  onChange={handleDescription}
+                ></textarea>
+              </label>
+            </div>
+
+            <div className="mb-2">
+              <label>
+                <span class="text-gray-700">Comment</span>
+                <textarea
+                  name="message"
+                  className="
+                        block
+                        w-full
+                        mt-2 px-16 py-8
+                        border-gray-300
+                        rounded-md
+                        shadow-sm
+                        focus:border-indigo-300
+                        focus:ring
+                        focus:ring-indigo-200
+                        focus:ring-opacity-50
+                      "
+                  rows="5"
+                  onChange={handleComment}
+                ></textarea>
+              </label>
+            </div>
+
+            <div class="mb-6">
+              <button
+                type="submit"
+                className="
                       h-10
                       px-5
                       text-indigo-100
@@ -175,16 +167,16 @@ const CreateIssueModal = ({onClose}) => {
                       focus:shadow-outline
                       hover:bg-indigo-800
                     "
-                    onClick={handleSave}
-                >
-                  Save
-                </button>
-              </div>
+                onClick={handleSave}
+              >
+                Save
+              </button>
+            </div>
 
-              <div class="mb-6">
-                <button
-                    type="submit"
-                    className="
+            <div class="mb-6">
+              <button
+                type="submit"
+                className="
                       h-10
                       px-5
                       text-indigo-100
@@ -195,22 +187,20 @@ const CreateIssueModal = ({onClose}) => {
                       focus:shadow-outline
                       hover:bg-indigo-800
                       "
-                  onClick={onClose}
-                >
-                  Cancel
-                </button>
-              </div>
-
-              <div></div>
-            </form>
-
-            <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                onClick={onClose}
+              >
+                Cancel
+              </button>
             </div>
-          </div>
+
+            <div></div>
+          </form>
+
+          <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse"></div>
         </div>
       </div>
-)
-
+    </div>
+  );
 };
 
 export default CreateIssueModal;

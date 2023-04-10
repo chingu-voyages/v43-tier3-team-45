@@ -1,7 +1,6 @@
 import React from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import Column from "./Column";
-import NewIssueForm from "./NewIssueForm";
 import { useDispatch, useSelector } from "react-redux";
 import {
   removeFromBacklog,
@@ -11,7 +10,6 @@ import {
   updateStatus,
 } from "../store/projectReducer";
 import CreateIssue from "../pages/CreateIssue";
-import axiosInstance from "../util/AxiosInstance";
 
 export default function Kanban() {
   const backlog = useSelector((state) => state.project.backlog);
@@ -76,7 +74,6 @@ export default function Kanban() {
   return (
     <div>
       <div class="p-6">
-        {/* <NewIssueForm /> */}
         <CreateIssue />
       </div>
       <DragDropContext onDragEnd={handleDragEnd}>
