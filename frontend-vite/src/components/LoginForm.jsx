@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../store/authReducer";
 import { useNavigate } from "react-router-dom";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from 'axios'
 
 const LoginForm = () => {
   const dispatch = useDispatch();
