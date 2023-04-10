@@ -8,11 +8,11 @@ export default function NavBar({ teams }) {
   const user = useSelector((state) => state.user.currentUser);
   const currentTeam = useSelector((state) => state.team.currentTeam);
 
-  // const teamMembers = useSelector((state) => state.team.members);
-  // console.log(teamMembers)
-  // const teamAvatars = teamMembers.map((member, index) => (
-  //   <Avatar key={index} size="small" src={member.avatarUrl} alt="team member" />
-  // ));
+  const teamMembers = useSelector((state) => state.team.members);
+  console.log(teamMembers)
+  const teamAvatars = teamMembers.map((member, index) => (
+    <Avatar key={index} size="small" src={member.avatarUrl} alt="team member" />
+  ));
 
   return (
     <nav className="flex items-center px-5 justify-between border-8 border-white-600 mx-auto bg-gray-700">
@@ -25,7 +25,7 @@ export default function NavBar({ teams }) {
       <div className="">{teams && <TeamMemberDropdown />}</div>
 
       {/* Team Avatars */}
-      <div className="">{/* {teamAvatars} */}</div>
+      <div className="">{teamAvatars}</div>
 
       {/* user Avatar */}
       <div>

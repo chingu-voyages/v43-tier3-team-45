@@ -9,7 +9,8 @@ export default function Task({ task, index }) {
     const [isShowing, setIsShowing] = useState(false)
 
   return (
-    <Draggable draggableId={`${task.id}`} key={task.id} index={index}>
+    <div onClick={() => setIsShowing((isShowing) => !isShowing)}>
+    <Draggable draggableId={`${task.id}`} key={task.id} index={index} >
       {(provided, snapshot) => (
         <div
           {...provided.draggableProps}
@@ -34,12 +35,12 @@ export default function Task({ task, index }) {
             <div id="task-priority">
               <span>Priority: {task.priority}</span>
             </div>
-            <div>{task.id}</div>
+            {/* <div>{task.id}</div> */}
             <div id="user-avatar"></div>
             <div>
-            <button onClick={() => setIsShowing((isShowing) => !isShowing)}>
+            {/* <button onClick={() => setIsShowing((isShowing) => !isShowing)}>
                 Edit
-            </button>
+            </button> */}
             <Transition
                 show={isShowing}
                 enter="transition-opacity duration-125"
@@ -60,5 +61,6 @@ export default function Task({ task, index }) {
         </div>
       )}
     </Draggable>
+    </div>
   );
 }
