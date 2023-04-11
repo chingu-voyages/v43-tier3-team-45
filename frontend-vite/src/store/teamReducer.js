@@ -43,6 +43,12 @@ const teamSlice = createSlice({
     setTeam: (state, action) => {
       state.currentTeam = action.payload;
     },
+    resetTeam: (state) => {
+      state.currentTeam = null;
+      state.members = null;
+      state.selectedList = [];
+      state.filteredList = [];
+    },
     setMembers: (state, action) => {
       state.members = action.payload;
       state.filteredList = action.payload; // can remove this once set/clearFilteredList is hooked up with open/close modal
@@ -77,6 +83,7 @@ const teamSlice = createSlice({
 
 export const {
   setTeam,
+  resetTeam,
   setMembers,
   addMemberToSelectedList,
   clearSelectedList,
