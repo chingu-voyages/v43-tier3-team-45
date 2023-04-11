@@ -4,7 +4,6 @@ import PriorityDropdown from './PriorityDropdown.jsx'
 import { useState } from 'react'
 import axiosInstance from '../util/AxiosInstance.js'
 import TeamDropdown from './TeamMemberDropdown.jsx'
-import DeleteModal from './DeleteModal.jsx'
 
 const UpdateIssueForm = ({taskId, onClose, data} ) => {
 
@@ -19,6 +18,8 @@ const UpdateIssueForm = ({taskId, onClose, data} ) => {
   // add delete button modal "are you sure?"
   // currentTeam.members array
   // how do i know who created the issue?
+
+  console.log("teams", useSelector((state) => state))
 
     const currentUser = useSelector((state) => state.user.currentUser.firstName);
 
