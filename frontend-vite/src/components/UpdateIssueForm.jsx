@@ -13,7 +13,11 @@ const UpdateIssueForm = ({taskId, onClose, data} ) => {
   const [priority, setPriority] = useState(data.priority)
   const [type, setType ] = useState(data.type)
 
+  // add delete button modal "are you sure?"
+  // move cancel button to X up top
   // const currentUser = useSelector(state => state.user.currentUser)
+  // currentTeam.members array
+  // 
 
     const testUser = {
         "id": "641ba87494ba927d1a1e932c",
@@ -77,6 +81,7 @@ const UpdateIssueForm = ({taskId, onClose, data} ) => {
     }
 
 return (
+  <div className="flex justify-center">
         <div className="fixed z-10 inset-0 overflow-y-auto text-black">
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <div className="fixed inset-0 transition-opacity" aria-hidden="true">
@@ -84,8 +89,15 @@ return (
           </div>
           <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
           <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-            <form className="mt-6">
-
+            <form className="w-full max-w-md">
+            <button 
+            onClick={onClose}
+            type="button" class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+              <span class="sr-only">Close menu</span>
+              <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
               <div className="mb-2">
                 <label>
                   <span className="text-gray-700">{useSelector(state => state.user.email)}</span>
@@ -188,34 +200,13 @@ return (
                   Update
                 </button>
               </div>
-
-              <div class="mb-6">
-                <button
-                    type="submit"
-                    className="
-                      h-10
-                      px-5
-                      text-indigo-100
-                      bg-indigo-700
-                      rounded-lg
-                      transition-colors
-                      duration-150
-                      focus:shadow-outline
-                      hover:bg-indigo-800
-                      "
-                  onClick={onClose}
-                >
-                  Cancel
-                </button>
-              </div>
-
-              <div></div>
             </form >
 
             <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
             </div>
           </div>
         </div>
+      </div>
       </div>
 )
 
