@@ -5,19 +5,11 @@ import { getIssueDetail } from "../util/apiCalls.js";
 const CreateIssueModal = ({ onClose, taskId }) => {
   const [data, setData] = useState(null);
 
-  // const [ data, setData ] = useState({
-  //       title: "",
-  //       description: "",
-  //       comment: "",
-  //       priority: "",
-  //       type: ""
-  //   })
-
   useEffect(() => {
     getIssueDetail(taskId).then((res) => setData(res));
   }, []);
 
-  if (data == null) return <div>Loading </div>;
+  if (data == null) return <div></div>;
   else return <UpdateIssueForm taskId={taskId} data={data} onClose={onClose} />;
 };
 

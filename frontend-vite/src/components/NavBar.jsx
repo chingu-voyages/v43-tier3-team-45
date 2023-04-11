@@ -13,7 +13,7 @@ export default function NavBar({ teams }) {
   // const teamAvatars = teamMembers.map((member, index) => (
   //   <Avatar key={index} size="small" src={member.avatarUrl} alt="team member" />
   // ));
-
+  const currentUser = useSelector((state) => state.user.currentUser.firstName);
   return (
     <nav className="flex items-center px-5 justify-between border-8 border-white-600 mx-auto bg-gray-700">
       {/* app name */}
@@ -28,6 +28,7 @@ export default function NavBar({ teams }) {
       <div className="">{/* {teamAvatars} */}</div>
 
       {/* user Avatar */}
+      <div>hello, {currentUser}</div>
       <div>
         <Avatar className="" src={user.avatarUrl} alt={"user"} />
       </div>

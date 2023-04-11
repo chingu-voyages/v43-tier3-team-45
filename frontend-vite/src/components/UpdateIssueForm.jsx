@@ -4,9 +4,12 @@ import PriorityDropdown from './PriorityDropdown.jsx'
 import { useState } from 'react'
 import axiosInstance from '../util/AxiosInstance.js'
 import TeamDropdown from './TeamMemberDropdown.jsx'
+import DeleteModal from './DeleteModal.jsx'
 
 const UpdateIssueForm = ({taskId, onClose, data} ) => {
+
   console.log("data.title", data.title)
+
   const [title, setTitle ] = useState(data.title)
   const [description, setDescription ] = useState(data.description)
   const [comment, setComment ] = useState(data.comment)
@@ -14,10 +17,10 @@ const UpdateIssueForm = ({taskId, onClose, data} ) => {
   const [type, setType ] = useState(data.type)
 
   // add delete button modal "are you sure?"
-  // move cancel button to X up top
-  // const currentUser = useSelector(state => state.user.currentUser)
   // currentTeam.members array
-  // 
+  // how do i know who created the issue?
+
+    const currentUser = useSelector((state) => state.user.currentUser.firstName);
 
     const testUser = {
         "id": "641ba87494ba927d1a1e932c",
@@ -68,6 +71,12 @@ const UpdateIssueForm = ({taskId, onClose, data} ) => {
         postIssue(testIssue)
         onClose()
   }
+
+  const handleDelete = (e) => {
+    e.preventDefault()
+    console.log("DELETE")
+}
+
   
   const postIssue = async (testIssue) => {
         try {
@@ -198,6 +207,25 @@ return (
                     onClick={handleSave}
                 >
                   Update
+                </button>
+              </div>
+              <div>
+              <button
+                  type="submit"
+                  className="
+                      h-10
+                      px-5
+                      text-indigo-100
+                      bg-indigo-700
+                      rounded-lg
+                      transition-colors
+                      duration-150
+                      focus:shadow-outline
+                      hover:bg-indigo-800
+                    "
+                    onClick={handleDelete}
+                >
+                  Delete
                 </button>
               </div>
             </form >

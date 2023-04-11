@@ -3,10 +3,10 @@ import TypeDropdown from "./TypeDropdown.jsx";
 import PriorityDropdown from "./PriorityDropdown.jsx";
 import { useState } from "react";
 import axiosInstance from "../util/AxiosInstance.js";
-import { createNewIssue } from "../store/projectReducer.js";
 import TeamMemberDropdown from "./TeamMemberDropdown.jsx";
+import { current } from "@reduxjs/toolkit";
 
-const CreateIssueModal = ({ onClose }) => {
+const CreateIssueForm = ({ onClose }) => {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
   const [comment, setComment] = useState();
@@ -15,6 +15,7 @@ const CreateIssueModal = ({ onClose }) => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.user.currentUser);
+  const userName = useSelector((state) => state.user.currentUser.email)
 
   const testIssue = {
     title: "Test createNewIssue",
@@ -85,7 +86,6 @@ const CreateIssueModal = ({ onClose }) => {
                     </svg>
               </button>
                 <label>
-                  <span className="text-gray-700">{useSelector(state => state.user.email)}</span>
                   <input
                     type="text"
                     name="name"
@@ -105,6 +105,7 @@ const CreateIssueModal = ({ onClose }) => {
                   />
                 </label>
               </div>
+              <div>Created by: {userName}</div>
               <div>
                     <TypeDropdown handleType={handleType} />
                 </div>
@@ -114,7 +115,6 @@ const CreateIssueModal = ({ onClose }) => {
                 <div>
                   <TeamMemberDropdown />
                 </div>
-
             <div className="mb-2">
               <label>
                 <span class="text-gray-700">Description</span>
@@ -137,7 +137,6 @@ const CreateIssueModal = ({ onClose }) => {
                 ></textarea>
               </label>
             </div>
-
             <div className="mb-2">
               <label>
                 <span class="text-gray-700">Comment</span>
@@ -160,7 +159,6 @@ const CreateIssueModal = ({ onClose }) => {
                 ></textarea>
               </label>
             </div>
-
             <div class="mb-6">
               <button
                 type="submit"
@@ -181,7 +179,6 @@ const CreateIssueModal = ({ onClose }) => {
               </button>
             </div>
           </form>
-
           <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse"></div>
         </div>
       </div>
@@ -189,4 +186,4 @@ const CreateIssueModal = ({ onClose }) => {
   );
 };
 
-export default CreateIssueModal;
+export default CreateIssueForm;

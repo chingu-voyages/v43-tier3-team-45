@@ -1,5 +1,5 @@
 import { useState, Fragment } from "react";
-import CreateIssueModal from "../components/CreateIssueModal";
+import CreateIssueForm from "../components/CreateIssueForm";
 import { Transition } from "@headlessui/react";
 
 function CreateIssue() {
@@ -21,7 +21,7 @@ function CreateIssue() {
       >
         <div>
           {isShowing ? (
-            <CreateIssueModal onClose={() => setIsShowing(false)} />
+            <CreateIssueForm onClose={() => setIsShowing(false)} />
           ) : null}
         </div>
       </Transition>
