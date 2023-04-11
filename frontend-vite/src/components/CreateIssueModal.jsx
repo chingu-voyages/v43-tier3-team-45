@@ -1,68 +1,199 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { addTitle, addDescription } from "../store/issueReducer"
-import TypeDropdown from './TypeDropdown.jsx'
-import PriorityDropdown from './PriorityDropdown.jsx'
+import { useDispatch, useSelector } from "react-redux";
+import TypeDropdown from "./TypeDropdown.jsx";
+import PriorityDropdown from "./PriorityDropdown.jsx";
+import { useState } from "react";
+import axiosInstance from "../util/AxiosInstance.js";
+import { createNewIssue } from "../store/projectReducer.js";
 
-const CreateIssueModal = ({closeModal}) => {
-    const dispatch = useDispatch()
+const CreateIssueModal = ({ onClose }) => {
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState();
+  const [comment, setComment] = useState();
+  const [priority, setPriority] = useState();
+  const [type, setType] = useState();
+  const dispatch = useDispatch();
 
-    const handleTitle = (e) => {
-        e.preventDefault()
-        dispatch(addTitle(e.target.value))
-    }
+  const currentUser = useSelector((state) => state.user.currentUser);
 
-    const handleDescription = (e) => { 
-        e.preventDefault()
-        dispatch(addDescription(e.target.value))
-    }
-    
-    const handleSave = (e) => {
-        e.preventDefault()
-        // make POST request and close modal
-        closeModal(false)
-    }
+  const testIssue = {
+    title: "Test createNewIssue",
+    description: "testDescription",
+    assignees: [],
+    comments: [],
+    createdBy: currentUser,
+    issueType: "TASK",
+    priority: "LOW",
+    status: "NEW",
+  };
 
-    return (
-        <div className="modalBackground">
-            <div className="modalContainer">
-                <button onClick={() => closeModal(false)}>X</button>
-                <div className="title">
-                    <h1>Create Issue</h1>     
-                </div>
-                <div className="body"> 
-                    <form>
-                        <label>
-                        Title:
-                            <input type="text" name="name" onChange={handleTitle}/>
-                        </label>
-                        <label>
-                        Description:
-                            <input type="text" name="name" onChange={handleDescription}/>
-                        </label>
-                        <label>
-                        Assignees:
-                            <input type="text" name="name" onChange={handleDescription}/>
-                        </label>
-                        <label>
-                        Comments:
-                            <input type="text" name="name" onChange={handleDescription}/>
-                        </label>
-                        <div>
-                            <TypeDropdown />
-                        </div>
-                        <div>
-                            <PriorityDropdown />
-                        </div>
-                    </form>
-                    <p>Created by: {useSelector(state => state.user.email)} </p>
-                </div>
-                <div className="footer">
-                    <button onClick={handleSave}> Save </button>    
-                 </div>
-            </div>
+  const handleTitle = (e) => {
+    e.preventDefault();
+    setTitle(e.target.value);
+  };
+
+  const handleDescription = (e) => {
+    e.preventDefault();
+    setDescription(e.target.value);
+  };
+
+  const handleComment = (e) => {
+    e.preventDefault();
+    setComment(e.target.value);
+  };
+
+  const handlePriority = (priority) => {
+    setPriority(priority);
+  };
+
+  const handleType = (type) => {
+    setType(type);
+  };
+
+  const handleSave = (e) => {
+    e.preventDefault();
+    dispatch(createNewIssue(testIssue));
+    onClose();
+  };
+
+  return (
+    <div className="fixed z-10 inset-0 overflow-y-auto">
+      <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div className="fixed inset-0 transition-opacity" aria-hidden="true">
+          <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
-    )
-}
+        <span
+          className="hidden sm:inline-block sm:align-middle sm:h-screen"
+          aria-hidden="true"
+        >
+          &#8203;
+        </span>
+        <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+          <form className="mt-6">
+            <div className="mb-2">
+              <label>
+                <span className="text-gray-700">
+                  {useSelector((state) => state.user.email)}
+                </span>
+                <input
+                  type="text"
+                  name="name"
+                  className="
+                      w-full
+                      block px-16 py-2 mt-2
+                      border-gray-300
+                      rounded-md
+                      shadow-sm
+                      focus:border-indigo-300
+                      focus:ring
+                      focus:ring-indigo-200
+                      focus:ring-opacity-50
+                    "
+                  placeholder="Title"
+                  onChange={handleTitle}
+                />
+              </label>
+            </div>
+            <div>
+              <TypeDropdown handleType={handleType} />
+            </div>
+            <div>
+              <PriorityDropdown handlePriority={handlePriority} />
+            </div>
 
-export default CreateIssueModal
+            <div className="mb-2">
+              <label>
+                <span class="text-gray-700">Description</span>
+                <textarea
+                  name="message"
+                  className="
+                        block
+                        w-full
+                        mt-2 px-16 py-8
+                        border-gray-300
+                        rounded-md
+                        shadow-sm
+                        focus:border-indigo-300
+                        focus:ring
+                        focus:ring-indigo-200
+                        focus:ring-opacity-50
+                      "
+                  rows="5"
+                  onChange={handleDescription}
+                ></textarea>
+              </label>
+            </div>
 
+            <div className="mb-2">
+              <label>
+                <span class="text-gray-700">Comment</span>
+                <textarea
+                  name="message"
+                  className="
+                        block
+                        w-full
+                        mt-2 px-16 py-8
+                        border-gray-300
+                        rounded-md
+                        shadow-sm
+                        focus:border-indigo-300
+                        focus:ring
+                        focus:ring-indigo-200
+                        focus:ring-opacity-50
+                      "
+                  rows="5"
+                  onChange={handleComment}
+                ></textarea>
+              </label>
+            </div>
+
+            <div class="mb-6">
+              <button
+                type="submit"
+                className="
+                      h-10
+                      px-5
+                      text-indigo-100
+                      bg-indigo-700
+                      rounded-lg
+                      transition-colors
+                      duration-150
+                      focus:shadow-outline
+                      hover:bg-indigo-800
+                    "
+                onClick={handleSave}
+              >
+                Save
+              </button>
+            </div>
+
+            <div class="mb-6">
+              <button
+                type="submit"
+                className="
+                      h-10
+                      px-5
+                      text-indigo-100
+                      bg-indigo-700
+                      rounded-lg
+                      transition-colors
+                      duration-150
+                      focus:shadow-outline
+                      hover:bg-indigo-800
+                      "
+                onClick={onClose}
+              >
+                Cancel
+              </button>
+            </div>
+
+            <div></div>
+          </form>
+
+          <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CreateIssueModal;

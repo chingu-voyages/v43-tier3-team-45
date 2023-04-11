@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Login from "./pages/Login";
 import { PrivateRoutes } from "./util/PrivateRoute";
 import Home from "./pages/Home";
+import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import CreateProfile from "./pages/CreateProfile";
 import NavBar from "./components/NavBar"

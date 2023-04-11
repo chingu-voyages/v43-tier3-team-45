@@ -2,6 +2,7 @@ import axiosInstance from "./AxiosInstance";
 
 /**
  * holds API calls that don't necessarily belong to a particular redux slice
+ * need to handle erro properly for all
  */
 
 export const getAllTeams = async () => {
@@ -70,3 +71,24 @@ export const updateIssueDetail = async (issue) => {
     console.log(error);
   }
 };
+
+/**
+ * @param {CommentDTO} comment
+ * @param {String} issueId
+ * @returns {CommentDTO}
+ */
+export const createComment = async (comment, issueId) => {
+  try {
+    const response = await axiosInstance.post(
+      `/comments/create?issueId=${issueId}`,
+      comment
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// edit comment method
+// might be hard to implement editting comment since you have to take into account
+// whether the logged in user is the one who wrote the comment

@@ -1,8 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import Avatar from './Avatar'
-import TeamDropdown from './TeamDropDown';
+import React, { useState, useEffect } from "react";
+import Avatar from "./Avatar";
+import TeamDropdown from "./TeamDropDown";
 import { getAllTeams } from "../util/apiCalls";
 import { useSelector } from "react-redux";
+import TeamMemberDropdown from "./TeamMemberDropdown";
+export default function NavBar({ teams }) {
+  const user = useSelector((state) => state.user.currentUser);
+  const currentTeam = useSelector((state) => state.team.currentTeam);
+
+  // const teamMembers = useSelector((state) => state.team.members);
+  // console.log(teamMembers)
+  // const teamAvatars = teamMembers.map((member, index) => (
+  //   <Avatar key={index} size="small" src={member.avatarUrl} alt="team member" />
+  // ));
 
 export default function NavBar({teams}) {
   const user = useSelector((state) => state.user.currentUser);

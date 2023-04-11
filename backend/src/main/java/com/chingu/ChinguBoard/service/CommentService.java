@@ -32,7 +32,11 @@ public class CommentService {
     }
 
     public List<Comment> getComments(List<String> ids) {
-        return commentRepository.findAllById(ids);
+        List<Comment> comments = commentRepository.findAllById(ids);
+        comments.stream().forEach(comment -> {
+            comment.setCreatedBy(userService.getUser(comment.getCreatedById()));
+        });
+        return comments;
     }
 
     public Comment createComment(Comment comment, String issueId) {
