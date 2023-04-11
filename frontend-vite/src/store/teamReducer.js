@@ -13,7 +13,8 @@ const initialState = {
  */
 export const addMemberToTeam = createAsyncThunk(
   "teams/addMember",
-  async (userId, { getState }) => {
+  async (_, { getState }) => {
+    const userId = getState().user.currentUser.id;
     const teamId = getState().team.currentTeam.id;
     const response = await axiosInstance.put(`/teams/${teamId}/${userId}/add`);
     return response.data;
@@ -25,8 +26,9 @@ export const addMemberToTeam = createAsyncThunk(
  */
 export const removeMemberFromTeam = createAsyncThunk(
   "teams/removeMember",
-  async (userId, { getState }) => {
-    const teamId = getState().team.team.id;
+  async (_, { getState }) => {
+    const userId = getState().user.currentUser.id;
+    const teamId = getState().team.currentTeam.id;
     const response = await axiosInstance.put(
       `/teams/${teamId}/${userId}/remove`
     );
