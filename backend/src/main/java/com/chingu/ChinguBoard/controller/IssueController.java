@@ -81,7 +81,7 @@ public class IssueController {
     }
 
     // add delete method
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{issueId}")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     public void deleteIssue(@PathVariable String issueId, @RequestParam String projectId) {
         issueService.deleteIssue(issueId, projectId);
