@@ -4,6 +4,7 @@ import PriorityDropdown from "./PriorityDropdown.jsx";
 import { useState } from "react";
 import axiosInstance from "../util/AxiosInstance.js";
 import { createNewIssue } from "../store/projectReducer.js";
+import TeamMemberDropdown from "./TeamMemberDropdown.jsx";
 
 const CreateIssueModal = ({ onClose }) => {
   const [title, setTitle] = useState();
@@ -74,8 +75,15 @@ const CreateIssueModal = ({ onClose }) => {
           <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
           <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <form className="mt-6">
-
               <div className="mb-2">
+                <button 
+                  onClick={onClose}
+                  type="button" class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                    <span class="sr-only">Close menu</span>
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+              </button>
                 <label>
                   <span className="text-gray-700">{useSelector(state => state.user.email)}</span>
                   <input
@@ -172,28 +180,6 @@ const CreateIssueModal = ({ onClose }) => {
                 Save
               </button>
             </div>
-
-            <div class="mb-6">
-              <button
-                type="submit"
-                className="
-                      h-10
-                      px-5
-                      text-indigo-100
-                      bg-indigo-700
-                      rounded-lg
-                      transition-colors
-                      duration-150
-                      focus:shadow-outline
-                      hover:bg-indigo-800
-                      "
-                onClick={onClose}
-              >
-                Cancel
-              </button>
-            </div>
-
-            <div></div>
           </form>
 
           <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse"></div>
