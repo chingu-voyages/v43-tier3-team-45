@@ -49,4 +49,8 @@ public class CommentService {
     public Comment editComment(Comment comment) {
         return commentRepository.save(comment);
     }
+
+    public void deleteComments(List<String> ids) {
+        commentRepository.deleteAllById(ids);
+    }
 }
