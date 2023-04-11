@@ -2,22 +2,16 @@ import React, { useState, useEffect, Fragment } from "react";
 import Avatar from "../components/Avatar";
 import UpdateProfile from "./UpdateProfile";
 import { useSelector } from "react-redux";
-
+import { useNavigate } from "react-router";
 const Profile = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
-
-  const [showUpdateProfile, setShowUpdateProfile] = useState(false);
-
-  const handleUpdateProfileClick = () => {
-    setShowUpdateProfile(true);
-    console.log("edit button clicked");
-  };
+  const navigate = useNavigate();
   return (
     <Fragment>
       <Fragment>
         <div className="flex items-center justify-center mb-1">
           <Avatar
-            className="w-12 h-12 rounded-full border-2 border-gray-400 overflow-hidden"
+            size={14}
             src={currentUser.avatarUrl}
             alt="avatar"
           />
@@ -31,12 +25,10 @@ const Profile = () => {
         <p className="text-lg py-2">{currentUser.email}</p>
         <button
           className=" bg-blue-400 hover:bg-blue-700 text-black hover:text-white font-bold py-2 px-4 rounded mr-2 mt-8"
-          onClick={handleUpdateProfileClick}
+          onClick={() => {navigate("/profile/update")}}
         >
           Edit Profile
         </button>
-        {/* i think its best to move update profile to a separate page and navigate to it with the button */}
-        {showUpdateProfile ? <UpdateProfile /> : null}
       </div>
     </Fragment>
   );

@@ -1,34 +1,25 @@
 import React, { useState, useEffect } from "react";
 import Avatar from "./Avatar";
 import TeamDropdown from "./TeamDropDown";
-import { getAllTeams } from "../util/apiCalls";
 import { useSelector } from "react-redux";
-import TeamMemberDropdown from "./TeamMemberDropdown";
-export default function NavBar({ teams }) {
-  const user = useSelector((state) => state.user.currentUser);
-  const currentTeam = useSelector((state) => state.team.currentTeam);
+import { useNavigate } from "react-router";
 
-  // const teamMembers = useSelector((state) => state.team.members);
-  // console.log(teamMembers)
-  // const teamAvatars = teamMembers.map((member, index) => (
-  //   <Avatar key={index} size="small" src={member.avatarUrl} alt="team member" />
-  // ));
-
-export default function NavBar({teams}) {
+function NavBar({teams}) {
   const user = useSelector((state) => state.user.currentUser);
   const teamMembers = useSelector((state) => state.team.members);
   let teamAvatars;
+  console.log(teamMembers)
   if(teamMembers != null){
   teamAvatars = teamMembers.map((member, index) => (
-    <Avatar key={index} size={"small"} src={member.avatarUrl} alt="team member" />
+    <Avatar key={index} size={12} src={member.avatarUrl} alt={member.firstName}/>
   ));
   }
-  console.log(teams)
+  const navigate = useNavigate();
   return (
     <nav className="flex justify-between 
-    items-center px-5 border-8 border-white-600 mx-auto bg-blue-700">
+    items-center px-5 border-8 border-white-600 mx-auto bg-gray-100">
         {/* app name */}
-        <div className="font-sans text-xl text-white font-bold">
+        <div className="font-sans text-xl text-gray font-bold">
           Chingu Board
         </div>
 
@@ -51,13 +42,17 @@ export default function NavBar({teams}) {
         
         {/* user Avatar */}
         <div>
-          <Avatar 
-            size={"small"}
-            src={user.avatarUrl}
-            alt={"user"} />
+          <button onClick={() => {navigate("/profile/update")}}>
+            <Avatar 
+              size={12}
+              src={user.avatarUrl}
+              alt={"user"} />
+            </button>
         </div>
 
         
     </nav>
   )
 }
+
+export default NavBar;
