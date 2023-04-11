@@ -12,8 +12,8 @@ function App() {
   return (
     <Routes>
       <Route exact path="/" element={<Login />} />
-      <Route exact path="register" element={<CreateProfile />} />
-      <Route exact path="navbar" element={<NavBar />} />
+      <Route exact path="/register" element={<CreateProfile />} />
+      <Route exact path="/navbar" element={<NavBar />} />
       <Route element={<PrivateRoutes />}>
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/profile" element={<Profile />} />
