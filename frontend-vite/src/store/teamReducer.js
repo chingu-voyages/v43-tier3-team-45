@@ -43,7 +43,7 @@ const teamSlice = createSlice({
     },
     setMembers: (state, action) => {
       state.members = action.payload;
-      state.filteredList = action.payload;
+      state.filteredList = action.payload; // can remove this once set/clearFilteredList is hooked up with open/close modal
     },
     addMemberToSelectedList: (state, action) => {
       state.selectedList.push(action.payload);
@@ -53,6 +53,12 @@ const teamSlice = createSlice({
     },
     clearSelectedList: (state) => {
       state.selectedList = [];
+    },
+    setFilteredList: (state) => {
+      state.filteredList = state.currentTeam.members;
+    },
+    clearFilteredList: (state) => {
+      state.filteredList = [];
     },
   },
   extraReducers: (builder) => {
