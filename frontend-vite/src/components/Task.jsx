@@ -1,64 +1,70 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
-import UpdateIssueModal from '../components/UpdateIssueModal.jsx'
-import { Transition } from '@headlessui/react'
-
+import UpdateIssueModal from "../components/UpdateIssueModal.jsx";
+import { Transition } from "@headlessui/react";
 
 export default function Task({ task, index }) {
-    // console.log("task", task.id)
-    const [isShowing, setIsShowing] = useState(false)
+  const [isShowing, setIsShowing] = useState(false);
 
   return (
-    <Draggable draggableId={`${task.id}`} key={task.id} index={index}>
-      {(provided, snapshot) => (
-        <div
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-          isDragging={snapshot.isDragging}
-          style={{
-            userSelect: "none",
-            padding: 16,
-            margin: "0 00 8px 0",
-            minHeight: "50px",
-            backgroundColor: snapshot.isDragging ? "#263B4A" : "#456C86",
-            color: "white",
-            ...provided.draggableProps.style,
-          }}
-        >
-          <div class="border m-2 p-2">
-            <div id="task-title">{task.title}</div>
-            <div id="task-status">
-              <span> Status: {task.status}</span>
+    <>
+      <Draggable draggableId={`${task.id}`} key={task.id} index={index}>
+        {(provided, snapshot) => (
+          <div
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+            isDragging={snapshot.isDragging}
+            style={{
+              userSelect: "none",
+              padding: 16,
+              margin: "0 00 8px 0",
+              minHeight: "50px",
+              backgroundColor: snapshot.isDragging ? "#263B4A" : "#456C86",
+              color: "white",
+              ...provided.draggableProps.style,
+            }}
+          >
+            <div class="border m-2 p-2">
+              <div id="task-title">{task.title}</div>
+              <div id="task-status">
+                <span> Status: {task.status}</span>
+              </div>
+              <div id="task-priority">
+                <span>Priority: {task.priority}</span>
+              </div>
+              <div>{task.id}</div>
+              <div id="user-avatar"></div>
+              <div>
+                <button onClick={() => setIsShowing((isShowing) => !isShowing)}>
+                  Edit
+                </button>
+              </div>
             </div>
-            <div id="task-priority">
-              <span>Priority: {task.priority}</span>
-            </div>
-            <div>{task.id}</div>
-            <div id="user-avatar"></div>
-            <div>
-            <button onClick={() => setIsShowing((isShowing) => !isShowing)}>
-                Edit
-            </button>
-            <Transition
-                show={isShowing}
-                enter="transition-opacity duration-125"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="transition-opacity duration-150"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-            >
-                <div>
-                    {isShowing ? (<UpdateIssueModal taskId={task.id} onClose={() => setIsShowing(false)} />) : null }
-                </div>
-            </Transition>
-        </div>
-            {/* <div>{<button onClick={(() => console.log("edit", task.id))}>Edit</button>} </div> */}
+            {provided.placeholder}
           </div>
-          {provided.placeholder}
-        </div>
-      )}
-    </Draggable>
+        )}
+      </Draggable>
+      <div>
+        <Transition
+          show={isShowing}
+          enter="transition-opacity duration-125"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity duration-150"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div>
+            {isShowing ? (
+              <UpdateIssueModal
+                taskId={task.id}
+                onClose={() => setIsShowing(false)}
+              />
+            ) : null}
+          </div>
+        </Transition>
+      </div>
+    </>
   );
 }
