@@ -135,4 +135,10 @@ public class IssueService {
         issueRepository.deleteById(issueId);
     }
 
+    public void removeComment(String issueId, String commentId) {
+        Issue issue = getIssue(issueId);
+        issue.removeComment(commentId);
+        issueRepository.save(issue);
+    }
+
 }

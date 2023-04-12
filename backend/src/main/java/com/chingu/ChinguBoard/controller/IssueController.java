@@ -80,7 +80,6 @@ public class IssueController {
         return ResponseEntity.ok(issueListDTOMapper.toDTO(updatedIssue));
     }
 
-    // add delete method
     @DeleteMapping("/{issueId}")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     public void deleteIssue(@PathVariable String issueId, @RequestParam String projectId) {

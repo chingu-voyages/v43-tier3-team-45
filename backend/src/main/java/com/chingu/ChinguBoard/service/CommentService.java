@@ -53,4 +53,12 @@ public class CommentService {
     public void deleteComments(List<String> ids) {
         commentRepository.deleteAllById(ids);
     }
+
+    public void deleteComment(String id, String issueId) {
+        // delete the comment from DB
+        commentRepository.deleteById(issueId);
+
+        // delete comment reference from the issue it was from
+        issueService.removeComment(issueId, id);
+    }
 }
