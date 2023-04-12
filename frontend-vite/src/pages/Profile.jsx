@@ -8,18 +8,16 @@ const Profile = () => {
   const navigate = useNavigate();
   return (
     <Fragment>
-      <Fragment>
-        <div className="flex items-center justify-center mb-1">
+      <div className="mt-24">
           <Avatar
             size={14}
             src={currentUser.avatarUrl}
             alt="avatar"
           />
-        </div>
         <h1 className="text-xl font-bold py-2">{currentUser.firstName}</h1>
         <h1 className="text-xl font-bold py-2">{currentUser.lastName}</h1>
         <p className="text-lg py-2">{currentUser.role}</p>
-      </Fragment>
+      </div>
       <hr />
       <div className="flex flex-col items-center justify-center">
         <p className="text-lg py-2">{currentUser.email}</p>
