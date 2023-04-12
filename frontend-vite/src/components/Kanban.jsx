@@ -75,7 +75,6 @@ export default function Kanban() {
 
   return (
     <div>
-      <CircularLoading />
       <div className="p-6">{project && <CreateIssue />}</div>
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className="flex">
