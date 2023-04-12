@@ -7,19 +7,16 @@ import TeamDropdown from './TeamMemberDropdown.jsx'
 
 const UpdateIssueForm = ({taskId, onClose, data} ) => {
 
-  console.log("data.title", data.title)
-
   const [title, setTitle ] = useState(data.title)
   const [description, setDescription ] = useState(data.description)
   const [comment, setComment ] = useState(data.comment)
   const [priority, setPriority] = useState(data.priority)
   const [type, setType ] = useState(data.type)
 
-  // add delete button modal "are you sure?"
   // currentTeam.members array
   // how do i know who created the issue?
 
-  console.log("teams", useSelector((state) => state))
+  // console.log("teams", useSelector((state) => state))
 
     const currentUser = useSelector((state) => state.user.currentUser.firstName);
 
@@ -75,7 +72,8 @@ const UpdateIssueForm = ({taskId, onClose, data} ) => {
 
   const handleDelete = (e) => {
     e.preventDefault()
-    console.log("DELETE")
+    console.log("DELETE", taskId)
+    onClose()
 }
 
   

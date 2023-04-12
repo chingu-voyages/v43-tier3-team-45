@@ -9,6 +9,7 @@ export default function Task({ task, index }) {
     const [isShowing, setIsShowing] = useState(false)
 
   return (
+    <div>
     <Draggable draggableId={`${task.id}`} key={task.id} index={index}>
       {(provided, snapshot) => (
         <div
@@ -40,7 +41,15 @@ export default function Task({ task, index }) {
             <button onClick={() => setIsShowing((isShowing) => !isShowing)}>
                 Edit
             </button>
-            <Transition
+            {/* moved the TRANSITION component s0 it's not draggable while opened */}
+        </div>
+            {/* <div>{<button onClick={(() => console.log("edit", task.id))}>Edit</button>} </div> */}
+          </div>
+          {provided.placeholder}
+        </div>
+      )}
+    </Draggable>
+    <Transition
                 show={isShowing}
                 enter="transition-opacity duration-125"
                 enterFrom="opacity-0"
@@ -53,12 +62,6 @@ export default function Task({ task, index }) {
                     {isShowing ? (<UpdateIssueModal taskId={task.id} onClose={() => setIsShowing(false)} />) : null }
                 </div>
             </Transition>
-        </div>
-            {/* <div>{<button onClick={(() => console.log("edit", task.id))}>Edit</button>} </div> */}
-          </div>
-          {provided.placeholder}
-        </div>
-      )}
-    </Draggable>
+    </div>
   );
 }
