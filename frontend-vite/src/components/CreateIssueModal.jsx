@@ -1,8 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
 import TypeDropdown from "./TypeDropdown.jsx";
 import PriorityDropdown from "./PriorityDropdown.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createNewIssue } from "../store/projectReducer.js";
+import Avatar from "./Avatar.jsx";
+import TeamMemberDropdown from "./TeamMemberDropdown.jsx";
+import {
+  addMemberToSelectedList,
+  clearSelectedList,
+  removeMemberFromSelectedList,
+  setFilteredList,
+} from "../store/teamReducer.js";
 
 const CreateIssueModal = ({ onClose }) => {
   const [title, setTitle] = useState();
@@ -15,6 +23,11 @@ const CreateIssueModal = ({ onClose }) => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const selectedList = useSelector((state) => state.team.selectedList);
   const members = useSelector((state) => state.team.currentTeam.members);
+
+  const handleClick = (e, member) => {
+    e.preventDefault();
+    dispatch(removeMemberFromSelectedList(member));
+  };
 
   const testIssue = {
     title: title,
@@ -53,6 +66,13 @@ const CreateIssueModal = ({ onClose }) => {
   const handleSave = (e) => {
     e.preventDefault();
     dispatch(createNewIssue(testIssue));
+    handleClose(e);
+  };
+
+  const handleClose = (e) => {
+    e.preventDefault();
+    dispatch(clearSelectedList());
+    dispatch(setFilteredList());
     onClose();
   };
 
@@ -99,6 +119,21 @@ const CreateIssueModal = ({ onClose }) => {
             </div>
             <div>
               <PriorityDropdown handlePriority={handlePriority} />
+            </div>
+            <div>
+              <p>Assigned to: </p>
+              {selectedList.map((member) => (
+                <button onClick={(e) => handleClick(e, member)}>
+                  <Avatar
+                    src={member.avatarUrl}
+                    alt={member.firstName}
+                    size={12}
+                  />
+                </button>
+              ))}
+            </div>
+            <div>
+              <TeamMemberDropdown />
             </div>
 
             <div className="mb-2">
@@ -181,7 +216,7 @@ const CreateIssueModal = ({ onClose }) => {
                       focus:shadow-outline
                       hover:bg-indigo-800
                       "
-                onClick={onClose}
+                onClick={(e) => handleClose(e)}
               >
                 Cancel
               </button>

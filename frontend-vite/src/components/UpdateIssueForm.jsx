@@ -73,15 +73,18 @@ const UpdateIssueForm = ({ onClose, data }) => {
   const handleSave = (e) => {
     e.preventDefault();
     updateIssueDetail(issue);
-    handleClose(e);
-  };
-
-  const handleClose = (e) => {
-    e.preventDefault();
     dispatch(clearSelectedList());
     dispatch(setFilteredList());
     onClose();
+    // handleClose(e);
   };
+
+  // const handleClose = (e) => {
+  //   e.preventDefault();
+  //   dispatch(clearSelectedList());
+  //   dispatch(setFilteredList());
+  //   onClose();
+  // };
 
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto">

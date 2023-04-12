@@ -21,7 +21,9 @@ function CreateIssue() {
       >
         <div>
           {isShowing ? (
-            <CreateIssueModal onClose={() => setIsShowing(false)} />
+            <CreateIssueModal
+              onClose={() => setIsShowing(false)}
+            />
           ) : null}
         </div>
       </Transition>
