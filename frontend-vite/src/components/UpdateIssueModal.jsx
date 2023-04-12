@@ -11,6 +11,7 @@ const CreateIssueModal = ({ onClose, taskId }) => {
 
   if (data == null) return <div></div>;
   else return <UpdateIssueForm taskId={taskId} data={data} onClose={onClose} />;
+  
 };
 
 export default CreateIssueModal;

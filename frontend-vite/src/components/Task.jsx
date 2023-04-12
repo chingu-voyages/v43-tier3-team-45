@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { Draggable } from "react-beautiful-dnd";
 import UpdateIssueModal from '../components/UpdateIssueModal.jsx'
 import { Transition } from '@headlessui/react'
-
+import TestModal from '../components/TestModal.jsx'
 
 export default function Task({ task, index }) {
 
@@ -41,7 +41,7 @@ export default function Task({ task, index }) {
             <button onClick={() => setIsShowing((isShowing) => !isShowing)}>
                 Edit
             </button>
-            {/* moved the TRANSITION component s0 it's not draggable while opened */}
+            {/* moved the TRANSITION component so it's not draggable while opened */}
         </div>
             {/* <div>{<button onClick={(() => console.log("edit", task.id))}>Edit</button>} </div> */}
           </div>
@@ -59,7 +59,7 @@ export default function Task({ task, index }) {
           leaveTo="opacity-0"
           >
           <div>
-            {isShowing ? (<UpdateIssueModal taskId={task.id} onClose={() => setIsShowing(false)} />) : null }
+            {isShowing ? (<TestModal taskId={task.id} onClose={() => setIsShowing(false)} />) : null }
           </div>
       </Transition>
     </div>
