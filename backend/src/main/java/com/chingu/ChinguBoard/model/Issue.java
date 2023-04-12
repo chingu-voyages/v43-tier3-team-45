@@ -52,7 +52,8 @@ public class Issue {
         this.commentIds = new ArrayList<>();
     }
 
-    public Issue(String title, String description, User createdBy, List<User> assignees, IssueType issueType, Priority priority, Status status) {
+    public Issue(String title, String description, User createdBy, List<User> assignees, IssueType issueType,
+            Priority priority, Status status) {
         super();
         this.title = title;
         this.description = description;
@@ -62,12 +63,18 @@ public class Issue {
         this.priority = priority;
         this.status = status;
     }
-    
+
     public void addComment(Comment comment) {
         this.getComments().add(comment);
         this.getCommentIds().add(comment.getId());
     }
-    
+
+    public void removeComment(String commentId) {
+        int index = this.commentIds.indexOf(commentId);
+        this.commentIds.remove(index);
+        this.comments.remove(index);
+    }
+
     public void addAssignee(User assignee) {
         this.getAssignees().add(assignee);
         this.getAssigneeIds().add(assignee.getId());

@@ -66,6 +66,12 @@ public class ProjectService {
         projectRepository.save(project);
     }
 
+    public void removeIssue(String projectId, String issueId) {
+        Project project = getProject(projectId);
+        project.removeIssue(issueId);
+        projectRepository.save(project);
+    }
+
     public Project updateProject(Project project) {
         return projectRepository.save(project);
     }
