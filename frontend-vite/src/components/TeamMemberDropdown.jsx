@@ -6,14 +6,11 @@ import Avatar from "./Avatar";
 
 const TeamMemberDropdown = () => {
   const dispatch = useDispatch();
-  const selectedList = useSelector((state) => state.team.selectedList);
   const filteredList = useSelector((state) => state.team.filteredList);
 
   const handleClick = (e, member) => {
     e.preventDefault();
     dispatch(addMemberToSelectedList(member));
-    console.log({ selectedList });
-    console.log({ filteredList });
   };
 
   return (

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import TypeDropdown from "./TypeDropdown.jsx";
 import PriorityDropdown from "./PriorityDropdown.jsx";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createNewIssue } from "../store/projectReducer.js";
 import Avatar from "./Avatar.jsx";
 import TeamMemberDropdown from "./TeamMemberDropdown.jsx";
@@ -38,6 +38,11 @@ const CreateIssueModal = ({ onClose }) => {
     issueType: "TASK",
     priority: "LOW",
     status: "NEW",
+  };
+
+  const handleClick = (e, member) => {
+    e.preventDefault();
+    dispatch(removeMemberFromSelectedList(member));
   };
 
   const handleTitle = (e) => {
@@ -138,7 +143,7 @@ const CreateIssueModal = ({ onClose }) => {
 
             <div className="mb-2">
               <label>
-                <span class="text-gray-700">Description</span>
+                <span className="text-gray-700">Description</span>
                 <textarea
                   name="message"
                   className="
@@ -158,10 +163,9 @@ const CreateIssueModal = ({ onClose }) => {
                 ></textarea>
               </label>
             </div>
-
             <div className="mb-2">
               <label>
-                <span class="text-gray-700">Comment</span>
+                <span className="text-gray-700">Comment</span>
                 <textarea
                   name="message"
                   className="
@@ -181,8 +185,7 @@ const CreateIssueModal = ({ onClose }) => {
                 ></textarea>
               </label>
             </div>
-
-            <div class="mb-6">
+            <div className="mb-6">
               <button
                 type="submit"
                 className="
@@ -201,8 +204,7 @@ const CreateIssueModal = ({ onClose }) => {
                 Save
               </button>
             </div>
-
-            <div class="mb-6">
+            <div className="mb-6">
               <button
                 type="submit"
                 className="
@@ -221,10 +223,7 @@ const CreateIssueModal = ({ onClose }) => {
                 Cancel
               </button>
             </div>
-
-            <div></div>
           </form>
-
           <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse"></div>
         </div>
       </div>
