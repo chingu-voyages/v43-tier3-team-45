@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import UpdateIssueForm from "./UpdateIssueForm.jsx";
 import { getIssueDetail } from "../util/apiCalls.js";
 import TestingComponent from './TestingComponent.jsx'
 

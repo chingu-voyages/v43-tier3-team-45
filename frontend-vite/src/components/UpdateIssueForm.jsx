@@ -3,7 +3,6 @@ import TypeDropdown from "./TypeDropdown.jsx";
 import PriorityDropdown from "./PriorityDropdown.jsx";
 import TeamMemberDropdown from "./TeamMemberDropdown.jsx";
 import { useEffect, useState } from "react";
-import axiosInstance from "../util/AxiosInstance.js";
 import { updateIssueDetail } from "../util/apiCalls.js";
 import Avatar from "./Avatar.jsx";
 import {
@@ -12,17 +11,21 @@ import {
   removeMemberFromSelectedList,
   setFilteredList,
 } from "../store/teamReducer.js";
+import { IssueCommentSection } from "./IssueCommentSection.jsx";
+
+// add new comp for comments and addComment, have own button
+// post text and created by user slice
 
 // data is the IssueDTO
 const UpdateIssueForm = ({ onClose, data }) => {
   const [title, setTitle] = useState(data.title);
   const [description, setDescription] = useState(data.description);
-  const [comment, setComment] = useState(data.comment);
+  const [comments, setComment] = useState(data.comments);
   const [priority, setPriority] = useState(data.priority);
   const [type, setType] = useState(data.issueType);
   const dispatch = useDispatch();
   const selectedList = useSelector((state) => state.team.selectedList);
-
+  
   // when new task is opened, set selectedList and filteredList based on the task's assignees
   useEffect(() => {
     data.assignees.map((member) => dispatch(addMemberToSelectedList(member)));
@@ -161,13 +164,20 @@ const UpdateIssueForm = ({ onClose, data }) => {
                   ></textarea>
                 </label>
               </div>
-
+              <div>
+                {comments.map((data) => {
+                  return (
+                    < IssueCommentSection data={data}/>
+                  )
+                })}
+              </div>  
               <div className="mb-2">
                 <label>
                   <span class="text-gray-400">Comment</span>
                   <textarea
                     name="message"
-                    value={comment}
+                    // value={comment}
+                    // move this to another component
                     style={{ fontSize: "18px" }}
                     className="
                         block

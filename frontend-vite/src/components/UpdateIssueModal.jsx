@@ -3,6 +3,7 @@ import UpdateIssueForm from "./UpdateIssueForm.jsx";
 import { getIssueDetail } from "../util/apiCalls.js";
 
 const CreateIssueModal = ({ onClose, taskId }) => {
+  
   const [data, setData] = useState(null);
 
   useEffect(() => {
