@@ -138,7 +138,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
             </div>
             <div className="mb-2">
               <label>
-                <span class="text-gray-700">Description</span>
+                <span className="text-gray-700">Description</span>
                 <textarea
                   name="message"
                   value={description}
@@ -162,7 +162,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
 
             <div className="mb-2">
               <label>
-                <span class="text-gray-700">Comment</span>
+                <span className="text-gray-700">Comment</span>
                 <textarea
                   name="message"
                   value={comment}
@@ -184,7 +184,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
               </label>
             </div>
 
-            <div class="mb-6">
+            <div className="mb-6">
               <button
                 type="submit"
                 className="
@@ -204,7 +204,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
               </button>
             </div>
 
-            <div class="mb-6">
+            <div className="mb-6">
               <button
                 type="submit"
                 className="

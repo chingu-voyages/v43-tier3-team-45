@@ -10,6 +10,7 @@ import {
   updateStatus,
 } from "../store/projectReducer";
 import CreateIssue from "../pages/CreateIssue";
+import CircularLoading from "./CircularLoading";
 
 export default function Kanban() {
   const backlog = useSelector((state) => state.project.backlog);
@@ -74,10 +75,11 @@ export default function Kanban() {
 
   return (
     <div>
-      <div class="p-6">{project && <CreateIssue />}</div>
+      <CircularLoading />
+      <div className="p-6">{project && <CreateIssue />}</div>
       <DragDropContext onDragEnd={handleDragEnd}>
-        <div class="flex">
-          <div class="grid grid-cols-4 gap-8">
+        <div className="flex">
+          <div className="grid grid-cols-4 gap-8">
             <Column title={"NEW"} tasks={newStatus} id={"1"} />
             <Column title={"BACKLOG"} tasks={backlog} id={"2"} />
             <Column title={"IN PROGRESS"} tasks={inProgress} id={"3"} />
