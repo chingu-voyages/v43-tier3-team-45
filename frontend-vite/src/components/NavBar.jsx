@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Avatar from "./Avatar";
-import TeamDropdown from "./TeamDropDown";
+// import TeamDropdown from "./TeamDropDown";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutToken } from "../store/authReducer";
@@ -35,7 +35,7 @@ export default function NavBar({ teams }) {
       <div className="font-sans text-xl text-white font-bold">Chingu Board</div>
 
       {/* Team Drop Down */}
-      <div className="">{teams && <TeamDropdown teams={teams} />}</div>
+      {/* <div className="">{teams && <TeamDropdown teams={teams} />}</div> */}
 
       {/* Team Avatars */}
       <div className="">{teamAvatars}</div>

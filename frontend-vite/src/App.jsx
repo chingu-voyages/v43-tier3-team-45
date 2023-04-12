@@ -1,10 +1,10 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { PrivateRoutes } from "./util/PrivateRoute";
-import Home from "./pages/Home";
+// import { PrivateRoutes } from "./util/PrivateRoute";
+// import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Profile from "./pages/Profile";
+// import Profile from "./pages/Profile";
 import CreateProfile from "./pages/CreateProfile";
 
 function App() {
@@ -12,10 +12,10 @@ function App() {
     <Routes>
       <Route exact path="/" element={<Login />} />
       <Route exact path="/register" element={<CreateProfile />} />
-      <Route element={<PrivateRoutes />}>
+      {/* <Route element={<PrivateRoutes />}>
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/profile" element={<Profile />} />
-      </Route>
+      </Route> */}
     </Routes>
   );
 }
