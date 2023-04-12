@@ -73,12 +73,12 @@ export default function Kanban() {
 
   return (
     <div>
-      <div class="p-6">
+      <div className="p-6">
         <CreateIssue />
       </div>
       <DragDropContext onDragEnd={handleDragEnd}>
-        <div class="flex">
-          <div class="grid grid-cols-4 gap-8">
+        <div className="flex">
+          <div className="grid grid-cols-4 gap-8">
             <Column title={"NEW"} tasks={newStatus} id={"1"} />
             <Column title={"BACKLOG"} tasks={backlog} id={"2"} />
             <Column title={"IN PROGRESS"} tasks={inProgress} id={"3"} />

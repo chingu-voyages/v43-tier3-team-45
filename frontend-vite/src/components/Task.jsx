@@ -27,7 +27,7 @@ export default function Task({ task, index }) {
                   ...provided.draggableProps.style,
                 }}
               >
-                <div class="border m-2 p-2">
+                <div className="border m-2 p-2">
                   <div id="task-title">{task.title}</div>
                   <div id="task-status">
                     <span> Status: {task.status}</span>
