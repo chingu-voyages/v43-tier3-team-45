@@ -1,41 +1,50 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TypeDropdown from "./TypeDropdown.jsx";
 import PriorityDropdown from "./PriorityDropdown.jsx";
-import { useState } from "react";
+import TeamMemberDropdown from "./TeamMemberDropdown.jsx";
+import { useEffect, useState } from "react";
 import axiosInstance from "../util/AxiosInstance.js";
+import { updateIssueDetail } from "../util/apiCalls.js";
+import Avatar from "./Avatar.jsx";
+import {
+  addMemberToSelectedList,
+  clearSelectedList,
+  removeMemberFromSelectedList,
+  setFilteredList,
+} from "../store/teamReducer.js";
 
 // data is the IssueDTO
-const UpdateIssueForm = ({ taskId, onClose, data }) => {
-  console.log("data.title", data.title);
+const UpdateIssueForm = ({ onClose, data }) => {
   const [title, setTitle] = useState(data.title);
   const [description, setDescription] = useState(data.description);
   const [comment, setComment] = useState(data.comment);
   const [priority, setPriority] = useState(data.priority);
-  const [type, setType] = useState(data.type);
-
-  // const currentUser = useSelector(state => state.user.currentUser)
+  const [type, setType] = useState(data.issueType);
+  const dispatch = useDispatch();
   const selectedList = useSelector((state) => state.team.selectedList);
-  const members = useSelector((state) => state.team.currentTeam.members);
 
-  const testUser = {
-    id: "641ba87494ba927d1a1e932c",
-    email: "test1@gmail.com",
-    firstName: "Test",
-    lastName: "One",
-    role: "ROLE_USER",
-    avatarUrl:
-      "https://chinguboard-dev.s3.us-east-2.amazonaws.com/f805ce7c-5dba-46f3-be54-90c27983aacc_29348169ecc5b8d01ac28beb2c5a4a79.png",
+  // when new task is opened, set selectedList and filteredList based on the task's assignees
+  useEffect(() => {
+    data.assignees.map((member) => dispatch(addMemberToSelectedList(member)));
+  }, []);
+
+  const handleClick = (e, member) => {
+    e.preventDefault();
+    dispatch(removeMemberFromSelectedList(member));
   };
 
-  const testIssue = {
-    title: "testTitle",
-    description: "testDescription",
-    assignees: [],
+  // build issue to IssueDTO to send to backend
+  const issue = {
+    id: data.id,
+    title: title,
+    description: description,
+    assignees: selectedList,
     comments: [],
-    createdBy: testUser,
-    issueType: "TASK",
-    priority: "LOW",
-    status: "BACKLOG",
+    createdBy: data.createdBy,
+    issueType: type,
+    priority: priority,
+    status: data.status,
+    createdAt: data.createdAt,
   };
 
   const handleTitle = (e) => {
@@ -63,22 +72,15 @@ const UpdateIssueForm = ({ taskId, onClose, data }) => {
 
   const handleSave = (e) => {
     e.preventDefault();
-    // console.log(title, description, comment, priority, type, userEmail)
-    postIssue(testIssue);
-    onClose();
+    updateIssueDetail(issue);
+    handleClose(e);
   };
 
-  const postIssue = async (testIssue) => {
-    try {
-      const response = await axiosInstance.post(
-        `http://localhost:8080/api/issues/create?projectId=641ba8e494ba927d1a1e932d`,
-        testIssue
-      );
-      console.log(response.data);
-      return response.data;
-    } catch (error) {
-      console.log("error", error);
-    }
+  const handleClose = (e) => {
+    e.preventDefault();
+    dispatch(clearSelectedList());
+    dispatch(setFilteredList());
+    onClose();
   };
 
   return (
@@ -105,22 +107,10 @@ const UpdateIssueForm = ({ taskId, onClose, data }) => {
                   value={title}
                   name="name"
                   className="text-black"
-                  // className="
-                  //   w-full
-                  //   block px-16 py-2 mt-2
-                  //   border-gray-300
-                  //   rounded-md
-                  //   shadow-sm
-                  //   focus:border-indigo-300
-                  //   focus:ring
-                  //   focus:ring-indigo-200
-                  //   focus:ring-opacity-50
-                  // "
                   placeholder="Title"
                   onChange={handleTitle}
                 />
               </label>
-              {/* <div className="text-black">{title}</div> */}
             </div>
             <div>
               <TypeDropdown handleType={handleType} type={type} />
@@ -130,6 +120,21 @@ const UpdateIssueForm = ({ taskId, onClose, data }) => {
                 handlePriority={handlePriority}
                 priority={priority}
               />
+            </div>
+            <div>
+              <p>Assigned to: </p>
+              {selectedList.map((member) => (
+                <button onClick={(e) => handleClick(e, member)}>
+                  <Avatar
+                    src={member.avatarUrl}
+                    alt={member.firstName}
+                    size={12}
+                  />
+                </button>
+              ))}
+            </div>
+            <div>
+              <TeamMemberDropdown />
             </div>
 
             <div className="mb-2">
@@ -214,7 +219,7 @@ const UpdateIssueForm = ({ taskId, onClose, data }) => {
                       focus:shadow-outline
                       hover:bg-indigo-800
                       "
-                onClick={onClose}
+                onClick={(e) => handleClose(e)}
               >
                 Cancel
               </button>

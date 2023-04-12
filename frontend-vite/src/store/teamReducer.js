@@ -62,6 +62,12 @@ const teamSlice = createSlice({
           )
       );
     },
+    removeMemberFromSelectedList: (state, action) => {
+      state.filteredList.push(action.payload);
+      state.selectedList = state.selectedList.filter(
+        (member) => member.id !== action.payload.id
+      );
+    },
     clearSelectedList: (state) => {
       state.selectedList = [];
     },
@@ -89,7 +95,9 @@ export const {
   resetTeam,
   setMembers,
   addMemberToSelectedList,
+  removeMemberFromSelectedList,
   clearSelectedList,
+  setFilteredList,
 } = teamSlice.actions;
 
 export default teamSlice.reducer;
