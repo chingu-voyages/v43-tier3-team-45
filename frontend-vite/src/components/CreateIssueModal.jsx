@@ -3,6 +3,11 @@ import TypeDropdown from "./TypeDropdown.jsx";
 import PriorityDropdown from "./PriorityDropdown.jsx";
 import { useState } from "react";
 import { createNewIssue } from "../store/projectReducer.js";
+import {
+  clearSelectedList,
+  removeMemberFromSelectedList,
+  setFilteredList,
+} from "../store/teamReducer.js";
 
 const CreateIssueModal = ({ onClose }) => {
   const [title, setTitle] = useState();
@@ -14,17 +19,21 @@ const CreateIssueModal = ({ onClose }) => {
 
   const currentUser = useSelector((state) => state.user.currentUser);
   const selectedList = useSelector((state) => state.team.selectedList);
-  const members = useSelector((state) => state.team.currentTeam.members);
 
-  const testIssue = {
+  const issue = {
     title: title,
     description: description,
-    assignees: members.filter((member) => selectedList.includes(member.id)),
+    assignees: selectedList,
     comments: [],
     createdBy: currentUser,
     issueType: "TASK",
     priority: "LOW",
     status: "NEW",
+  };
+
+  const handleClick = (e, member) => {
+    e.preventDefault();
+    dispatch(removeMemberFromSelectedList(member));
   };
 
   const handleTitle = (e) => {
@@ -52,7 +61,14 @@ const CreateIssueModal = ({ onClose }) => {
 
   const handleSave = (e) => {
     e.preventDefault();
-    dispatch(createNewIssue(testIssue));
+    dispatch(createNewIssue(issue));
+    handleClose(e);
+  };
+
+  const handleClose = (e) => {
+    e.preventDefault();
+    dispatch(clearSelectedList());
+    dispatch(setFilteredList());
     onClose();
   };
 
@@ -100,7 +116,21 @@ const CreateIssueModal = ({ onClose }) => {
             <div>
               <PriorityDropdown handlePriority={handlePriority} />
             </div>
-
+            <div>
+              <p>Assigned to: </p>
+              {selectedList.map((member) => (
+                <button onClick={(e) => handleClick(e, member)}>
+                  <Avatar
+                    src={member.avatarUrl}
+                    alt={member.firstName}
+                    size={12}
+                  />
+                </button>
+              ))}
+            </div>
+            <div>
+              <TeamMemberDropdown />
+            </div>
             <div className="mb-2">
               <label>
                 <span class="text-gray-700">Description</span>
@@ -123,7 +153,6 @@ const CreateIssueModal = ({ onClose }) => {
                 ></textarea>
               </label>
             </div>
-
             <div className="mb-2">
               <label>
                 <span class="text-gray-700">Comment</span>
@@ -146,7 +175,6 @@ const CreateIssueModal = ({ onClose }) => {
                 ></textarea>
               </label>
             </div>
-
             <div class="mb-6">
               <button
                 type="submit"
@@ -161,12 +189,11 @@ const CreateIssueModal = ({ onClose }) => {
                       focus:shadow-outline
                       hover:bg-indigo-800
                     "
-                onClick={handleSave}
+                onClick={(e) => handleSave(e)}
               >
                 Save
               </button>
             </div>
-
             <div class="mb-6">
               <button
                 type="submit"
@@ -181,15 +208,12 @@ const CreateIssueModal = ({ onClose }) => {
                       focus:shadow-outline
                       hover:bg-indigo-800
                       "
-                onClick={onClose}
+                onClick={(e) => handleClose(e)}
               >
                 Cancel
               </button>
             </div>
-
-            <div></div>
           </form>
-
           <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse"></div>
         </div>
       </div>
