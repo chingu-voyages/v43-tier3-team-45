@@ -191,14 +191,13 @@ return (
                 </label>
               </div>
 
-              <div class="p-2 flex">
+              <div class="p-2 flex justify-center">
 
-                  {/* <div class="w-1/2 flex justify-end"> */}
-                      <div class="float-right">
+                      <div class="float-center">
                           <button
                             type="submit"
                             className="
-                                float-left 
+                          
                                 h-10
                                 px-5
                                 text-indigo-100
@@ -208,18 +207,19 @@ return (
                                 duration-150
                                 focus:shadow-outline
                                 hover:bg-indigo-800
+                                mx-5
                               "
                               onClick={handleSave}
                           >
                             Update
                           </button>
                   </div>
-                  
-              <div class="w-1/2, float-right">
+                  <br/>
+              <div class="w-1/2, float-center">
                         <button
                             type="submit"
                             className="
-                                float-right 
+                               
                                 h-10
                                 px-5
                                 text-indigo-100
@@ -229,6 +229,7 @@ return (
                                 duration-150
                                 focus:shadow-outline
                                 hover:bg-indigo-800
+                                mx-5
                               "
                               onClick={handleDelete}
                           >
