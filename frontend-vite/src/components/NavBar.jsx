@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Avatar from "./Avatar";
 import TeamDropdown from "./TeamDropDown";
 import { useNavigate } from "react-router";
@@ -35,10 +35,10 @@ export default function NavBar({ teams }) {
       <div className="font-sans text-xl text-white font-bold">Chingu Board</div>
 
       {/* Team Drop Down */}
-      <div className="">{teams && <TeamDropdown teams={teams} />}</div>
+      <div>{teams && <TeamDropdown teams={teams} />}</div>
 
       {/* Team Avatars */}
-      <div className="">{teamAvatars}</div>
+      <div>{teamAvatars}</div>
 
       {/* logout */}
       <div className="ml-50 bg-white">
@@ -47,7 +47,7 @@ export default function NavBar({ teams }) {
 
       {/* user Avatar */}
       <div>
-        <Avatar className="" src={user.avatarUrl} alt={"user"} />
+        <Avatar src={user.avatarUrl} alt={"user"} />
       </div>
     </nav>
   );
