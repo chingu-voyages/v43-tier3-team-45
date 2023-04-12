@@ -46,7 +46,7 @@ export default function NavBar({ teams }) {
       </div>
 
       {/* user Avatar */}
-      <div>hello, {currentUser}</div>
+      {/* <div>hello, {currentUser}</div> */}
       <div>
         <Avatar className="" src={user.avatarUrl} alt={"user"} />
       </div>

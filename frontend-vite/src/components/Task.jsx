@@ -10,6 +10,7 @@ export default function Task({ task, index }) {
 
   return (
     <div>
+      <div onClick={() => setIsShowing((isShowing) => !isShowing)}>
     <Draggable draggableId={`${task.id}`} key={task.id} index={index}>
       {(provided, snapshot) => (
         <div
@@ -38,9 +39,9 @@ export default function Task({ task, index }) {
             <div>{task.id}</div>
             <div id="user-avatar"></div>
             <div>
-            <button onClick={() => setIsShowing((isShowing) => !isShowing)}>
+            {/* <button onClick={() => setIsShowing((isShowing) => !isShowing)}>
                 Edit
-            </button>
+            </button> */}
             {/* moved the TRANSITION component so it's not draggable while opened */}
         </div>
             {/* <div>{<button onClick={(() => console.log("edit", task.id))}>Edit</button>} </div> */}
@@ -49,6 +50,7 @@ export default function Task({ task, index }) {
         </div>
       )}
     </Draggable>
+    </div>
     <Transition
           show={isShowing}
           enter="transition-opacity duration-125"
