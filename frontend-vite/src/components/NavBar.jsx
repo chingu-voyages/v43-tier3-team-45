@@ -16,12 +16,7 @@ export default function NavBar({ teams }) {
   let teamAvatars;
   if (teamMembers !== null) {
     teamAvatars = teamMembers.map((member, index) => (
-      <Avatar
-        key={index}
-        size="small"
-        src={member.avatarUrl}
-        alt="team member"
-      />
+      <Avatar key={index} size={12} src={member.avatarUrl} alt="team member" />
     ));
   }
 
