@@ -32,7 +32,7 @@ const CreateIssueModal = ({ onClose }) => {
   const testIssue = {
     title: title,
     description: description,
-    assignees: members.filter((member) => selectedList.includes(member.id)),
+    assignees: selectedList,
     comments: [],
     createdBy: currentUser,
     issueType: "TASK",
@@ -196,7 +196,7 @@ const CreateIssueModal = ({ onClose }) => {
                       focus:shadow-outline
                       hover:bg-indigo-800
                     "
-                onClick={handleSave}
+                onClick={(e) => handleSave(e)}
               >
                 Save
               </button>
