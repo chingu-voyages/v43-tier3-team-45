@@ -33,6 +33,8 @@ export const authSlice = createSlice({
     },
     logoutToken: (state) => {
       state.token = null;
+      state.status = "idle";
+      state.error = null;
     },
   },
   extraReducers: (builder) => {

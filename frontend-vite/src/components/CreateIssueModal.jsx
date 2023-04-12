@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import TypeDropdown from "./TypeDropdown.jsx";
 import PriorityDropdown from "./PriorityDropdown.jsx";
 import { useState } from "react";
-import axiosInstance from "../util/AxiosInstance.js";
 import { createNewIssue } from "../store/projectReducer.js";
 
 const CreateIssueModal = ({ onClose }) => {
@@ -14,11 +13,13 @@ const CreateIssueModal = ({ onClose }) => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.user.currentUser);
+  const selectedList = useSelector((state) => state.team.selectedList);
+  const members = useSelector((state) => state.team.currentTeam.members);
 
   const testIssue = {
-    title: "Test createNewIssue",
-    description: "testDescription",
-    assignees: [],
+    title: title,
+    description: description,
+    assignees: members.filter((member) => selectedList.includes(member.id)),
     comments: [],
     createdBy: currentUser,
     issueType: "TASK",
