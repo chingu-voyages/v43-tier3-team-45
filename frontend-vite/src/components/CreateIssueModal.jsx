@@ -40,11 +40,6 @@ const CreateIssueModal = ({ onClose }) => {
     status: "NEW",
   };
 
-  const handleClick = (e, member) => {
-    e.preventDefault();
-    dispatch(removeMemberFromSelectedList(member));
-  };
-
   const handleTitle = (e) => {
     e.preventDefault();
     setTitle(e.target.value);

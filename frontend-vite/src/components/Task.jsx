@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import UpdateIssueModal from "../components/UpdateIssueModal.jsx";
 import { Transition } from "@headlessui/react";
+import Avatar from "./Avatar.jsx";
 
 export default function Task({ task, index }) {
   const [isShowing, setIsShowing] = useState(false);
@@ -35,7 +36,11 @@ export default function Task({ task, index }) {
                   <span>Priority: {task.priority}</span>
                 </div>
                 <div>{task.id}</div>
-                <div id="user-avatar"></div>
+                {/* <div id="user-avatar">
+                {task.assignees.map((member) => (
+                  <Avatar src={member.avatarUrl} alt={"member"} size={12}/>
+                ))}
+                </div> */}
               </div>
               {provided.placeholder}
             </div>
