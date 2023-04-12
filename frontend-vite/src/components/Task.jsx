@@ -50,18 +50,18 @@ export default function Task({ task, index }) {
       )}
     </Draggable>
     <Transition
-                show={isShowing}
-                enter="transition-opacity duration-125"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="transition-opacity duration-150"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-            >
-                <div>
-                    {isShowing ? (<UpdateIssueModal taskId={task.id} onClose={() => setIsShowing(false)} />) : null }
-                </div>
-            </Transition>
+          show={isShowing}
+          enter="transition-opacity duration-125"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity duration-150"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+          >
+          <div>
+            {isShowing ? (<UpdateIssueModal taskId={task.id} onClose={() => setIsShowing(false)} />) : null }
+          </div>
+      </Transition>
     </div>
   );
 }
