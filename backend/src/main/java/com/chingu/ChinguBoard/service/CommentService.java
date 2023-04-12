@@ -49,4 +49,16 @@ public class CommentService {
     public Comment editComment(Comment comment) {
         return commentRepository.save(comment);
     }
+
+    public void deleteComments(List<String> ids) {
+        commentRepository.deleteAllById(ids);
+    }
+
+    public void deleteComment(String id, String issueId) {
+        // delete the comment from DB
+        commentRepository.deleteById(issueId);
+
+        // delete comment reference from the issue it was from
+        issueService.removeComment(issueId, id);
+    }
 }

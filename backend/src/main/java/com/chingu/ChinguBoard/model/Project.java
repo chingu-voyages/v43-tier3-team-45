@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "projects")
 public class Project {
-    
+
     @Id
     private String id;
 
@@ -34,6 +34,12 @@ public class Project {
     public void addIssue(Issue issue) {
         this.issues.add(issue);
         this.issueIds.add(issue.getId());
+    }
+
+    public void removeIssue(String issueId) {
+        int index = this.issueIds.indexOf(issueId);
+        this.issueIds.remove(index);
+        this.issues.remove(index);
     }
 
     public String getId() {

@@ -116,10 +116,29 @@ public class IssueService {
      * need 2 delete methods
      * - one for deleting the issue itself from the issue (will have to iterate
      * through the comments and delete those as well) and delete it's reference from
-     * project
+     * project (done)
      * - one for deleting the issue as a result of deleting a project, no need to
      * delete it's reference from the project as the project will be deleted and it
-     * is unnecessary DB access
+     * is unnecessary DB access (will implement if needed)
      */
+
+    public void deleteIssue(String issueId, String projectId) {
+        Issue issue = issueRepository.findById(issueId).orElseThrow();
+        // delete all comments on this issue
+        List<String> commentIds = issue.getCommentIds();
+        commentService.deleteComments(commentIds);
+
+        // remove issue reference from its project
+        projectService.removeIssue(projectId, issueId);
+
+        // delete issue itself
+        issueRepository.deleteById(issueId);
+    }
+
+    public void removeComment(String issueId, String commentId) {
+        Issue issue = getIssue(issueId);
+        issue.removeComment(commentId);
+        issueRepository.save(issue);
+    }
 
 }
