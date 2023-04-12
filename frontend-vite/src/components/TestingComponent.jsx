@@ -91,20 +91,24 @@ const Test = ({taskId, onClose, data} ) => {
                 <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
                     <div class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">  
                         <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Edit Task</h1>
-                        <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Owner Name</label>
-                        <input id="name" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="James" />
-                        <label for="email2" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Card Number</label>
+                        <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Type: <TypeDropdown /></label>
+                        <br/>
+                        <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Priority: <PriorityDropdown /></label>
+                        <br/>
+                        <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Members: <TeamDropdown /></label>
+                        {/* <input id="name" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="James" /> */}
+                        <label for="email2" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Description:</label>
                         <div class="relative mb-5 mt-2">
-                            <input id="email2" class="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-16 text-sm border-gray-300 rounded border" placeholder="XXXX - XXXX - XXXX - XXXX" />
+                            <textarea id="description" class="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="Description" />
                         </div>
-                        <label for="expiry" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Expiry Date</label>
+                        <label for="expiry" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Comment:</label>
                         <div class="relative mb-5 mt-2">
-                            <input id="expiry" class="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="MM/YY" />
+                            <textarea id="comment" class="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="Comment" />
                         </div>
-                        <label for="cvc" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">CVC</label>
+                        {/* <label for="cvc" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">CVC</label>
                         <div class="relative mb-5 mt-2">
                             <input id="cvc" class="mb-8 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="MM/YY" />
-                        </div>
+                        </div> */}
                         <div class="flex items-center justify-start w-full">
                             <button onClick={handleSave} class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">Save</button>
                             <button onClick={handleDelete} class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm" onclick="modalHandler()">Delete</button>

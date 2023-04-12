@@ -9,9 +9,8 @@ const PriorityDropdown = (props) => {
     }
 
     return (
-        <div className="relative w-full lg:max-w-sm">
-            Priority:
-            <select className="w-half  p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600" 
+            <select 
+                className="w-half text-sm font-bold bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
                 onChange={(e) => listener(e)}
                 >
                 {/* <option>Priority:</option> */}
@@ -19,7 +18,6 @@ const PriorityDropdown = (props) => {
                 <option> 2</option>
                 <option> 3</option>
             </select>
-        </div>
     );
 }
 
