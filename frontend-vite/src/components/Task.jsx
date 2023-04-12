@@ -5,8 +5,8 @@ import { Transition } from '@headlessui/react'
 
 
 export default function Task({ task, index }) {
-    // console.log("task", task.id)
-    const [isShowing, setIsShowing] = useState(false)
+
+  const [isShowing, setIsShowing] = useState(false)
 
   return (
     <div>

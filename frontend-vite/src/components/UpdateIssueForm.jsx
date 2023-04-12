@@ -97,7 +97,7 @@ return (
           </div>
           <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
           <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-            <form className="w-full max-w-md">
+            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <button 
             onClick={onClose}
             type="button" class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
@@ -143,14 +143,15 @@ return (
 
               <div className="mb-2">
                 <label>
-                  <span class="text-gray-700">Description</span>
+                  <span class="text-gray-400">Description</span>
                   <textarea
                     name="message"
                     value={description}
+                    style={{ fontSize: "18px" }}
                     className="
                         block
                         w-full
-                        mt-2 px-16 py-8
+                        mt-2 px-3 py-3
                         border-gray-300
                         rounded-md
                         shadow-sm
@@ -159,7 +160,7 @@ return (
                         focus:ring-indigo-200
                         focus:ring-opacity-50
                       "
-                      rows="5"
+                      rows="3"
                     onChange={handleDescription}
                   ></textarea>
                 </label>
@@ -167,14 +168,15 @@ return (
 
               <div className="mb-2">
                 <label>
-                  <span class="text-gray-700">Comment</span>
+                  <span class="text-gray-400">Comment</span>
                   <textarea
                     name="message"
                     value={comment}
+                    style={{ fontSize: "18px" }}
                     className="
                         block
                         w-full
-                        mt-2 px-16 py-8
+                        mt-2 px-3 py-3
                         border-gray-300
                         rounded-md
                         shadow-sm
@@ -183,50 +185,58 @@ return (
                         focus:ring-indigo-200
                         focus:ring-opacity-50
                       "
-                    rows="5"
+                    rows="3"
                     onChange={handleComment}
                   ></textarea>
                 </label>
               </div>
 
-              <div class="mb-6">
-                <button
-                  type="submit"
-                  className="
-                      h-10
-                      px-5
-                      text-indigo-100
-                      bg-indigo-700
-                      rounded-lg
-                      transition-colors
-                      duration-150
-                      focus:shadow-outline
-                      hover:bg-indigo-800
-                    "
-                    onClick={handleSave}
-                >
-                  Update
-                </button>
+              <div class="p-2 flex">
+
+                  {/* <div class="w-1/2 flex justify-end"> */}
+                      <div class="float-right">
+                          <button
+                            type="submit"
+                            className="
+                                float-left 
+                                h-10
+                                px-5
+                                text-indigo-100
+                                bg-indigo-700
+                                rounded-lg
+                                transition-colors
+                                duration-150
+                                focus:shadow-outline
+                                hover:bg-indigo-800
+                              "
+                              onClick={handleSave}
+                          >
+                            Update
+                          </button>
+                  </div>
+                  
+              <div class="w-1/2, float-right">
+                        <button
+                            type="submit"
+                            className="
+                                float-right 
+                                h-10
+                                px-5
+                                text-indigo-100
+                                bg-indigo-700
+                                rounded-lg
+                                transition-colors
+                                duration-150
+                                focus:shadow-outline
+                                hover:bg-indigo-800
+                              "
+                              onClick={handleDelete}
+                          >
+                            Delete
+                        </button>
               </div>
-              <div>
-              <button
-                  type="submit"
-                  className="
-                      h-10
-                      px-5
-                      text-indigo-100
-                      bg-indigo-700
-                      rounded-lg
-                      transition-colors
-                      duration-150
-                      focus:shadow-outline
-                      hover:bg-indigo-800
-                    "
-                    onClick={handleDelete}
-                >
-                  Delete
-                </button>
-              </div>
+            {/* </div>    */}
+            </div>
             </form >
 
             <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -235,7 +245,7 @@ return (
         </div>
       </div>
       </div>
-)
+    )
 
 };
 
