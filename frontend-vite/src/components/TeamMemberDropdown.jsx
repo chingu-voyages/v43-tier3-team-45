@@ -11,7 +11,7 @@ const TeamMemberDropdown = () => {
 
   const handleClick = (e, member) => {
     e.preventDefault();
-    dispatch(addMemberToSelectedList(member.id));
+    dispatch(addMemberToSelectedList(member));
     console.log({ selectedList });
     console.log({ filteredList });
   };

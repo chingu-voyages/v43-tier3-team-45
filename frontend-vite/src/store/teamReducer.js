@@ -56,7 +56,10 @@ const teamSlice = createSlice({
     addMemberToSelectedList: (state, action) => {
       state.selectedList.push(action.payload);
       state.filteredList = state.filteredList.filter(
-        (member) => !state.selectedList.includes(member.id)
+        (member) =>
+          !state.selectedList.some(
+            (selectedMember) => selectedMember.id == member.id
+          )
       );
     },
     clearSelectedList: (state) => {
