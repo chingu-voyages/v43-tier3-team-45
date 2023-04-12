@@ -13,7 +13,8 @@ const initialState = {
  */
 export const addMemberToTeam = createAsyncThunk(
   "teams/addMember",
-  async (userId, { getState }) => {
+  async (_, { getState }) => {
+    const userId = getState().user.currentUser.id;
     const teamId = getState().team.currentTeam.id;
     const response = await axiosInstance.put(`/teams/${teamId}/${userId}/add`);
     return response.data;
@@ -25,8 +26,9 @@ export const addMemberToTeam = createAsyncThunk(
  */
 export const removeMemberFromTeam = createAsyncThunk(
   "teams/removeMember",
-  async (userId, { getState }) => {
-    const teamId = getState().team.team.id;
+  async (_, { getState }) => {
+    const userId = getState().user.currentUser.id;
+    const teamId = getState().team.currentTeam.id;
     const response = await axiosInstance.put(
       `/teams/${teamId}/${userId}/remove`
     );
@@ -41,18 +43,39 @@ const teamSlice = createSlice({
     setTeam: (state, action) => {
       state.currentTeam = action.payload;
     },
+    resetTeam: (state) => {
+      state.currentTeam = null;
+      state.members = null;
+      state.selectedList = [];
+      state.filteredList = [];
+    },
     setMembers: (state, action) => {
       state.members = action.payload;
-      state.filteredList = action.payload;
+      state.filteredList = action.payload; // can remove this once set/clearFilteredList is hooked up with open/close modal
     },
     addMemberToSelectedList: (state, action) => {
       state.selectedList.push(action.payload);
       state.filteredList = state.filteredList.filter(
-        (member) => !state.selectedList.includes(member.id)
+        (member) =>
+          !state.selectedList.some(
+            (selectedMember) => selectedMember.id == member.id
+          )
+      );
+    },
+    removeMemberFromSelectedList: (state, action) => {
+      state.filteredList.push(action.payload);
+      state.selectedList = state.selectedList.filter(
+        (member) => member.id !== action.payload.id
       );
     },
     clearSelectedList: (state) => {
       state.selectedList = [];
+    },
+    setFilteredList: (state) => {
+      state.filteredList = state.currentTeam.members;
+    },
+    clearFilteredList: (state) => {
+      state.filteredList = [];
     },
   },
   extraReducers: (builder) => {
@@ -69,9 +92,12 @@ const teamSlice = createSlice({
 
 export const {
   setTeam,
+  resetTeam,
   setMembers,
   addMemberToSelectedList,
+  removeMemberFromSelectedList,
   clearSelectedList,
+  setFilteredList,
 } = teamSlice.actions;
 
 export default teamSlice.reducer;

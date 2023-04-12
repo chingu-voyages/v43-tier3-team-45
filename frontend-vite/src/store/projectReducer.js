@@ -63,6 +63,18 @@ export const createNewIssue = createAsyncThunk(
   }
 );
 
+/**
+ * @param
+ */
+export const deleteIssue = createAsyncThunk(
+  "issue/delete",
+  async (issueId, { getState, dispatch }) => {
+    const projectId = getState().project.currentProject.id;
+    dispatch(removeIssueById(issueId));
+    return axiosInstance.delete(`/issues/${issueId}?projectId=${projectId}`);
+  }
+);
+
 const projectSlice = createSlice({
   name: "project",
   initialState,
@@ -102,6 +114,34 @@ const projectSlice = createSlice({
     addToCompleted: (state, action) => {
       state.dndIssue.status = "DONE";
       state.completed.splice(action.payload, 0, state.dndIssue);
+    },
+    removeIssueById: (state, action) => {
+      const index = state.currentProject.issues.findIndex(
+        (issue) => issue.id == action.payload
+      );
+      const issue = state.currentProject.issues.splice(index, 1)[0];
+      switch (issue.status) {
+        case "NEW":
+          state.newStatus = state.newStatus.filter(
+            (issue) => issue.id == action.payload
+          );
+          break;
+        case "BACKLOG":
+          state.backlog = state.backlog.filter(
+            (issue) => issue.id == action.payload
+          );
+          break;
+        case "IN_PROGRESS":
+          state.inProgress = state.inProgress.filter(
+            (issue) => issue.id == action.payload
+          );
+          break;
+        case "DONE":
+          state.completed = state.completed.filter(
+            (issue) => issue.id == action.payload
+          );
+          break;
+      }
     },
   },
   extraReducers: (builder) => {

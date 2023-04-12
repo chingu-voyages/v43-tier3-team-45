@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import UpdateIssueModal from '../components/UpdateIssueModal.jsx'
 import { Transition } from '@headlessui/react'
