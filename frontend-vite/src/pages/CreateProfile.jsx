@@ -1,14 +1,13 @@
 import React, { useState, Fragment } from "react";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { createUser } from "../store/authReducer";
 import { useNavigate } from "react-router";
 
 function CreateProfile() {
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [profileImage, setProfileImage] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -84,7 +83,10 @@ function CreateProfile() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <button className=" bg-blue-400 hover:bg-blue-700 text-black hover:text-white font-bold py-2 px-4 rounded mr-2 mt-8 mb-10">
+          <button
+            className="bg-blue-400 disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-blue-700 text-black hover:text-white font-bold py-2 px-4 rounded mr-2 mt-8 mb-10"
+            disabled={!firstName || !lastName || !password || !email}
+          >
             Submit
           </button>
         </div>

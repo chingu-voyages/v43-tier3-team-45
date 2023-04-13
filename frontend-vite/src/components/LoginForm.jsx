@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../store/authReducer";
 import { useNavigate } from "react-router-dom";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from 'axios'
+import axios from "axios";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const LoginForm = () => {
 
       <label>
         Password:
-        <input type="text" name="name" onChange={handlePassword} />
+        <input type="password" name="name" onChange={handlePassword} />
       </label>
 
       {/* <button onClick={handleSubmit}>Log in</button> */}

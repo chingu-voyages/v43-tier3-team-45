@@ -1,14 +1,8 @@
 import React, { useState } from "react";
-import * as FaIcons from "react-icons/fa";
-import * as AiIcons from "react-icons/ai";
-import { Link } from "react-router-dom";
-import { IconContext } from "react-icons/lib";
 import "../App.css";
-// import TeamProjects from "./TeamProjects";
 import { useDispatch, useSelector } from "react-redux";
 import TeamProjects from "./TeamProjects";
 import { BsSearch } from "react-icons/bs";
-import { GrProjects } from "react-icons/gr";
 import { createProject } from "../store/projectReducer";
 import { addMemberToTeam } from "../store/teamReducer";
 
