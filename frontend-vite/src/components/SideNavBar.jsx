@@ -94,14 +94,16 @@ function SideNavBar({ sidebarOpen }) {
       >
         {selectedTeamProjects && teamProjectArray}
       </ul>
-      <button
-        className={`origin-left font-medium text-lg duration-400 ${
-          !sidebarOpen && "scale-0"
-        }`}
-        onClick={(e) => handleCreateProject(e)}
-      >
-        <p>Create new Project</p>
-      </button>
+      {selectedTeam && (
+        <button
+          className={`origin-left font-medium text-lg duration-400 ${
+            !sidebarOpen && "scale-0"
+          }`}
+          onClick={(e) => handleCreateProject(e)}
+        >
+          <p>Create new Project</p>
+        </button>
+      )}
     </>
   );
 }
