@@ -14,16 +14,23 @@ function SideNavBar({ sidebarOpen }) {
   const [sidebar, setSidebar] = useState(false);
 
   const selectedTeam = useSelector((state) => state.team.currentTeam);
-  let selectedTeamProjects;
+  const selectedTeamProjects = useSelector((state) => {
+    if (selectedTeam !== null) {
+      return state.team.currentTeam.projects;
+    } else {
+      return null;
+    }
+  });
   let teamProjectArray;
   if (selectedTeam !== null) {
-    selectedTeamProjects = selectedTeam.projects;
     teamProjectArray = selectedTeamProjects.map((project, index) => (
-      <div>
-        {/* <span className="text-2xl block float-left my-2.5 ml-1">
-          <GrProjects />
-        </span> */}
-        <TeamProjects project={project} index={index} key={index} sidebarOpen={sidebarOpen}/>
+      <div key={index}>
+        <TeamProjects
+          project={project}
+          index={index}
+          key={index}
+          sidebarOpen={sidebarOpen}
+        />
       </div>
     ));
   }
