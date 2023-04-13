@@ -5,13 +5,15 @@ import { Link } from "react-router-dom";
 import { IconContext } from "react-icons/lib";
 import "../App.css";
 // import TeamProjects from "./TeamProjects";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TeamProjects from "./TeamProjects";
 import { BsSearch } from "react-icons/bs";
 import { GrProjects } from "react-icons/gr";
+import { createProject } from "../store/projectReducer";
 
 function SideNavBar({ sidebarOpen }) {
   const [sidebar, setSidebar] = useState(false);
+  const dispatch = useDispatch();
 
   const selectedTeam = useSelector((state) => state.team.currentTeam);
   const selectedTeamProjects = useSelector((state) => {
@@ -34,6 +36,15 @@ function SideNavBar({ sidebarOpen }) {
       </div>
     ));
   }
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    const project = {
+      name: "new project",
+      issues: [],
+    };
+    dispatch(createProject(project));
+  };
 
   return (
     <>
@@ -62,6 +73,14 @@ function SideNavBar({ sidebarOpen }) {
       >
         {selectedTeamProjects && teamProjectArray}
       </ul>
+      <button
+        className={`origin-left font-medium text-lg duration-400 ${
+          !sidebarOpen && "scale-0"
+        }`}
+        onClick={(e) => handleClick(e)}
+      >
+        <p>Create new Project</p>
+      </button>
     </>
   );
 }
