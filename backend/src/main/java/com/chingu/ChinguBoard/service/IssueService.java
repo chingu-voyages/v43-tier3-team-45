@@ -76,6 +76,7 @@ public class IssueService {
         for (int i = 0; i < issues.size(); i++) {
             userIds.add(issues.get(i).getCreatedById());
         }
+        // somewhat of a improvised caching
         Map<String, User> userMap = userService.getUserMap(userIds);
         for (int i = 0; i < issues.size(); i++) {
             issues.get(i).setCreatedBy(userMap.get(userIds.get(i)));
