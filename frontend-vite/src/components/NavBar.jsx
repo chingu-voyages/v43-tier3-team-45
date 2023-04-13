@@ -32,7 +32,7 @@ export default function NavBar({ teams }) {
   return (
     <nav className="flex items-center px-5 justify-between border-8 border-white-600 mx-auto bg-gray-700">
       {/* app name */}
-      <div className="font-sans text-xl text-white font-bold">Chingu Board</div>
+      <div className="font-sans text-xl text-white font-bold">ChinguBoard</div>
 
       {/* Team Drop Down */}
       <div>{teams && <TeamDropdown teams={teams} />}</div>

@@ -8,6 +8,8 @@ import {
   removeMemberFromSelectedList,
   setFilteredList,
 } from "../store/teamReducer.js";
+import TeamMemberDropdown from "./TeamMemberDropdown.jsx";
+import Avatar from "./Avatar";
 
 const CreateIssueModal = ({ onClose }) => {
   const [title, setTitle] = useState();
