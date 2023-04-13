@@ -1,6 +1,6 @@
 import React from "react";
 import Avatar from "./Avatar";
-import TeamDropdown from "./TeamDropDown";
+import TeamDropdown from "./TeamDropdown";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutToken } from "../store/authReducer";

@@ -6,14 +6,6 @@ import CircularLoading from "./CircularLoading.jsx";
 const UpdateIssueModal = ({ onClose, taskId }) => {
   const [data, setData] = useState(null);
 
-  // const [ data, setData ] = useState({
-  //       title: "",
-  //       description: "",
-  //       comment: "",
-  //       priority: "",
-  //       type: ""
-  //   })
-
   useEffect(() => {
     getIssueDetail(taskId).then((res) => setData(res));
   }, []);

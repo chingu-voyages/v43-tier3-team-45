@@ -18,6 +18,7 @@ export default function Kanban() {
   const inProgress = useSelector((state) => state.project.inProgress);
   const completed = useSelector((state) => state.project.completed);
   const project = useSelector((state) => state.project.currentProject);
+  const loading = useSelector((state) => state.project.status) == "loading";
 
   const dispatch = useDispatch();
 
@@ -75,6 +76,7 @@ export default function Kanban() {
 
   return (
     <div>
+      {loading && <CircularLoading />}
       <div className="p-6">{project && <CreateIssue />}</div>
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className="flex">
