@@ -15,7 +15,6 @@ export default function Task({ task, index }) {
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               ref={provided.innerRef}
-              isDragging={snapshot.isDragging}
               style={{
                 userSelect: "none",
                 padding: 16,

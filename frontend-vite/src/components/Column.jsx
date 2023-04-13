@@ -19,7 +19,6 @@ export default function Column({ title, tasks, id }) {
                 id="task-list"
                 ref={provided.innerRef}
                 {...provided.droppableProps}
-                isDraggingOver={snapshot.isDraggingOver}
                 style={{
                   background: snapshot.isDraggingOver
                     ? "lightblue"
