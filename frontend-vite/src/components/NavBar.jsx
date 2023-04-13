@@ -46,9 +46,9 @@ export default function NavBar({ teams }) {
       </div>
 
       {/* user Avatar */}
-      <div>
-        <Avatar src={user.avatarUrl} alt={"user"} />
-      </div>
+      <button onClick={() => navigate("/profile")}>
+        <Avatar src={user.avatarUrl} alt={"user"} size={12} />
+      </button>
     </nav>
   );
 }
