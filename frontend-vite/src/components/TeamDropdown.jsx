@@ -18,13 +18,13 @@ const TeamDropdown = ({ teams }) => {
   return (
     <div className="w-48">
       <Listbox value={selectedTeam} onChange={handleSelect}>
-        <Listbox.Button className="relative w-full cursor-pointer rounded-lg bg-purple py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-          <span className="block truncat">
+        <Listbox.Button className="relative w-full cursor-pointer rounded-lg bg-blue-500 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+          <span className="block truncat text-white">
             {selectedTeam ? selectedTeam.name : "Choose a Team"}
           </span>
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
             <ChevronDownIcon
-              className="h-5 w-5 text-gray-400"
+              className="h-5 w-5 text-white"
               aria-hidden="true"
             />
           </span>

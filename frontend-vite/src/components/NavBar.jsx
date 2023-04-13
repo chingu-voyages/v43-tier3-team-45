@@ -31,36 +31,32 @@ const NavBar = ({ teams }) => {
 
   return (
     <nav
-      className="flex 
-     items-center px-5 border-8 border-white-600 mx-auto bg-gray-100"
+      className="flex justify-evenly
+     items-center px-5 border-8 border-white-600 mx-auto bg-white-100"
     >
-      {/* app name */}
-      <div className="font-sans text-xl text-gray font-bold ml-12 ">
+      <div className="font-sans text-xl text-blue-500 font-bold ml-3">
         Chingu Board
       </div>
 
-      {/* Team Drop Down */}
-      <div className="ml-56 mr-12">
-        {teams && <TeamDropdown teams={teams} />}
+      <div className="flex justify-between items-center mx-auto px-5">
+        <div className="mr-2">{teams && <TeamDropdown teams={teams} />}</div>
+        <div className="flex pl-5">{teamAvatars}</div>
       </div>
 
-      {/* Team Avatars */}
-      <div className="mr-96">{teamAvatars}</div>
-
-      {/* logout */}
-      <div className=" bg-white rounded-none p-2 ml-96">
-        <button>Logout</button>
-      </div>
-
-      {/* user Avatar */}
-      <div className="ml-10">
-        <button
-          onClick={() => {
-            navigate("/profile/update");
-          }}
-        >
-          <Avatar size={12} src={user.avatarUrl} alt={"user"} />
-        </button>
+      <div className="flex justify-around items-center px-6 mx-6">
+        <div className=" bg-white rounded-none p-2 mr-5">
+          <button onClick={(e) => handleLogout(e)}>Logout</button>
+        </div>
+        <div className="flex">
+          <button
+            className="items-center"
+            onClick={() => {
+              navigate("/profile/update");
+            }}
+          >
+            <Avatar size={12} src={user.avatarUrl} alt={"user"} />
+          </button>
+        </div>
       </div>
     </nav>
   );
