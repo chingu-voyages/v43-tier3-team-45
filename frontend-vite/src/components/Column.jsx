@@ -10,16 +10,15 @@ export default function Column({ title, tasks, id }) {
 
   return (
     <div>
-      <div class="column">
-        <div class="border">
-          <h3 class="text-4xl font-bold"> {title} </h3>
+      <div className="column">
+        <div className="border">
+          <h3 className="text-4xl font-bold"> {title} </h3>
           <Droppable droppableId={id}>
             {(provided, snapshot) => (
               <div
                 id="task-list"
                 ref={provided.innerRef}
                 {...provided.droppableProps}
-                isDraggingOver={snapshot.isDraggingOver}
                 style={{
                   background: snapshot.isDraggingOver
                     ? "lightblue"

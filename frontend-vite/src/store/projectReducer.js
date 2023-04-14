@@ -19,6 +19,18 @@ export const getProject = createAsyncThunk(
   }
 );
 
+export const createProject = createAsyncThunk(
+  "project/create",
+  async (project, { getState }) => {
+    const teamId = getState().team.currentTeam.id;
+    const response = await axiosInstance.post(
+      `/projects/create/${teamId}`,
+      project
+    );
+    return response.data;
+  }
+);
+
 /**
  * @param payload - { draggabeId, new_status, destination_index }
  */

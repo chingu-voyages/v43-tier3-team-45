@@ -3,7 +3,6 @@ import TypeDropdown from "./TypeDropdown.jsx";
 import PriorityDropdown from "./PriorityDropdown.jsx";
 import TeamMemberDropdown from "./TeamMemberDropdown.jsx";
 import { useEffect, useState } from "react";
-import axiosInstance from "../util/AxiosInstance.js";
 import { updateIssueDetail } from "../util/apiCalls.js";
 import Avatar from "./Avatar.jsx";
 import {
@@ -28,6 +27,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
     data.assignees.map((member) => dispatch(addMemberToSelectedList(member)));
   }, []);
 
+  // function to handle unassigning a member from an issue
   const handleClick = (e, member) => {
     e.preventDefault();
     dispatch(removeMemberFromSelectedList(member));
@@ -39,7 +39,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
     title: title,
     description: description,
     assignees: selectedList,
-    comments: [],
+    comments: data.comments,
     createdBy: data.createdBy,
     issueType: type,
     priority: priority,
@@ -136,10 +136,9 @@ const UpdateIssueForm = ({ onClose, data }) => {
             <div>
               <TeamMemberDropdown />
             </div>
-
             <div className="mb-2">
               <label>
-                <span class="text-gray-700">Description</span>
+                <span className="text-gray-700">Description</span>
                 <textarea
                   name="message"
                   value={description}
@@ -163,7 +162,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
 
             <div className="mb-2">
               <label>
-                <span class="text-gray-700">Comment</span>
+                <span className="text-gray-700">Comment</span>
                 <textarea
                   name="message"
                   value={comment}
@@ -185,7 +184,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
               </label>
             </div>
 
-            <div class="mb-6">
+            <div className="mb-6">
               <button
                 type="submit"
                 className="
@@ -205,7 +204,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
               </button>
             </div>
 
-            <div class="mb-6">
+            <div className="mb-6">
               <button
                 type="submit"
                 className="

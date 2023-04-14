@@ -35,7 +35,7 @@ const TeamDropdown = ({ teams }) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="absolute mt-1 max-h-60 w-1/5 z-10 rounded-md bg-orange py-1 text-base shadow-lg ring-1 bg-yellow-300 ring-black ring-opacity-5 focus:outline-none sm:text-sm truncate">
+          <Listbox.Options className="absolute mt-1 max-h-60 overflow-auto w-1/5 z-10 rounded-md bg-orange py-1 text-base shadow-lg ring-1 bg-yellow-300 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
             {teams.map((team, i) => (
               <Listbox.Option
                 key={i}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Avatar from "./Avatar";
 import TeamDropdown from "./TeamDropdown";
 import { useNavigate } from "react-router";
@@ -37,12 +37,10 @@ const NavBar = ({ teams }) => {
       <div className="font-sans text-xl text-blue-500 font-bold ml-3">
         Chingu Board
       </div>
-
       <div className="flex justify-between items-center mx-auto px-5">
         <div className="mr-2">{teams && <TeamDropdown teams={teams} />}</div>
         <div className="flex pl-5">{teamAvatars}</div>
       </div>
-
       <div className="flex justify-around items-center px-6 mx-6">
         <div className=" bg-white rounded-none p-2 mr-5">
           <button onClick={(e) => handleLogout(e)}>Logout</button>
@@ -51,7 +49,7 @@ const NavBar = ({ teams }) => {
           <button
             className="items-center"
             onClick={() => {
-              navigate("/profile/update");
+              navigate("/profile");
             }}
           >
             <Avatar size={12} src={user.avatarUrl} alt={"user"} />

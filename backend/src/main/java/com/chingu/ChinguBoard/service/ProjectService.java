@@ -27,7 +27,7 @@ public class ProjectService {
 
     // batch query to reduce number of queries
     public Project populateLists(Project project) {
-        List<Issue> issues = issueService.getIssues(project.getIssueIds());
+        List<Issue> issues = issueService.getIssueList(project.getIssueIds());
         project.setIssues(issues);
 
         return project;
