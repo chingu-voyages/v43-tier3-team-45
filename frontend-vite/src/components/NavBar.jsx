@@ -31,14 +31,13 @@ const NavBar = ({ teams }) => {
 
   return (
     <nav
-      className="flex justify-evenly
-     items-center px-5 border-8 border-white-600 mx-auto bg-white-100"
+      className="flex justify-evenly items-center p-3 px-5 mx-auto bg-white-100 shadow"
     >
       <div className="font-sans text-xl text-blue-500 font-bold ml-3">
         Chingu Board
       </div>
       <div className="flex justify-between items-center mx-auto px-5">
-        <div className="mr-2">{teams && <TeamDropdown teams={teams} />}</div>
+        <div className="mr-2 justify-self-start">{teams && <TeamDropdown teams={teams} />}</div>
         <div className="flex pl-5">{teamAvatars}</div>
       </div>
       <div className="flex justify-around items-center px-6 mx-6">

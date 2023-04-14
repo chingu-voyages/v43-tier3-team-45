@@ -59,7 +59,7 @@ function SideNavBar({ sidebarOpen }) {
             !sidebarOpen && "scale-0"
           }`}
         >
-          {selectedTeam.name} Workspaces
+          {selectedTeam && selectedTeam.name} Workspaces
         </h1>
       </div>
       {!isInTeam && (

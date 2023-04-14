@@ -80,7 +80,7 @@ import Avatar from "./Avatar.jsx";
 export default function Task({ task, index }) {
   const [isShowing, setIsShowing] = useState(false);
 
-console.log(task)
+  console.log(task);
   return (
     <>
       <div onClick={() => setIsShowing((isShowing) => !isShowing)}>
@@ -90,50 +90,52 @@ console.log(task)
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               ref={provided.innerRef}
-              isDragging={snapshot.isDragging}
-              className="mt-2 p-0.5 rounded-md"
+              className="rounded-md mt-1"
               style={{
                 minHeight: "50px",
-                backgroundColor: snapshot.isDragging ? "#263B4A" : "#456C86",
                 ...provided.draggableProps.style,
               }}
             >
               <div className="block rounded-md shadow bg-white border m-2 p-2">
-                <div className="flex justify-between items-center">
-                  <div className="text-left text-md font-semibold text-grey-900 pr-2 leading-5 pb-2">
+                <div className="flex justify-between items-center max-w-40">
+                  <div className="text-left text-md font-semibold text-grey-900 pr-2 leading-5 pb-2 text-ellipsis overflow-hidden">
                     {task.title}
                   </div>
-                  <div className="text-sm font-medium text-grey-600 p-2">
-                    {task.issueType}
-                  </div>
-                </div>
-                <div className="text-left text-sm font-medium text-grey-600 p-1">
-                  <span>
-                    Priority:
+                  <div className="text-left text-sm font-medium text-grey-600 p-1">
                     <span
                       className={`${
                         task.priority === "LOW"
                           ? "bg-green-400"
-                          : task.priority === "MEDIUM" ? "bg-yellow-300" : task.priority === "HIGH" ? "bg-orange-300" : "bg-red-600"
+                          : task.priority === "MODERATE"
+                          ? "bg-yellow-300"
+                          : task.priority === "HIGH"
+                          ? "bg-orange-300"
+                          : "bg-red-600"
                       } rounded-full ml-1 px-2 py-0.5`}
                     >
                       {task.priority}
                     </span>
+                  </div>
+                </div>
+                <div className="text-left text-sm font-medium text-grey-600">
+                  {task.issueType}
+                </div>
+                <div className="text-left text-sm font-medium text-grey-600">
+                  <span>Status:</span>
+                  <span
+                    className={`${
+                      task.status === "NEW"
+                        ? "bg-blue-200"
+                        : task.status === "BACKLOG"
+                        ? "bg-pink-200"
+                        : task.status === "IN_PROGRESS"
+                        ? "bg-purple-200"
+                        : "bg-emerald-200"
+                    } rounded-full ml-1 px-2 py-0.5`}
+                  >
+                    {task.status}
                   </span>
                 </div>
-                <div className="text-left text-sm font-medium text-grey-600 p-1">
-                  <span>Status:</span>
-                  <span className={`${
-                        task.status === "NEW"
-                          ? "bg-green-400"
-                          : task.status === "BACKLOG" ? "bg-yellow-300" : task.status === "IN_PROGRESS" ? "bg-orange-300" : "bg-red-600"
-                      } rounded-full px-2 py-0.5`}> {task.status}</span>
-                </div>
-                {/* <div id="user-avatar">
-                {task.assignees.map((member) => (
-                  <Avatar src={member.avatarUrl} alt={"member"} size={12}/>
-                ))}
-                </div> */}
               </div>
               {provided.placeholder}
             </div>
