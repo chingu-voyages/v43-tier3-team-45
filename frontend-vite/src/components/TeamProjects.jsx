@@ -16,7 +16,7 @@ export default function TeamProjects({ project, sidebarOpen }) {
         <div className={`text-2xl block float-left ${sidebarOpen && "mr-2"}`}>
           <BsReverseLayoutTextSidebarReverse />
         </div>
-        <div className="text-base font-md">{project.name}</div>
+        <div className="text-left text-base font-md leading-4">{project.name}</div>
         {/* <span>{project.id}</span> */}
       </button>
     </li>

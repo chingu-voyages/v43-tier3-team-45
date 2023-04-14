@@ -10,8 +10,8 @@ export default function Column({ title, tasks, id }) {
 
   return (
     <div>
-      <div className="column">
-        <div className="rounded-md p-3 overflow-y-scroll">
+      <div className="min-h-screen">
+        <div className="rounded-md p-3 max-h-screen">
           <h3 className="text-md font-medium text-grey-900"> {title} </h3>
           <div className="overflow-auto">
           <Droppable droppableId={id}>
@@ -23,8 +23,8 @@ export default function Column({ title, tasks, id }) {
                 isDraggingOver={snapshot.isDraggingOver}
                 style={{
                   background: snapshot.isDraggingOver
-                    ? "lightblue"
-                    : "lightgrey",
+                    ? "#F3F4F6"
+                    : "#F3F4F6",
                   minHeight: 100,
                 }}
               >

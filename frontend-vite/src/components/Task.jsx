@@ -114,7 +114,7 @@ export default function Task({ task, index }) {
                       className={`${
                         task.priority === "LOW"
                           ? "bg-green-400"
-                          : "bg-yellow-300"
+                          : task.priority === "MEDIUM" ? "bg-yellow-300" : "bg-red-300"
                       } rounded-lg p-1`}
                     >
                       {task.priority}

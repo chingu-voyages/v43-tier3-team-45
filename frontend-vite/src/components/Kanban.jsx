@@ -166,27 +166,30 @@ export default function Kanban() {
   }
 
   return (
-    <div className="h-full">
-      <div className="p-6 h-1/6">{project && <CreateIssue />}</div>
-      <div className="h-5/6">
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="flex-1">
-          <div className="p-3 flex">
-            <div className="flex-shrink-0 w-80 p-3 rounded-md bg-gray-100 mr-4 overflow-auto">
-              <Column title={"NEW"} tasks={newStatus} id={"1"} />
-            </div>
-            <div className="flex-shrink-0 w-80 p-3 rounded-md bg-gray-100 mr-4 overflow-auto">
-              <Column title={"BACKLOG"} tasks={backlog} id={"2"} />
-            </div>
-            <div className="flex-shrink-0 w-80 p-3 rounded-md bg-gray-100 mr-4 overflow-auto">
-              <Column title={"IN PROGRESS"} tasks={inProgress} id={"3"} />
-            </div>
-            <div className="flex-shrink-0 w-80 p-3 rounded-md bg-gray-100 overflow-auto">
-              <Column title={"COMPLETED"} tasks={completed} id={"4"} />
+    <div className="min-h-screen">
+      <div className="p-6 flex justify-between">
+        <div>{project.name}</div>
+        <div>{project && <CreateIssue />}</div>
+      </div>
+      <div className="">
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <div className="flex-1">
+            <div className="p-3 flex">
+              <div className="flex-shrink-0 w-80 p-3 rounded-md bg-gray-100 mr-4 overflow-auto">
+                <Column title={"NEW"} tasks={newStatus} id={"1"} />
+              </div>
+              <div className="flex-shrink-0 w-80 p-3 rounded-md bg-gray-100 mr-4 overflow-auto">
+                <Column title={"BACKLOG"} tasks={backlog} id={"2"} />
+              </div>
+              <div className="flex-shrink-0 w-80 p-3 rounded-md bg-gray-100 mr-4 overflow-auto">
+                <Column title={"IN PROGRESS"} tasks={inProgress} id={"3"} />
+              </div>
+              <div className="flex-shrink-0 w-80 p-3 rounded-md bg-gray-100 overflow-auto">
+                <Column title={"COMPLETED"} tasks={completed} id={"4"} />
+              </div>
             </div>
           </div>
-        </div>
-      </DragDropContext>
+        </DragDropContext>
       </div>
     </div>
   );

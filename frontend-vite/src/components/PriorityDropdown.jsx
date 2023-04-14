@@ -14,9 +14,10 @@ const PriorityDropdown = (props) => {
                 onChange={(e) => listener(e)}
                 >
                 <option>Priority:</option>
-                <option> 1</option>
-                <option> 2</option>
-                <option> 3</option>
+                <option> LOW</option>
+                <option> MODERATE</option>
+                <option> HIGH</option>
+                <option> CRITICAL</option>
             </select>
         </div>
     );

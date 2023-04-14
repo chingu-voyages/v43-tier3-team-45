@@ -36,7 +36,7 @@ const CreateIssueModal = ({ onClose }) => {
     comments: [],
     createdBy: currentUser,
     issueType: "TASK",
-    priority: "LOW",
+    priority: "HIGH",
     status: "NEW",
   };
 

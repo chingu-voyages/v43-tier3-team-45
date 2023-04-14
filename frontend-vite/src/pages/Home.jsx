@@ -18,14 +18,14 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="h-screen w-screen">
-      <div className="h-1/6">
+    <div className="min-h-screen w-screen">
+      <div className="">
         <NavBar teams={teams} />
       </div>
 
-      <div className="flex h-5/6">
+      <div className="flex justify-start">
         <div
-          className={`bg-indigo-300 p-5 pt-8 ${
+          className={`bg-indigo-300 rounded-md p-5 pt-8 mb-4 ${
             sidebarOpen ? "w-72" : "w-20"
           } duration-300 relative`}
         >
