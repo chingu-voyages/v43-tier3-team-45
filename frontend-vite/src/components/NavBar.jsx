@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Avatar from "./Avatar";
 import TeamDropdown from "./TeamDropdown";
 import { useNavigate } from "react-router";
@@ -32,13 +32,13 @@ export default function NavBar({ teams }) {
   return (
     <nav className="flex items-center px-5 justify-between border-8 border-white-600 mx-auto bg-gray-700">
       {/* app name */}
-      <div className="font-sans text-xl text-white font-bold">Chingu Board</div>
+      <div className="font-sans text-xl text-white font-bold">ChinguBoard</div>
 
       {/* Team Drop Down */}
-      <div className="">{teams && <TeamDropdown teams={teams} />}</div>
+      <div>{teams && <TeamDropdown teams={teams} />}</div>
 
       {/* Team Avatars */}
-      <div className="">{teamAvatars}</div>
+      <div>{teamAvatars}</div>
 
       {/* logout */}
       <div className="ml-50 bg-white">
@@ -46,9 +46,9 @@ export default function NavBar({ teams }) {
       </div>
 
       {/* user Avatar */}
-      <div>
-        <Avatar className="" src={user.avatarUrl} alt={"user"} />
-      </div>
+      <button onClick={() => navigate("/profile")}>
+        <Avatar src={user.avatarUrl} alt={"user"} size={12} />
+      </button>
     </nav>
   );
 }

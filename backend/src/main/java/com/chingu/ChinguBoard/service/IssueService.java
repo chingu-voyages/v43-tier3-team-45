@@ -1,7 +1,9 @@
 package com.chingu.ChinguBoard.service;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.context.annotation.Lazy;
@@ -32,7 +34,10 @@ public class IssueService {
         this.userService = userService;
     }
 
-    // can look into data loader here
+    /**
+     * used to populate lists for Comments and Users since Issue from DB will only
+     * have IDs
+     */
     public Issue populateLists(Issue issue) {
 
         // "data loader" to batch queries for N + 1 issue.
@@ -47,6 +52,11 @@ public class IssueService {
         return issue;
     }
 
+    public Issue populateListForDisplay(Issue issue) {
+        issue.setCreatedBy(userService.getUser(issue.getCreatedById()));
+        return issue;
+    }
+
     public Issue getIssue(String id) {
         Issue issue = issueRepository.findById(id).orElseThrow();
         return populateLists(issue);
@@ -55,6 +65,24 @@ public class IssueService {
     public List<Issue> getIssues(List<String> ids) {
         List<Issue> issues = issueRepository.findAllById(ids);
         return issues.stream().map(this::populateLists).collect(Collectors.toList());
+    }
+
+    /**
+     * method used to get Issue to create IssueListDTO when viewing project
+     */
+    public List<Issue> getIssueList(List<String> ids) {
+        List<Issue> issues = issueRepository.findAllById(ids);
+        List<String> userIds = new ArrayList<>();
+        for (int i = 0; i < issues.size(); i++) {
+            userIds.add(issues.get(i).getCreatedById());
+        }
+        // somewhat of a improvised caching
+        Map<String, User> userMap = userService.getUserMap(userIds);
+        for (int i = 0; i < issues.size(); i++) {
+            issues.get(i).setCreatedBy(userMap.get(userIds.get(i)));
+        }
+        return issues;
+
     }
 
     public List<Issue> getAllIssues() {

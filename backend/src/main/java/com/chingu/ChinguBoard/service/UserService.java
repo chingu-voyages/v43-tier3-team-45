@@ -1,6 +1,9 @@
 package com.chingu.ChinguBoard.service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +31,12 @@ public class UserService {
 
     public List<User> getUsers(List<String> ids) {
         return userRepository.findAllById(ids);
+    }
+
+    public Map<String, User> getUserMap(List<String> ids) {
+        List<User> users = getUsers(ids);
+        Map<String, User> map = users.stream().collect(Collectors.toMap(User::getId, Function.identity()));
+        return map;
     }
 
     public List<User> getAllUsers() {
