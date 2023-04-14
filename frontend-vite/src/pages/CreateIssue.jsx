@@ -8,7 +8,7 @@ function CreateIssue() {
   return (
     <div>
       <button onClick={() => setIsShowing((isShowing) => !isShowing)}>
-        Create Issue
+        New Issue
       </button>
       <Transition
         show={isShowing}
@@ -21,7 +21,9 @@ function CreateIssue() {
       >
         <div>
           {isShowing ? (
-            <CreateIssueModal onClose={() => setIsShowing(false)} />
+            <CreateIssueModal
+              onClose={() => setIsShowing(false)}
+            />
           ) : null}
         </div>
       </Transition>

@@ -5,6 +5,7 @@ import TeamProjects from "./TeamProjects";
 import { BsSearch } from "react-icons/bs";
 import { createProject } from "../store/projectReducer";
 import { addMemberToTeam } from "../store/teamReducer";
+import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
 
 function SideNavBar({ sidebarOpen }) {
   const [sidebar, setSidebar] = useState(false);
@@ -52,6 +53,15 @@ function SideNavBar({ sidebarOpen }) {
 
   return (
     <>
+      <div className="inline-flex">
+        <h1
+          className={`text-2xl origin-left font-medium duration-800 ${
+            !sidebarOpen && "scale-0"
+          }`}
+        >
+          {selectedTeam && selectedTeam.name} Workspaces
+        </h1>
+      </div>
       {!isInTeam && (
         <div
           className={`origin-left font-medium text-lg duration-400 ${
