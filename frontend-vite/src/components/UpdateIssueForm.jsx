@@ -12,6 +12,7 @@ import {
   setFilteredList,
 } from "../store/teamReducer.js";
 import { IssueCommentSection } from "./IssueCommentSection.jsx";
+import { IssuePostComment } from "./IssuePostComment.jsx";
 
 // add new comp for comments and addComment, have own button
 // post text and created by user slice
@@ -60,10 +61,10 @@ const UpdateIssueForm = ({ onClose, data }) => {
     setDescription(e.target.value);
   };
 
-  const handleComment = (e) => {
-    e.preventDefault();
-    setComment(e.target.value);
-  };
+  // const handleComment = (e) => {
+  //   e.preventDefault();
+  //   setComment(e.target.value);
+  // };
 
   const handlePriority = (priority) => {
     setPriority(priority);
@@ -171,7 +172,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
                   )
                 })}
               </div>  
-              <div className="mb-2">
+              {/* <div className="mb-2">
                 <label>
                   <span class="text-gray-400">Comment</span>
                   <textarea
@@ -195,8 +196,8 @@ const UpdateIssueForm = ({ onClose, data }) => {
                     onChange={handleComment}
                   ></textarea>
                 </label>
-              </div>
-
+              </div> */}
+            <IssuePostComment />
             <div class="mb-6">
               <button
                 type="submit"
