@@ -40,6 +40,24 @@ export const getIssueDetail = async (issueId) => {
 };
 
 /**
+ * can use this to make a post request when creating a new issue
+ * @param {IssueDTO} issue
+ * @param {String} projectId
+ * @returns {IssueListDTO} containing information needed to display new issue card on the board
+ */
+export const createNewIssue = async (issue, projectId) => {
+  try {
+    const response = await axiosInstance.post(
+      `/issues/create?projectId=${projectId}`,
+      issue
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
  * can use this function when user closes out from the issue modal
  * @param {IssueDTO} issue need to send the whole object
  * @returns {IssueListDTO} containing information needed to display new issue card on the board
