@@ -14,25 +14,22 @@ export default function Column({ title, tasks, id }) {
         <div className="rounded-md max-h-screen">
           {/* <h3 className="text-md font-medium text-grey-900"> {title} </h3> */}
           <div className="overflow-auto">
-          <Droppable droppableId={id}>
-            {(provided, snapshot) => (
-              <div
-                id="task-list"
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-                isDraggingOver={snapshot.isDraggingOver}
-                style={{
-                  background: snapshot.isDraggingOver
-                    ? "#F3F4F6"
-                    : "#F3F4F6",
-                  minHeight: 100,
-                }}
-              >
-                {tasksArray}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
+            <Droppable droppableId={id}>
+              {(provided, snapshot) => (
+                <div
+                  id="task-list"
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  style={{
+                    background: snapshot.isDraggingOver ? "#F3F4F6" : "#F3F4F6",
+                    minHeight: 100,
+                  }}
+                >
+                  {tasksArray}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
           </div>
         </div>
       </div>
@@ -78,4 +75,3 @@ export default function Column({ title, tasks, id }) {
 //     </div>
 //   );
 // }
-

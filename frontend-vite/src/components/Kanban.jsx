@@ -111,6 +111,7 @@ export default function Kanban() {
   const inProgress = useSelector((state) => state.project.inProgress);
   const completed = useSelector((state) => state.project.completed);
   const project = useSelector((state) => state.project.currentProject);
+  const loading = useSelector((state) => state.project.status) == "loading";
 
   const dispatch = useDispatch();
 
@@ -168,6 +169,7 @@ export default function Kanban() {
 
   return (
     <div className="min-h-screen">
+      {loading && <CircularLoading />}
       <div className="p-3 flex justify-between items-center shadow min-w-screen">
         <div className="text-2xl origin-left font-medium text-gray-900 leading-tight">
           {project.name}
@@ -186,25 +188,33 @@ export default function Kanban() {
           <div className="flex-1">
             <div className="p-3 flex">
               <div>
-                <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">New</h1>
+                <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">
+                  New
+                </h1>
                 <div className="flex-shrink-0 w-72 p-3 rounded-md bg-gray-100 mr-2 overflow-auto">
                   <Column title={"NEW"} tasks={newStatus} id={"1"} />
                 </div>
               </div>
               <div>
-              <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">Backlog</h1>
+                <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">
+                  Backlog
+                </h1>
                 <div className="flex-shrink-0 w-72 p-3 rounded-md bg-gray-100 mr-2 overflow-auto">
                   <Column title={"BACKLOG"} tasks={backlog} id={"2"} />
                 </div>
               </div>
               <div>
-              <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">In Progress</h1>
+                <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">
+                  In Progress
+                </h1>
                 <div className="flex-shrink-0 w-72 p-3 rounded-md bg-gray-100 mr-2 overflow-auto">
                   <Column title={"IN PROGRESS"} tasks={inProgress} id={"3"} />
                 </div>
               </div>
               <div>
-              <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">Completed</h1>
+                <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">
+                  Completed
+                </h1>
                 <div className="flex-shrink-0 w-72 p-3 rounded-md bg-gray-100 overflow-auto">
                   <Column title={"COMPLETED"} tasks={completed} id={"4"} />
                 </div>

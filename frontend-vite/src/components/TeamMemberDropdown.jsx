@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { addMemberToSelectedList } from "../store/teamReducer";
@@ -31,10 +31,11 @@ const TeamMemberDropdown = () => {
           <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
             <div className="relative grid gap-8 bg-white p-7 grid-cols-1">
               {filteredList &&
-                filteredList.map((member) => (
+                filteredList.map((member, key) => (
                   <button
                     className="flex rounded-lg outline"
                     onClick={(e) => handleClick(e, member)}
+                    key={key}
                   >
                     <Avatar
                       src={member.avatarUrl}

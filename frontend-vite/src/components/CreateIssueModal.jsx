@@ -3,14 +3,13 @@ import TypeDropdown from "./TypeDropdown.jsx";
 import PriorityDropdown from "./PriorityDropdown.jsx";
 import { useState } from "react";
 import { createNewIssue } from "../store/projectReducer.js";
-import Avatar from "./Avatar.jsx";
-import TeamMemberDropdown from "./TeamMemberDropdown.jsx";
 import {
-  addMemberToSelectedList,
   clearSelectedList,
   removeMemberFromSelectedList,
   setFilteredList,
 } from "../store/teamReducer.js";
+import TeamMemberDropdown from "./TeamMemberDropdown.jsx";
+import Avatar from "./Avatar";
 
 const CreateIssueModal = ({ onClose }) => {
   const [title, setTitle] = useState();
@@ -22,14 +21,8 @@ const CreateIssueModal = ({ onClose }) => {
 
   const currentUser = useSelector((state) => state.user.currentUser);
   const selectedList = useSelector((state) => state.team.selectedList);
-  const members = useSelector((state) => state.team.currentTeam.members);
 
-  const handleClick = (e, member) => {
-    e.preventDefault();
-    dispatch(removeMemberFromSelectedList(member));
-  };
-
-  const testIssue = {
+  const issue = {
     title: title,
     description: description,
     assignees: selectedList,
@@ -38,6 +31,11 @@ const CreateIssueModal = ({ onClose }) => {
     issueType: "TASK",
     priority: "HIGH",
     status: "NEW",
+  };
+
+  const handleClick = (e, member) => {
+    e.preventDefault();
+    dispatch(removeMemberFromSelectedList(member));
   };
 
   const handleTitle = (e) => {
@@ -65,7 +63,7 @@ const CreateIssueModal = ({ onClose }) => {
 
   const handleSave = (e) => {
     e.preventDefault();
-    dispatch(createNewIssue(testIssue));
+    dispatch(createNewIssue(issue));
     handleClose(e);
   };
 
@@ -135,7 +133,6 @@ const CreateIssueModal = ({ onClose }) => {
             <div>
               <TeamMemberDropdown />
             </div>
-
             <div className="mb-2">
               <label>
                 <span className="text-gray-700">Description</span>
