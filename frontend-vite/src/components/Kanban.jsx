@@ -11,6 +11,7 @@ import {
 } from "../store/projectReducer";
 import CreateIssue from "../pages/CreateIssue";
 import CircularLoading from "./CircularLoading";
+import { BsPlus } from "react-icons/bs";
 
 export default function Kanban() {
   const backlog = useSelector((state) => state.project.backlog);
@@ -75,19 +76,61 @@ export default function Kanban() {
   }
 
   return (
-    <div>
+    <div className="min-h-screen">
       {loading && <CircularLoading />}
-      <div className="p-6">{project && <CreateIssue />}</div>
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="flex">
-          <div className="grid grid-cols-4 gap-8">
-            <Column title={"NEW"} tasks={newStatus} id={"1"} />
-            <Column title={"BACKLOG"} tasks={backlog} id={"2"} />
-            <Column title={"IN PROGRESS"} tasks={inProgress} id={"3"} />
-            <Column title={"COMPLETED"} tasks={completed} id={"4"} />
-          </div>
+      <div className="p-3 flex justify-between items-center shadow min-w-screen">
+        <div className="text-2xl origin-left font-medium text-gray-900 leading-tight">
+          {project && project.name}
         </div>
-      </DragDropContext>
+        <div>
+          <button className="flex items-center px-2 py-1 bg-gray-700 rounded-md shadow hover:bg-gray-600">
+            <BsPlus className="h-6 w-6 text-white" />
+            <span className="text-sm font-medium text-white m-1">
+              {project && <CreateIssue />}
+            </span>
+          </button>
+        </div>
+      </div>
+      <div className="">
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <div className="flex-1">
+            <div className="p-3 flex">
+              <div>
+                <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">
+                  New
+                </h1>
+                <div className="flex-shrink-0 w-72 p-3 rounded-md bg-gray-100 mr-2 overflow-auto">
+                  <Column title={"NEW"} tasks={newStatus} id={"1"} />
+                </div>
+              </div>
+              <div>
+                <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">
+                  Backlog
+                </h1>
+                <div className="flex-shrink-0 w-72 p-3 rounded-md bg-gray-100 mr-2 overflow-auto">
+                  <Column title={"BACKLOG"} tasks={backlog} id={"2"} />
+                </div>
+              </div>
+              <div>
+                <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">
+                  In Progress
+                </h1>
+                <div className="flex-shrink-0 w-72 p-3 rounded-md bg-gray-100 mr-2 overflow-auto">
+                  <Column title={"IN PROGRESS"} tasks={inProgress} id={"3"} />
+                </div>
+              </div>
+              <div>
+                <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">
+                  Completed
+                </h1>
+                <div className="flex-shrink-0 w-72 p-3 rounded-md bg-gray-100 overflow-auto">
+                  <Column title={"COMPLETED"} tasks={completed} id={"4"} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </DragDropContext>
+      </div>
     </div>
   );
 }
