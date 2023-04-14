@@ -18,14 +18,14 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
-      <div>
+    <div className="h-screen w-screen">
+      <div className="h-1/6">
         <NavBar teams={teams} />
       </div>
 
-      <div className="h-screen w-screen flex">
+      <div className="flex h-5/6">
         <div
-          className={`bg-indigo-300 h-screen p-5 pt-8 ${
+          className={`bg-indigo-300 p-5 pt-8 ${
             sidebarOpen ? "w-72" : "w-20"
           } duration-300 relative`}
         >
@@ -50,8 +50,8 @@ const Home = () => {
             setSidebarOpen={setSidebarOpen}
           />
         </div>
-        <div className="p-7">
-          <div className="text-2xl font-semibold">
+        <div className="p-1">
+          <div className="text-2xl font-semibold w-full">
             <Kanban />
           </div>
         </div>
