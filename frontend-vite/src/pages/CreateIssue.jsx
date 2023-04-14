@@ -8,7 +8,7 @@ function CreateIssue() {
   return (
     <div>
       <button onClick={() => setIsShowing((isShowing) => !isShowing)}>
-        Create Issue
+        New Issue
       </button>
       <Transition
         show={isShowing}

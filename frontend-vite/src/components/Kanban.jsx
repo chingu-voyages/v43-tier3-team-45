@@ -103,6 +103,7 @@ import {
 } from "../store/projectReducer";
 import CreateIssue from "../pages/CreateIssue";
 import CircularLoading from "./CircularLoading";
+import { BsPlus } from "react-icons/bs";
 
 export default function Kanban() {
   const backlog = useSelector((state) => state.project.backlog);
@@ -167,25 +168,46 @@ export default function Kanban() {
 
   return (
     <div className="min-h-screen">
-      <div className="p-6 flex justify-between">
-        <div>{project.name}</div>
-        <div>{project && <CreateIssue />}</div>
+      <div className="p-3 flex justify-between items-center shadow min-w-screen">
+        <div className="text-2xl origin-left font-medium text-gray-900 leading-tight">
+          {project.name}
+        </div>
+        <div>
+          <button className="flex items-center px-2 py-1 bg-gray-700 rounded-md shadow hover:bg-gray-600">
+            <BsPlus className="h-6 w-6 text-white" />
+            <span className="text-sm font-medium text-white m-1">
+              {project && <CreateIssue />}
+            </span>
+          </button>
+        </div>
       </div>
       <div className="">
         <DragDropContext onDragEnd={handleDragEnd}>
           <div className="flex-1">
             <div className="p-3 flex">
-              <div className="flex-shrink-0 w-80 p-3 rounded-md bg-gray-100 mr-4 overflow-auto">
-                <Column title={"NEW"} tasks={newStatus} id={"1"} />
+              <div>
+                <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">New</h1>
+                <div className="flex-shrink-0 w-72 p-3 rounded-md bg-gray-100 mr-2 overflow-auto">
+                  <Column title={"NEW"} tasks={newStatus} id={"1"} />
+                </div>
               </div>
-              <div className="flex-shrink-0 w-80 p-3 rounded-md bg-gray-100 mr-4 overflow-auto">
-                <Column title={"BACKLOG"} tasks={backlog} id={"2"} />
+              <div>
+              <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">Backlog</h1>
+                <div className="flex-shrink-0 w-72 p-3 rounded-md bg-gray-100 mr-2 overflow-auto">
+                  <Column title={"BACKLOG"} tasks={backlog} id={"2"} />
+                </div>
               </div>
-              <div className="flex-shrink-0 w-80 p-3 rounded-md bg-gray-100 mr-4 overflow-auto">
-                <Column title={"IN PROGRESS"} tasks={inProgress} id={"3"} />
+              <div>
+              <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">In Progress</h1>
+                <div className="flex-shrink-0 w-72 p-3 rounded-md bg-gray-100 mr-2 overflow-auto">
+                  <Column title={"IN PROGRESS"} tasks={inProgress} id={"3"} />
+                </div>
               </div>
-              <div className="flex-shrink-0 w-80 p-3 rounded-md bg-gray-100 overflow-auto">
-                <Column title={"COMPLETED"} tasks={completed} id={"4"} />
+              <div>
+              <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">Completed</h1>
+                <div className="flex-shrink-0 w-72 p-3 rounded-md bg-gray-100 overflow-auto">
+                  <Column title={"COMPLETED"} tasks={completed} id={"4"} />
+                </div>
               </div>
             </div>
           </div>

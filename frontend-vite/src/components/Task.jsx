@@ -80,7 +80,7 @@ import Avatar from "./Avatar.jsx";
 export default function Task({ task, index }) {
   const [isShowing, setIsShowing] = useState(false);
 
-
+console.log(task)
   return (
     <>
       <div onClick={() => setIsShowing((isShowing) => !isShowing)}>
@@ -100,7 +100,7 @@ export default function Task({ task, index }) {
             >
               <div className="block rounded-md shadow bg-white border m-2 p-2">
                 <div className="flex justify-between items-center">
-                  <div className="text-left text-md font-semibold text-grey-900 pr-2 leading-5">
+                  <div className="text-left text-md font-semibold text-grey-900 pr-2 leading-5 pb-2">
                     {task.title}
                   </div>
                   <div className="text-sm font-medium text-grey-600 p-2">
@@ -109,20 +109,25 @@ export default function Task({ task, index }) {
                 </div>
                 <div className="text-left text-sm font-medium text-grey-600 p-1">
                   <span>
-                    Priority:{" "}
+                    Priority:
                     <span
                       className={`${
                         task.priority === "LOW"
                           ? "bg-green-400"
-                          : task.priority === "MEDIUM" ? "bg-yellow-300" : "bg-red-300"
-                      } rounded-lg p-1`}
+                          : task.priority === "MEDIUM" ? "bg-yellow-300" : task.priority === "HIGH" ? "bg-orange-300" : "bg-red-600"
+                      } rounded-full ml-1 px-2 py-0.5`}
                     >
                       {task.priority}
                     </span>
                   </span>
                 </div>
                 <div className="text-left text-sm font-medium text-grey-600 p-1">
-                  <span className=""> Status: {task.status}</span>
+                  <span>Status:</span>
+                  <span className={`${
+                        task.status === "NEW"
+                          ? "bg-green-400"
+                          : task.status === "BACKLOG" ? "bg-yellow-300" : task.status === "IN_PROGRESS" ? "bg-orange-300" : "bg-red-600"
+                      } rounded-full px-2 py-0.5`}> {task.status}</span>
                 </div>
                 {/* <div id="user-avatar">
                 {task.assignees.map((member) => (

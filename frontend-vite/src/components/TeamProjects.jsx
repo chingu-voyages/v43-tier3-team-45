@@ -11,9 +11,10 @@ export default function TeamProjects({ project, sidebarOpen }) {
   };
 
   return (
-    <li className="text-grey-300 text-md flex-items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md mt-2">
+    <li className={`text-grey-300 text-md flex-items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md mt-2 `}>
       <button onClick={() => handleClick()} className="flex items-center justify-center">
-        <div className={`text-2xl block float-left ${sidebarOpen && "mr-2"}`}>
+        <div></div>
+        <div className={`text-xl block float-left ${sidebarOpen && "mr-2"}`}>
           <BsReverseLayoutTextSidebarReverse />
         </div>
         <div className="text-left text-base font-md leading-4">{project.name}</div>
@@ -22,3 +23,5 @@ export default function TeamProjects({ project, sidebarOpen }) {
     </li>
   );
 }
+
+

@@ -11,8 +11,8 @@ export default function Column({ title, tasks, id }) {
   return (
     <div>
       <div className="min-h-screen">
-        <div className="rounded-md p-3 max-h-screen">
-          <h3 className="text-md font-medium text-grey-900"> {title} </h3>
+        <div className="rounded-md max-h-screen">
+          {/* <h3 className="text-md font-medium text-grey-900"> {title} </h3> */}
           <div className="overflow-auto">
           <Droppable droppableId={id}>
             {(provided, snapshot) => (
