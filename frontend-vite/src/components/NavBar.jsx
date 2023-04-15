@@ -6,12 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutToken } from "../store/authReducer";
 import { logoutUser } from "../store/userReducer";
 import { resetProject } from "../store/projectReducer";
-import { resetTeam } from "../store/teamReducer";
+import { createTeam, resetAllTeams, resetTeam } from "../store/teamReducer";
 
-const NavBar = ({ teams }) => {
+const NavBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
+  const teams = useSelector((state) => state.team.allTeams);
   const teamMembers = useSelector((state) => state.team.members);
   let teamAvatars;
   if (teamMembers !== null) {
@@ -26,7 +27,13 @@ const NavBar = ({ teams }) => {
     dispatch(logoutUser());
     dispatch(resetProject());
     dispatch(resetTeam());
+    dispatch(resetAllTeams());
     navigate("/");
+  };
+
+  const handleCreateTeam = (e) => {
+    e.preventDefault();
+    dispatch(createTeam());
   };
 
   return (
@@ -35,6 +42,9 @@ const NavBar = ({ teams }) => {
         Chingu Board
       </div>
       <div className="flex justify-between items-center mx-auto px-5">
+        <button onClick={(e) => handleCreateTeam(e)}>
+          <p>Create Team</p>
+        </button>
         <div className="mr-2 justify-self-start">
           {teams && <TeamDropdown teams={teams} />}
         </div>

@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { getAllTeams } from "../util/apiCalls";
 import SideNavBar from "../components/SideNavBar";
 import Kanban from "../components/Kanban";
 import { BsArrowLeftShort } from "react-icons/bs";
 import NavBar from "../components/NavBar";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllTeams } from "../store/teamReducer";
 
 const Home = () => {
-  const [teams, setTeams] = useState();
+  const teams = useSelector((state) => state.team.allTeams);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getAllTeams()
-      .then((res) => setTeams(res))
-      .catch((err) => console.log(err));
+    console.log("useEffect called");
+    dispatch(getAllTeams());
   }, []);
 
   return (
     <div className="h-screen w-screen">
       <div className="">
-        <NavBar teams={teams} />
+        <NavBar />
       </div>
 
       <div className="flex justify-start">

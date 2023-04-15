@@ -12,7 +12,6 @@ export default function Column({ title, tasks, id }) {
     <div>
       <div className="min-h-screen">
         <div className="rounded-md max-h-screen">
-          {/* <h3 className="text-md font-medium text-grey-900"> {title} </h3> */}
           <div className="overflow-auto">
             <Droppable droppableId={id}>
               {(provided, snapshot) => (
@@ -20,10 +19,13 @@ export default function Column({ title, tasks, id }) {
                   id="task-list"
                   ref={provided.innerRef}
                   {...provided.droppableProps}
-                  style={{
-                    background: snapshot.isDraggingOver ? "#F3F4F6" : "#F3F4F6",
-                    minHeight: 100,
-                  }}
+                  className={`${
+                    snapshot.isDraggingOver ? `#F3F4F6` : `#F3F4F6`
+                  } h-screen`}
+                  // style={{
+                  //   background: snapshot.isDraggingOver ? "#F3F4F6" : "#F3F4F6",
+                  //   minHeight: 300,
+                  // }}
                 >
                   {tasksArray}
                   {provided.placeholder}
