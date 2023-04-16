@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import UpdateIssueModal from "../components/UpdateIssueModal.jsx";
 import { Transition } from "@headlessui/react";
-import Avatar from "./Avatar.jsx";
 
 export default function Task({ task, index }) {
   const [isShowing, setIsShowing] = useState(false);
 
-  console.log(task);
   return (
     <>
       <div onClick={() => setIsShowing((isShowing) => !isShowing)}>

@@ -1,14 +1,18 @@
 import { useState, Fragment } from "react";
 import CreateIssueModal from "../components/CreateIssueModal";
 import { Transition } from "@headlessui/react";
+import { BsPlus } from "react-icons/bs";
 
 function CreateIssue() {
   const [isShowing, setIsShowing] = useState(false);
 
   return (
     <div>
-      <button onClick={() => setIsShowing((isShowing) => !isShowing)}>
-        New Issue
+      <button
+        className="flex items-center px-2 py-1 bg-gray-700 rounded-md shadow hover:bg-gray-600"
+        onClick={() => setIsShowing((isShowing) => !isShowing)}
+      >
+        <BsPlus className="h-6 w-6 text-white" /> New Issue
       </button>
       <Transition
         show={isShowing}
@@ -21,9 +25,7 @@ function CreateIssue() {
       >
         <div>
           {isShowing ? (
-            <CreateIssueModal
-              onClose={() => setIsShowing(false)}
-            />
+            <CreateIssueModal onClose={() => setIsShowing(false)} />
           ) : null}
         </div>
       </Transition>
