@@ -17,7 +17,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.chingu.ChinguBoard.config.RegisterRequest;
@@ -34,9 +33,6 @@ public class UserServiceTest {
     @Mock
     private S3Service s3Service;
 
-    @Mock
-    private PasswordEncoder passwordEncoder;
-
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -49,7 +45,7 @@ public class UserServiceTest {
                 "imageUrl");
         when(userRepository.findById("id")).thenReturn(Optional.of(testUser));
 
-        UserService userService = new UserService(userRepository, s3Service, passwordEncoder);
+        UserService userService = new UserService(userRepository, s3Service);
 
         // when
         User actualUser = userService.getUser("id");
@@ -78,7 +74,7 @@ public class UserServiceTest {
         when(userRepository.findAllById(ids)).thenReturn(testUsers);
 
         // when
-        UserService userService = new UserService(userRepository, s3Service, passwordEncoder);
+        UserService userService = new UserService(userRepository, s3Service);
 
         List<User> actualUsers = userService.getUsers(ids);
 
@@ -110,7 +106,7 @@ public class UserServiceTest {
         when(userRepository.findAll()).thenReturn(testUsers);
 
         // when
-        UserService userService = new UserService(userRepository, s3Service, passwordEncoder);
+        UserService userService = new UserService(userRepository, s3Service);
 
         List<User> actualUsers = userService.getAllUsers();
 
@@ -128,7 +124,7 @@ public class UserServiceTest {
 
         when(userRepository.findByEmail("test1@gmail.com")).thenReturn(Optional.of(user1));
 
-        UserService userService = new UserService(userRepository, s3Service, passwordEncoder);
+        UserService userService = new UserService(userRepository, s3Service);
 
         // when
         User actualUser = userService.getUserWithEmail("test1@gmail.com");
@@ -154,10 +150,10 @@ public class UserServiceTest {
         user.setId(userId);
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-        when(passwordEncoder.encode(password)).thenReturn("password");
+
         when(userRepository.save(any(User.class))).thenAnswer(i -> i.getArguments()[0]);
 
-        UserService userService = new UserService(userRepository, s3Service, passwordEncoder);
+        UserService userService = new UserService(userRepository, s3Service);
 
         // when
         User updatedUser = userService.updateUser(registerRequest, userId);
@@ -169,7 +165,6 @@ public class UserServiceTest {
         assertEquals(userId, updatedUser.getId());
         assertEquals(firstName, updatedUser.getFirstName());
         assertEquals(lastName, updatedUser.getLastName());
-        assertEquals(password, updatedUser.getPassword());
     }
 
     @Test
@@ -186,7 +181,7 @@ public class UserServiceTest {
         when(s3Service.uploadImage(image)).thenReturn("https://example.com/new_avatar.jpg");
         when(userRepository.save(any(User.class))).thenAnswer(i -> i.getArguments()[0]);
 
-        UserService userService = new UserService(userRepository, s3Service, passwordEncoder);
+        UserService userService = new UserService(userRepository, s3Service);
 
         // when
         String newAvatarUrl = userService.updateUserProfileImage(image, userId);
