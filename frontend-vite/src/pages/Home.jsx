@@ -7,12 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllTeams } from "../store/teamReducer";
 
 const Home = () => {
-  const teams = useSelector((state) => state.team.allTeams);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("useEffect called");
     dispatch(getAllTeams());
   }, []);
 
