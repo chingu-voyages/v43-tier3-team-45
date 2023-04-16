@@ -1,7 +1,8 @@
 package com.chingu.ChinguBoard.service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -59,7 +60,36 @@ public class TeamService {
 
     public List<Team> getAllTeams() {
         List<Team> teams = teamRepository.findAll();
-        return teams.stream().map(this::populateLists).collect(Collectors.toList());
+        List<String> allProjectIds = new ArrayList<>();
+        for (int i = 0; i < teams.size(); i++) {
+            allProjectIds.addAll(teams.get(i).getProjectIds());
+        }
+        // making one query instead of one per team.
+        Map<String, Project> projectMap = projectService.getProjectMap(allProjectIds);
+        for (int i = 0; i < teams.size(); i++) {
+            List<Project> projects = new ArrayList<>();
+            List<String> projectIds = teams.get(i).getProjectIds();
+            for (int j = 0; j < projectIds.size(); j++) {
+                projects.add(projectMap.get(projectIds.get(j)));
+            }
+            teams.get(i).setProjects(projects);
+        }
+
+        List<String> allMemberIds = new ArrayList<>();
+        for (int i = 0; i < teams.size(); i++) {
+            allMemberIds.addAll(teams.get(i).getMemberIds());
+        }
+        // making one query instead of one per team.
+        Map<String, User> userMap = userService.getUserMap(allMemberIds);
+        for (int i = 0; i < teams.size(); i++) {
+            List<User> members = new ArrayList<>();
+            List<String> memberIds = teams.get(i).getMemberIds();
+            for (int j = 0; j < memberIds.size(); j++) {
+                members.add(userMap.get(memberIds.get(j)));
+            }
+            teams.get(i).setMembers(members);
+        }
+        return teams;
     }
 
     public Team getTeam(String id) {
