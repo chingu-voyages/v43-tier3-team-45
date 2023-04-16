@@ -1,35 +1,78 @@
 import React, { useState } from "react";
-import * as FaIcons from "react-icons/fa";
-import * as AiIcons from "react-icons/ai";
-import { Link } from "react-router-dom";
-import { IconContext } from "react-icons/lib";
 import "../App.css";
-// import TeamProjects from "./TeamProjects";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TeamProjects from "./TeamProjects";
 import { BsSearch } from "react-icons/bs";
-import { GrProjects } from "react-icons/gr";
+import { createProject } from "../store/projectReducer";
+import { addMemberToTeam } from "../store/teamReducer";
+import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
 
 function SideNavBar({ sidebarOpen }) {
   const [sidebar, setSidebar] = useState(false);
-
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user.currentUser);
   const selectedTeam = useSelector((state) => state.team.currentTeam);
-  let selectedTeamProjects;
+  let isInTeam = true;
+  const selectedTeamProjects = useSelector((state) => {
+    if (selectedTeam !== null) {
+      return state.team.currentTeam.projects;
+    } else {
+      return null;
+    }
+  });
   let teamProjectArray;
   if (selectedTeam !== null) {
-    selectedTeamProjects = selectedTeam.projects;
     teamProjectArray = selectedTeamProjects.map((project, index) => (
-      <div>
-        {/* <span className="text-2xl block float-left my-2.5 ml-1">
-          <GrProjects />
-        </span> */}
-        <TeamProjects project={project} index={index} key={index} sidebarOpen={sidebarOpen}/>
+      <div key={index}>
+        <TeamProjects
+          project={project}
+          index={index}
+          key={index}
+          sidebarOpen={sidebarOpen}
+        />
       </div>
     ));
+    isInTeam = selectedTeam.members.some(
+      (member) => member.id == currentUser.id
+    );
   }
+
+  const handleCreateProject = (e) => {
+    e.preventDefault();
+    const project = {
+      name: "new project",
+      issues: [],
+    };
+    dispatch(createProject(project));
+  };
+
+  const handleJoinTeam = (e) => {
+    e.preventDefault();
+    dispatch(addMemberToTeam());
+  };
 
   return (
     <>
+      <div className="inline-flex">
+        <h1
+          className={`text-2xl origin-left font-medium duration-800 ${
+            !sidebarOpen && "scale-0"
+          }`}
+        >
+          {selectedTeam && selectedTeam.name} Workspaces
+        </h1>
+      </div>
+      {!isInTeam && (
+        <div
+          className={`origin-left font-medium text-lg duration-400 ${
+            !sidebarOpen && "scale-0"
+          }`}
+        >
+          <button onClick={(e) => handleJoinTeam(e)}>
+            <p className="text-red-500"> Join Team</p>
+          </button>
+        </div>
+      )}
       <div
         className={`flex items-center rounded-md bg-light-white my-4 ${
           !sidebarOpen ? "px-2.5" : "px-4"
@@ -55,6 +98,16 @@ function SideNavBar({ sidebarOpen }) {
       >
         {selectedTeamProjects && teamProjectArray}
       </ul>
+      {selectedTeam && (
+        <button
+          className={`origin-left font-medium text-lg duration-400 ${
+            !sidebarOpen && "scale-0"
+          }`}
+          onClick={(e) => handleCreateProject(e)}
+        >
+          <p>Create new Project</p>
+        </button>
+      )}
     </>
   );
 }

@@ -32,6 +32,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
     data.assignees.map((member) => dispatch(addMemberToSelectedList(member)));
   }, []);
 
+  // function to handle unassigning a member from an issue
   const handleClick = (e, member) => {
     e.preventDefault();
     dispatch(removeMemberFromSelectedList(member));
@@ -43,7 +44,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
     title: title,
     description: description,
     assignees: selectedList,
-    comments: [],
+    comments: data.comments,
     createdBy: data.createdBy,
     issueType: type,
     priority: priority,
@@ -218,7 +219,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
               </button>
             </div>
 
-            <div class="mb-6">
+            <div className="mb-6">
               <button
                 type="submit"
                 className="

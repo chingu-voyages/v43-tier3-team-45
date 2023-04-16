@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../store/authReducer";
 import { useNavigate } from "react-router-dom";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -47,12 +49,7 @@ const LoginForm = () => {
 
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mt-5 mb-2">
         Password:
-        <input 
-        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-        type="password"
-        placeholder="******************"
-        name="password"
-        onChange={handlePassword} />
+        <input type="password" name="name" onChange={handlePassword} />
       </label>
 
       {/* <button onClick={handleSubmit}>Log in</button> */}
