@@ -8,6 +8,11 @@ export const IssuePostComment = () => {
         setComment(e.target.value);
     };
 
+    const handlePost = (e) => {
+        e.preventDefault()
+        console.log(comment)
+    }
+
     console.log(comment)
 
     return (
@@ -49,7 +54,7 @@ export const IssuePostComment = () => {
                       focus:shadow-outline
                       hover:bg-indigo-800
                       "
-                // onClick={(e) => handleClose(e)}
+                onClick={(e) => handlePost(e)}
               >
                 Post
               </button>
