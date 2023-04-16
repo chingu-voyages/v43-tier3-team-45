@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.stream.Collectors;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -70,7 +71,10 @@ public class AuthenticationService {
         return new AuthenticationResponse(token, userDTO);
     }
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public AuthenticationResponse register(RegisterRequest request) throws DuplicateKeyException {
+        if (userService.checkUniqueEmail(request.getEmail())) {
+            throw new DuplicateKeyException("Email already in use");
+        }
         String avatarUrl = s3Service.uploadImage(request.getProfileImage());
         User user = new User(
                 request.getEmail(),

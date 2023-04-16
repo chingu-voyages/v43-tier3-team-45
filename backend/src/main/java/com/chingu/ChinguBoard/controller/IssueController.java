@@ -1,6 +1,8 @@
 package com.chingu.ChinguBoard.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chingu.ChinguBoard.dto.IssueDTO;
@@ -35,10 +38,10 @@ public class IssueController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<IssueDTO> createIssue(@RequestBody IssueDTO issueDTO, @RequestParam String projectId) {
+    public ResponseEntity<IssueListDTO> createIssue(@RequestBody IssueDTO issueDTO, @RequestParam String projectId) {
         Issue issue = issueDTOMapper.toEntity(issueDTO);
         Issue savedIssue = issueService.createIssue(issue, projectId);
-        return ResponseEntity.ok(issueDTOMapper.toDTO(savedIssue));
+        return ResponseEntity.ok(issueListDTOMapper.toDTO(savedIssue));
     }
 
     @GetMapping("/{id}")
@@ -77,5 +80,9 @@ public class IssueController {
         return ResponseEntity.ok(issueListDTOMapper.toDTO(updatedIssue));
     }
 
-    // add delete method
+    @DeleteMapping("/{issueId}")
+    @ResponseStatus(code = HttpStatus.ACCEPTED)
+    public void deleteIssue(@PathVariable String issueId, @RequestParam String projectId) {
+        issueService.deleteIssue(issueId, projectId);
+    }
 }

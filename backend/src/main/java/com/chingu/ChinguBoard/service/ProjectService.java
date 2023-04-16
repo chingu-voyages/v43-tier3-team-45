@@ -1,6 +1,9 @@
 package com.chingu.ChinguBoard.service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -27,7 +30,7 @@ public class ProjectService {
 
     // batch query to reduce number of queries
     public Project populateLists(Project project) {
-        List<Issue> issues = issueService.getIssues(project.getIssueIds());
+        List<Issue> issues = issueService.getIssueList(project.getIssueIds());
         project.setIssues(issues);
 
         return project;
@@ -49,6 +52,12 @@ public class ProjectService {
         return populateLists(project);
     }
 
+    public Map<String, Project> getProjectMap(List<String> ids) {
+        List<Project> projects = getProjects(ids);
+        Map<String, Project> map = projects.stream().collect(Collectors.toMap(Project::getId, Function.identity()));
+        return map;
+    }
+
     public Project createProject(Project project, String teamId) {
         Project savedProject = projectRepository.save(project);
         teamService.addProject(savedProject, teamId);
@@ -63,6 +72,12 @@ public class ProjectService {
          */
         Project project = getProject(projectId);
         project.addIssue(issue);
+        projectRepository.save(project);
+    }
+
+    public void removeIssue(String projectId, String issueId) {
+        Project project = getProject(projectId);
+        project.removeIssue(issueId);
         projectRepository.save(project);
     }
 

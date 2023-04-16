@@ -1,7 +1,9 @@
 package com.chingu.ChinguBoard.service;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.context.annotation.Lazy;
@@ -32,7 +34,10 @@ public class IssueService {
         this.userService = userService;
     }
 
-    // can look into data loader here
+    /**
+     * used to populate lists for Comments and Users since Issue from DB will only
+     * have IDs
+     */
     public Issue populateLists(Issue issue) {
 
         // "data loader" to batch queries for N + 1 issue.
@@ -42,17 +47,42 @@ public class IssueService {
         List<User> assignees = userService.getUsers(issue.getAssigneeIds());
         issue.setAssignees(assignees);
 
+        issue.setCreatedBy(userService.getUser(issue.getCreatedById()));
+
+        return issue;
+    }
+
+    public Issue populateListForDisplay(Issue issue) {
+        issue.setCreatedBy(userService.getUser(issue.getCreatedById()));
         return issue;
     }
 
     public Issue getIssue(String id) {
         Issue issue = issueRepository.findById(id).orElseThrow();
-        issue.setCreatedBy(userService.getUser(issue.getCreatedById()));
         return populateLists(issue);
     }
 
     public List<Issue> getIssues(List<String> ids) {
-        return issueRepository.findAllById(ids);
+        List<Issue> issues = issueRepository.findAllById(ids);
+        return issues.stream().map(this::populateLists).collect(Collectors.toList());
+    }
+
+    /**
+     * method used to get Issue to create IssueListDTO when viewing project
+     */
+    public List<Issue> getIssueList(List<String> ids) {
+        List<Issue> issues = issueRepository.findAllById(ids);
+        List<String> userIds = new ArrayList<>();
+        for (int i = 0; i < issues.size(); i++) {
+            userIds.add(issues.get(i).getCreatedById());
+        }
+        // somewhat of a improvised caching
+        Map<String, User> userMap = userService.getUserMap(userIds);
+        for (int i = 0; i < issues.size(); i++) {
+            issues.get(i).setCreatedBy(userMap.get(userIds.get(i)));
+        }
+        return issues;
+
     }
 
     public List<Issue> getAllIssues() {
@@ -114,10 +144,29 @@ public class IssueService {
      * need 2 delete methods
      * - one for deleting the issue itself from the issue (will have to iterate
      * through the comments and delete those as well) and delete it's reference from
-     * project
+     * project (done)
      * - one for deleting the issue as a result of deleting a project, no need to
      * delete it's reference from the project as the project will be deleted and it
-     * is unnecessary DB access
+     * is unnecessary DB access (will implement if needed)
      */
+
+    public void deleteIssue(String issueId, String projectId) {
+        Issue issue = issueRepository.findById(issueId).orElseThrow();
+        // delete all comments on this issue
+        List<String> commentIds = issue.getCommentIds();
+        commentService.deleteComments(commentIds);
+
+        // remove issue reference from its project
+        projectService.removeIssue(projectId, issueId);
+
+        // delete issue itself
+        issueRepository.deleteById(issueId);
+    }
+
+    public void removeComment(String issueId, String commentId) {
+        Issue issue = getIssue(issueId);
+        issue.removeComment(commentId);
+        issueRepository.save(issue);
+    }
 
 }

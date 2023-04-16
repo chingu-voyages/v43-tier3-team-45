@@ -1,8 +1,10 @@
 package com.chingu.ChinguBoard.service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,12 +19,9 @@ public class UserService {
 
     private final S3Service s3Service;
 
-    private final PasswordEncoder passwordEncoder;
-
-    public UserService(UserRepository userRepository, S3Service s3Service, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, S3Service s3Service) {
         this.userRepository = userRepository;
         this.s3Service = s3Service;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public User getUser(String id) {
@@ -34,6 +33,12 @@ public class UserService {
         return userRepository.findAllById(ids);
     }
 
+    public Map<String, User> getUserMap(List<String> ids) {
+        List<User> users = getUsers(ids);
+        Map<String, User> map = users.stream().collect(Collectors.toMap(User::getId, Function.identity()));
+        return map;
+    }
+
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -43,19 +48,25 @@ public class UserService {
         return userRepository.findByEmail(email).orElseThrow();
     }
 
+    public boolean checkUniqueEmail(String email) {
+        return userRepository.findByEmail(email).isPresent();
+    }
+
     public User addUser(User user) {
         return userRepository.save(user);
     }
 
     /**
-     * used for updating al user information except for user's profile image. Use
+     * used for updating user information except for user's profile image. Use
      * updateUserProfileImage for that instead
+     * currently email is used as unique identifier for user so not sure about being
+     * able to change this
+     * looking at better way to reset password than chaning it in a profile page
      */
     public User updateUser(RegisterRequest request, String id) {
         User user = getUser(id);
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
         return userRepository.save(user);
     }
 

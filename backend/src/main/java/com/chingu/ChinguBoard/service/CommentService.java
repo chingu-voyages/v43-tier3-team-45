@@ -32,7 +32,11 @@ public class CommentService {
     }
 
     public List<Comment> getComments(List<String> ids) {
-        return commentRepository.findAllById(ids);
+        List<Comment> comments = commentRepository.findAllById(ids);
+        comments.stream().forEach(comment -> {
+            comment.setCreatedBy(userService.getUser(comment.getCreatedById()));
+        });
+        return comments;
     }
 
     public Comment createComment(Comment comment, String issueId) {
@@ -44,5 +48,17 @@ public class CommentService {
 
     public Comment editComment(Comment comment) {
         return commentRepository.save(comment);
+    }
+
+    public void deleteComments(List<String> ids) {
+        commentRepository.deleteAllById(ids);
+    }
+
+    public void deleteComment(String id, String issueId) {
+        // delete the comment from DB
+        commentRepository.deleteById(issueId);
+
+        // delete comment reference from the issue it was from
+        issueService.removeComment(issueId, id);
     }
 }
