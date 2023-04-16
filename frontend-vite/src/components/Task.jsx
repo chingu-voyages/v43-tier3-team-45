@@ -83,7 +83,7 @@ export default function Task({ task, index }) {
 
   console.log(task);
   return (
-    <>
+    <div>
       <div onClick={() => setIsShowing((isShowing) => !isShowing)}>
         <Draggable draggableId={`${task.id}`} key={task.id} index={index}>
           {(provided, snapshot) => (
@@ -157,6 +157,7 @@ export default function Task({ task, index }) {
             {isShowing ? (<UpdateIssueModal taskId={task.id} onClose={() => setIsShowing(false)} />) : null }
           </div>
       </Transition>
+    </div>
     </div>
   );
 }
