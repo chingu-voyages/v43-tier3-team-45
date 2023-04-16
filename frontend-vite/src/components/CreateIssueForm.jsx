@@ -4,6 +4,7 @@ import PriorityDropdown from "./PriorityDropdown.jsx";
 import { useState } from "react";
 import axiosInstance from "../util/AxiosInstance.js";
 import TeamMemberDropdown from "./TeamMemberDropdown.jsx";
+import { IssuePostComment } from "./IssuePostComment.jsx";
 import { current } from "@reduxjs/toolkit";
 
 const CreateIssueForm = ({ onClose }) => {
@@ -68,23 +69,19 @@ const CreateIssueForm = ({ onClose }) => {
     }
 
     return (
-        <div className="fixed z-10 inset-0 overflow-y-auto text-black">
-        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-          <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-            <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-          </div>
-          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-          <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <form className="mt-6">
-              <div className="mb-2">
+            <div class="py-12 backdrop-blur-sm transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0" id="modal">
+            <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
+                <div class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400"> 
                 <button 
                   onClick={onClose}
                   type="button" class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                    <span class="sr-only">Close menu</span>
                     <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
-              </button>
+              </button> 
+                    <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Edit Task</h1>
+            <form className="mt-6">
+              <div className="mb-2">
                 <label>
                   <input
                     type="text"
@@ -117,13 +114,15 @@ const CreateIssueForm = ({ onClose }) => {
                 </div>
             <div className="mb-2">
               <label>
-                <span class="text-gray-700">Description</span>
-                <textarea
-                  name="message"
-                  className="
+              <span class="text-gray-400">Description</span>
+                  <textarea
+                    name="message"
+                    value={description}
+                    style={{ fontSize: "18px" }}
+                    className="
                         block
                         w-full
-                        mt-2 px-16 py-8
+                        mt-2 px-3 py-3
                         border-gray-300
                         rounded-md
                         shadow-sm
@@ -132,32 +131,13 @@ const CreateIssueForm = ({ onClose }) => {
                         focus:ring-indigo-200
                         focus:ring-opacity-50
                       "
-                  rows="5"
-                  onChange={handleDescription}
-                ></textarea>
-              </label>
+                      rows="3"
+                    onChange={handleDescription}
+                  ></textarea>
+                </label>
             </div>
             <div className="mb-2">
-              <label>
-                <span class="text-gray-700">Comment</span>
-                <textarea
-                  name="message"
-                  className="
-                        block
-                        w-full
-                        mt-2 px-16 py-8
-                        border-gray-300
-                        rounded-md
-                        shadow-sm
-                        focus:border-indigo-300
-                        focus:ring
-                        focus:ring-indigo-200
-                        focus:ring-opacity-50
-                      "
-                  rows="5"
-                  onChange={handleComment}
-                ></textarea>
-              </label>
+            <IssuePostComment />
             </div>
             <div class="mb-6">
               <button
