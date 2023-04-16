@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/api";
-// "http://Chinguboarddev2-env.eba-3gsq927u.us-east-2.elasticbeanstalk.com/api"; // URL for AWS EBS dev deployment
+const BASE_URL =
+  "http://Chinguboarddev2-env.eba-3gsq927u.us-east-2.elasticbeanstalk.com/api"; // URL for AWS EBS dev deployment
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -26,5 +26,5 @@ axiosInstance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-    
+
 export default axiosInstance;

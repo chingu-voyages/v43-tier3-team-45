@@ -7,6 +7,7 @@ const initialState = {
   members: null,
   selectedList: [], // list containing member IDs that are selected
   filteredList: [], // list of members filtered to show those not selected
+  allTeams: null,
 };
 
 /**
@@ -37,6 +38,39 @@ export const removeMemberFromTeam = createAsyncThunk(
   }
 );
 
+/**
+ * returns a list of all teams (not the best way if this list gets too long, would have to do some sort of pagination)
+ */
+export const getAllTeams = createAsyncThunk(
+  "teams/getAllTeams",
+  async (_, { getState }) => {
+    const teams = getState().team.allTeams;
+    if (!teams) {
+      const response = await axiosInstance.get("/teams");
+      return response.data;
+    }
+    return teams;
+  }
+);
+
+const team = {
+  name: "new team",
+  members: [],
+  projects: [],
+};
+
+/**
+ * returns newly created team
+ */
+export const createTeam = createAsyncThunk(
+  "teams/create",
+  async (_, { getState }) => {
+    const userId = getState().user.currentUser.id;
+    const response = await axiosInstance.post(`/teams/create/${userId}`, team);
+    return response.data;
+  }
+);
+
 const teamSlice = createSlice({
   name: "team",
   initialState,
@@ -49,6 +83,9 @@ const teamSlice = createSlice({
       state.members = null;
       state.selectedList = [];
       state.filteredList = [];
+    },
+    resetAllTeams: (state) => {
+      state.allTeams = null;
     },
     setMembers: (state, action) => {
       state.members = action.payload;
@@ -91,6 +128,13 @@ const teamSlice = createSlice({
     builder.addCase(createProject.fulfilled, (state, action) => {
       state.currentTeam.projects.push(action.payload);
     });
+    builder.addCase(getAllTeams.fulfilled, (state, action) => {
+      state.allTeams = action.payload;
+    });
+    builder.addCase(createTeam.fulfilled, (state, action) => {
+      state.allTeams.push(action.payload);
+      state.currentTeam = action.payload;
+    });
   },
 });
 
@@ -98,6 +142,7 @@ export const {
   setTeam,
   resetTeam,
   setMembers,
+  resetAllTeams,
   addMemberToSelectedList,
   removeMemberFromSelectedList,
   clearSelectedList,
