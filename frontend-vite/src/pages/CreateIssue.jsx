@@ -21,7 +21,7 @@ function CreateIssue() {
       >
         <div>
           {isShowing ? (
-            <CreateIssueModal
+            <CreateIssueForm
               onClose={() => setIsShowing(false)}
             />
           ) : null}

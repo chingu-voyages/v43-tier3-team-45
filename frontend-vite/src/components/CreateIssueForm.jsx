@@ -113,7 +113,7 @@ const CreateIssueForm = ({ onClose }) => {
                     <PriorityDropdown handlePriority={handlePriority}/>
                 </div>
                 <div>
-                  <TeamMemberDropdown />
+                    <TeamMemberDropdown />
                 </div>
             <div className="mb-2">
               <label>
