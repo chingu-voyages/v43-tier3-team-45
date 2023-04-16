@@ -117,13 +117,12 @@ const UpdateIssueForm = ({ onClose, data }) => {
               </label>
             </div>
             <div>
-              <TypeDropdown handleType={handleType} type={type} />
+            <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Issue Type: <TypeDropdown /></label>
             </div>
             <div>
-              <PriorityDropdown
-                handlePriority={handlePriority}
+            <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Priority: <PriorityDropdown handlePriority={handlePriority}
                 priority={priority}
-              />
+              /></label>
             </div>
             <div>
               <p>Assigned to: </p>
