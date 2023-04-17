@@ -1,26 +1,28 @@
+import React from "react";
 
 const PriorityDropdown = (props) => {
+  let handlePriority = props.handlePriority;
+  let priority = props.priority;
 
-    let handlePriority = props.handlePriority
+  const listener = (e) => {
+    e.preventDefault();
+    handlePriority(e.target.value);
+  };
 
-    const listener = (e) => {
-        e.preventDefault()
-       handlePriority(e.target.value)
-    }
+  // could add colors to match with the colors on task cards
 
-    return (
-        <div className="relative w-full lg:max-w-sm">
-            <select className="w-half  p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600" 
-                onChange={(e) => listener(e)}
-                >
-                <option>Priority:</option>
-                <option> LOW</option>
-                <option> MODERATE</option>
-                <option> HIGH</option>
-                <option> CRITICAL</option>
-            </select>
-        </div>
-    );
-}
+  return (
+    <select
+      className="w-half text-sm font-bold ml-1 p-1 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
+      onChange={(e) => listener(e)}
+      defaultValue={priority}
+    >
+      <option> LOW</option>
+      <option> MODERATE</option>
+      <option> HIGH</option>
+      <option> CRITICAL</option>
+    </select>
+  );
+};
 
-export default PriorityDropdown
+export default PriorityDropdown;

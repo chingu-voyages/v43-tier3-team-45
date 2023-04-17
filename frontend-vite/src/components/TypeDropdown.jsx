@@ -1,5 +1,8 @@
+import React from "react";
+
 const TypeDropdown = (props) => {
   let handleType = props.handleType;
+  let type = props.type;
 
   const listener = (e) => {
     e.preventDefault();
@@ -7,16 +10,14 @@ const TypeDropdown = (props) => {
   };
 
   return (
-    <div className="relative w-full lg:max-w-sm">
-      <select
-        className="w-half  p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
-        onChange={listener}
-      >
-        <option>Type:</option>
-        <option>BUG</option>
-        <option>TASK</option>
-      </select>
-    </div>
+    <select
+      className="w-half text-sm font-bold ml-1 p-1 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
+      defaultValue={type}
+      onChange={listener}
+    >
+      <option>BUG</option>
+      <option>TASK</option>
+    </select>
   );
 };
 

@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import UpdateIssueModal from "../components/UpdateIssueModal.jsx";
 import { Transition } from "@headlessui/react";
-import Avatar from "./Avatar.jsx";
 
 export default function Task({ task, index }) {
-  const [isShowing, setIsShowing] = useState(false);
 
-  console.log(task);
+  const [isShowing, setIsShowing] = useState(false)
+
   return (
-    <>
+    <div>
       <div onClick={() => setIsShowing((isShowing) => !isShowing)}>
         <Draggable draggableId={`${task.id}`} key={task.id} index={index}>
           {(provided, snapshot) => (
@@ -78,17 +77,12 @@ export default function Task({ task, index }) {
           leave="transition-opacity duration-150"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
-        >
+          >
           <div>
-            {isShowing ? (
-              <UpdateIssueModal
-                taskId={task.id}
-                onClose={() => setIsShowing(false)}
-              />
-            ) : null}
+            {isShowing ? (<UpdateIssueModal taskId={task.id} onClose={() => setIsShowing(false)} />) : null }
           </div>
-        </Transition>
-      </div>
-    </>
+      </Transition>
+    </div>
+    </div>
   );
 }
