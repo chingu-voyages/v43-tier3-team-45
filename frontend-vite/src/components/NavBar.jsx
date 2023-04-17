@@ -39,9 +39,9 @@ const NavBar = ({ teams }) => {
         Chingu Board
       </div>
       
-      <div className="grid grid-cols-3 gap-2 items-center  bg-pink-400">
+      <div className="grid grid-cols-2 gap-1 items-center  bg-pink-400">
         <div >{teams && <TeamDropdown teams={teams} />}</div>
-        <div className="col-span-2 items-center p-3">
+        <div className="items-center p-3">
           {teamMembers &&
             teamAvatars.map((member, index ) => (
               <Avatar
@@ -52,7 +52,7 @@ const NavBar = ({ teams }) => {
               />
             ))}
           {hiddenAvatarsCount > 0 && (
-            <div className="rounded-full w-12 h-12 text-center border border-blue-200">{`+${hiddenAvatarsCount}more`}</div>
+            <div className="rounded-full w-12 h-12 text-center pt-3 text-xs border border-blue-200">{`+${hiddenAvatarsCount}more`}</div>
           )}
         </div>
       </div>
