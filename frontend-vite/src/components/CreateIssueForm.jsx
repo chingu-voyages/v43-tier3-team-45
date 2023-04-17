@@ -5,7 +5,7 @@ import { useState } from "react";
 import axiosInstance from "../util/AxiosInstance.js";
 import TeamMemberDropdown from "./TeamMemberDropdown.jsx";
 import { IssuePostComment } from "./IssuePostComment.jsx";
-import { current } from "@reduxjs/toolkit";
+// import { current } from "@reduxjs/toolkit";
 
 const CreateIssueForm = ({ onClose }) => {
   const [title, setTitle] = useState();
@@ -18,6 +18,7 @@ const CreateIssueForm = ({ onClose }) => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const userName = useSelector((state) => state.user.currentUser.email)
 
+  // replace with POST call to backend
   const testIssue = {
     title: "Test createNewIssue",
     description: "testDescription",
@@ -39,18 +40,18 @@ const CreateIssueForm = ({ onClose }) => {
     setDescription(e.target.value);
   };
 
-  const handleComment = (e) => {
-    e.preventDefault();
-    setComment(e.target.value);
-  };
+  // const handleComment = (e) => {
+  //   e.preventDefault();
+  //   setComment(e.target.value);
+  // };
 
-  const handlePriority = (priority) => {
-    setPriority(priority);
-  };
+  // const handlePriority = (priority) => {
+  //   setPriority(priority);
+  // };
 
-  const handleType = (type) => {
-    setType(type);
-  };
+  // const handleType = (type) => {
+  //   setType(type);
+  // };
 
   const handleSave = (e) => {
         e.preventDefault()
@@ -101,9 +102,6 @@ const CreateIssueForm = ({ onClose }) => {
                     onChange={handleTitle}
                   />
                 </label>
-              </div>
-              <div>Created by: {userName}</div>
-              <div>
               <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Issue Type: <TypeDropdown /></label>
                 </div>
                 <div>
@@ -111,7 +109,7 @@ const CreateIssueForm = ({ onClose }) => {
                 </div>
                 <div>
                 <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Members: <TeamMemberDropdown /></label>
-                </div>
+              </div>
             <div className="mb-2">
               <label>
               <span class="text-gray-400">Description</span>

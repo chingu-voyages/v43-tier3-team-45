@@ -83,12 +83,13 @@ export default function Kanban() {
           {project && project.name}
         </div>
         <div>
-          <button className="flex items-center px-2 py-1 bg-gray-700 rounded-md shadow hover:bg-gray-600">
-            <BsPlus className="h-6 w-6 text-white" />
+        {project && <CreateIssue />}
+          {/* <button className="flex items-center px-2 py-1 bg-gray-700 rounded-md shadow hover:bg-gray-600"> */}
+            {/* <BsPlus className="h-6 w-6 text-white" />
             <span className="text-sm font-medium text-white m-1">
               {project && <CreateIssue />}
-            </span>
-          </button>
+            </span> */}
+          {/* </button> */}
         </div>
       </div>
       <div className="">
