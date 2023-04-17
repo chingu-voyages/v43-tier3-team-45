@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Avatar from "./Avatar";
 import TeamDropdown from "./TeamDropdown";
 import { useNavigate } from "react-router";
@@ -65,7 +65,7 @@ const NavBar = ({ teams }) => {
           <button
             className="justify-self items-center"
             onClick={() => {
-              navigate("/profile/update");
+              navigate("/profile");
             }}
           >
             <Avatar size={12} src={user.avatarUrl} alt={"user"} />

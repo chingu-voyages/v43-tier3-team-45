@@ -19,9 +19,7 @@ const Home = () => {
 
   return (
     <div>
-      <div>
-        <NavBar teams={teams} />
-      </div>
+      <NavBar teams={teams} />
 
       <div className="h-screen w-screen flex">
         <div
