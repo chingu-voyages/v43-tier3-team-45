@@ -88,6 +88,15 @@ const UpdateIssueForm = ({ onClose, data }) => {
     onClose();
   };
 
+  const [ newComment, setNewComment ] = useState()
+
+  // const handleComment = (e) => {
+  //     e.preventDefault();
+  //     setComment(e.target.value);
+  // };
+
+  console.log(newComment)
+
   return (
     <div class="py-12 backdrop-blur-sm transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0" id="modal">
     <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
@@ -171,32 +180,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
                   )
                 })}
               </div>  
-              {/* <div className="mb-2">
-                <label>
-                  <span class="text-gray-400">Comment</span>
-                  <textarea
-                    name="message"
-                    // value={comment}
-                    // move this to another component
-                    style={{ fontSize: "18px" }}
-                    className="
-                        block
-                        w-full
-                        mt-2 px-3 py-3
-                        border-gray-300
-                        rounded-md
-                        shadow-sm
-                        focus:border-indigo-300
-                        focus:ring
-                        focus:ring-indigo-200
-                        focus:ring-opacity-50
-                      "
-                    rows="3"
-                    onChange={handleComment}
-                  ></textarea>
-                </label>
-              </div> */}
-            <IssuePostComment />
+            <IssuePostComment setNewComment={setNewComment} />
             <div class="mb-6">
               <button
                 type="submit"

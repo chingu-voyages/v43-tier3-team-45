@@ -1,19 +1,13 @@
 import { useState } from "react"
 
-export const IssuePostComment = () => {
-    const [ comment, setComment ] = useState()
+export const IssuePostComment = ({setNewComment}) => {
 
-    const handleComment = (e) => {
-        e.preventDefault();
-        setComment(e.target.value);
-    };
+    // const handlePost = (e) => {
+    //     e.preventDefault()
+    //     console.log(comment)
+    // }
 
-    const handlePost = (e) => {
-        e.preventDefault()
-        console.log(comment)
-    }
-
-    console.log(comment)
+    // console.log(comment)
 
     return (
         <div className="mb-2">
@@ -37,11 +31,11 @@ export const IssuePostComment = () => {
                         focus:ring-opacity-50
                       "
                     rows="3"
-                    onChange={handleComment}
+                    onChange={(e) => setNewComment(e.target.value)}
                   ></textarea>
             </label>
             <div class="mb-6">
-              <button
+              {/* <button
                 type="submit"
                 className="
                       h-10
@@ -57,7 +51,7 @@ export const IssuePostComment = () => {
                 onClick={(e) => handlePost(e)}
               >
                 Post
-              </button>
+              </button> */}
             </div>
         </div>
     )
