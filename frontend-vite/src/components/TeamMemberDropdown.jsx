@@ -14,9 +14,19 @@ const TeamMemberDropdown = () => {
   };
 
   return (
-    <Popover className="relative">
+    <Popover className="relative mt-2">
       <Popover.Button>
-        <span>Add member</span>
+        <span
+          className="text-black py-1 px-2
+                      text-sm bg-indigo-300
+                      rounded-lg
+                      transition-colors
+                      duration-150
+                      focus:shadow-outline
+                      hover:bg-indigo-500"
+        >
+          Add member
+        </span>
       </Popover.Button>
       <Transition
         as={Fragment}
@@ -27,13 +37,13 @@ const TeamMemberDropdown = () => {
         leaveFrom="opacity-100 translate-y-0"
         leaveTo="opacity-0 translate-y-1"
       >
-        <Popover.Panel className="absolute z-10">
+        <Popover.Panel className="absolute z-10 w-60 mt-3 transform px-2 sm:px-0">
           <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-            <div className="relative grid gap-8 bg-white p-7 grid-cols-1">
+            <div className="relative grid gap-2 bg-white p-1 grid-cols-1">
               {filteredList &&
                 filteredList.map((member, key) => (
                   <button
-                    className="flex rounded-lg outline"
+                    className="flex rounded-lg outline items-center"
                     onClick={(e) => handleClick(e, member)}
                     key={key}
                   >
@@ -42,7 +52,9 @@ const TeamMemberDropdown = () => {
                       alt={member.firstName}
                       size={12}
                     />
-                    <p className="text-sky-400">{member.firstName}</p>
+                    <p className="text-sky-400 ml-2 truncate">
+                      {member.firstName} {member.lastName}
+                    </p>
                   </button>
                 ))}
             </div>

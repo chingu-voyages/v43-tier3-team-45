@@ -1,3 +1,5 @@
+import React from "react";
+
 const TypeDropdown = (props) => {
   let handleType = props.handleType;
 
@@ -7,14 +9,13 @@ const TypeDropdown = (props) => {
   };
 
   return (
-      <select
-        className="w-half text-sm font-bold bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
-        onChange={listener}
-      >
-        {/* <option>Type:</option> */}
-        <option>BUG</option>
-        <option>TASK</option>
-      </select>
+    <select
+      className="w-half text-sm font-bold ml-1 p-1 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
+      onChange={listener}
+    >
+      <option>BUG</option>
+      <option>TASK</option>
+    </select>
   );
 };
 

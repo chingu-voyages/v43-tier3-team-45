@@ -1,11 +1,16 @@
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TypeDropdown from "./TypeDropdown.jsx";
 import PriorityDropdown from "./PriorityDropdown.jsx";
-import { useState } from "react";
-import axiosInstance from "../util/AxiosInstance.js";
+import Avatar from "./Avatar.jsx";
 import TeamMemberDropdown from "./TeamMemberDropdown.jsx";
 import { IssuePostComment } from "./IssuePostComment.jsx";
-// import { current } from "@reduxjs/toolkit";
+import {
+  clearSelectedList,
+  setFilteredList,
+  removeMemberFromSelectedList,
+} from "../store/teamReducer.js";
+import { createNewIssue } from "../store/projectReducer.js";
 
 const CreateIssueForm = ({ onClose }) => {
   const [title, setTitle] = useState();
@@ -13,22 +18,28 @@ const CreateIssueForm = ({ onClose }) => {
   const [comment, setComment] = useState();
   const [priority, setPriority] = useState();
   const [type, setType] = useState();
+  const [newComment, setNewComment] = useState();
   const dispatch = useDispatch();
-  const [ newComment, setNewComment ] = useState()
 
   const currentUser = useSelector((state) => state.user.currentUser);
-  const userName = useSelector((state) => state.user.currentUser.email)
+  const selectedList = useSelector((state) => state.team.selectedList);
 
-  // replace with POST call to backend
-  const testIssue = {
-    title: "Test createNewIssue",
-    description: "testDescription",
-    assignees: [],
+  // build issue to IssueDTO to send to backend
+  const issue = {
+    title: title,
+    description: description,
+    assignees: selectedList,
     comments: [],
     createdBy: currentUser,
-    issueType: "TASK",
-    priority: "LOW",
+    issueType: type,
+    priority: priority,
     status: "NEW",
+  };
+
+  const handleClick = (e, member) => {
+    e.preventDefault();
+    dispatch(removeMemberFromSelectedList(member));
+    console.log(issue);
   };
 
   const handleTitle = (e) => {
@@ -41,91 +52,131 @@ const CreateIssueForm = ({ onClose }) => {
     setDescription(e.target.value);
   };
 
-  // const handleComment = (e) => {
-  //   e.preventDefault();
-  //   setComment(e.target.value);
-  // };
+  const handlePriority = (priority) => {
+    setPriority(priority);
+  };
 
-  // const handlePriority = (priority) => {
-  //   setPriority(priority);
-  // };
-
-  // const handleType = (type) => {
-  //   setType(type);
-  // };
+  const handleType = (type) => {
+    setType(type);
+  };
 
   const handleSave = (e) => {
-        e.preventDefault()
-        // console.log(title, description, comment, priority, type, userEmail)
-        postIssue(testIssue)
-        onClose()
-  }
-  
-  const postIssue = async (testIssue) => {
-        try {
-          const response = await axiosInstance.post(`http://localhost:8080/api/issues/create?projectId=641ba8e494ba927d1a1e932d`, testIssue);
-          return response.data;
-        } catch (error) {
-          console.log("error", error)
-        }
-    }
+    e.preventDefault();
+    dispatch(createNewIssue(issue));
+    handleClose(e);
+  };
 
-    return (
-            <div class="py-12 backdrop-blur-sm transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0" id="modal">
-            <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
-              <div class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400"> 
-              <div class="flow-root"> 
-                <button
-                
-                  onClick={onClose}
-                  type="button" class="float-right bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button> 
-                    <h1 class=" float-centertext-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Add New Task</h1>
-              </div>
-            <form className="mt-6">
-              <div className="mb-2">
-                <label>
-                  <input
-                    type="text"
-                    name="name"
-                    className="
-                      w-full
-                      block px-16 py-2 mt-2
-                      border-gray-300
-                      rounded-md
-                      shadow-sm
-                      focus:border-indigo-300
-                      focus:ring
-                      focus:ring-indigo-200
-                      focus:ring-opacity-50
-                    "
-                    placeholder="Title"
-                    onChange={handleTitle}
-                  />
-                </label>
-              <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Issue Type: <TypeDropdown /></label>
-                </div>
-                <div>
-                <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Priority: <PriorityDropdown /></label>
-                </div>
-                <div>
-                <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Members: <TeamMemberDropdown /></label>
-              </div>
+  const handleClose = (e) => {
+    e.preventDefault();
+    dispatch(clearSelectedList());
+    dispatch(setFilteredList());
+    onClose();
+  };
+
+  return (
+    <div
+      className="py-12 backdrop-blur-sm bg-white/50 backdrop-filter w-screen h-screen fixed top-0 left-0 transition duration-150 ease-in-out z-10"
+      id="modal"
+    >
+      <div role="alert" className="container mx-auto w-11/12 md:w-2/3">
+        <div className="relative py-6 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
+          <div className="flow-root">
+            <button
+              onClick={(e) => handleClose(e)}
+              type="button"
+              className="float-right bg-white rounded-md inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+            >
+              <svg
+                className="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            <h1 className="float-center text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4 pt-2">
+              Add New Task
+            </h1>
+          </div>
+          <form className="mt-6">
             <div className="mb-2">
-              <label>
-              <span class="text-gray-400">Description</span>
-                  <textarea
-                    name="message"
-                    value={description}
-                    style={{ fontSize: "18px" }}
-                    className="
+              <label className="mt-1">
+                <input
+                  type="text"
+                  name="name"
+                  className="
+                    w-full
+                    block pr-3 pl-1 py-1 my-1
+                    border-gray-300
+                    rounded-md
+                    text-black
+                    text-2xl
+                    shadow-sm
+                    focus:border-indigo-300
+                    focus:ring
+                    focus:ring-indigo-200
+                    focus:ring-opacity-50
+                    "
+                  placeholder="Title"
+                  value={title}
+                  onChange={handleTitle}
+                />
+              </label>
+              <div className="flex justify-start mt-2">
+                <label
+                  for="name"
+                  className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
+                >
+                  Issue Type: <TypeDropdown handleType={handleType} />
+                </label>
+              </div>
+              <div className="flex justify-start mt-2">
+                <label
+                  for="name"
+                  className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
+                >
+                  Priority: <PriorityDropdown handlePriority={handlePriority} />
+                </label>
+              </div>
+            </div>
+            <div className="flex justify-start items-center">
+              <span className="text-gray-800 text-sm font-bold mr-1">
+                Assigned to:{" "}
+              </span>
+              {selectedList.map((member) => (
+                <button onClick={(e) => handleClick(e, member)}>
+                  <Avatar
+                    src={member.avatarUrl}
+                    alt={member.firstName}
+                    size={12}
+                  />
+                </button>
+              ))}
+            </div>
+            <div className="flex justify-start">
+              <TeamMemberDropdown />
+            </div>
+            <div className="flex flex-col items-start my-2">
+              <span className="text-gray-400 text-md">Description</span>
+              <label className="w-full">
+                <textarea
+                  name="message"
+                  value={description}
+                  style={{ fontSize: "18px" }}
+                  className="
                         block
                         w-full
                         mt-2 px-3 py-3
                         border-gray-300
+                        text-black
                         rounded-md
                         shadow-sm
                         focus:border-indigo-300
@@ -133,18 +184,16 @@ const CreateIssueForm = ({ onClose }) => {
                         focus:ring-indigo-200
                         focus:ring-opacity-50
                       "
-                      rows="3"
-                    onChange={(e) => handleDescription(e)}
-                  ></textarea>
-                </label>
+                  rows="20"
+                  onChange={(e) => handleDescription(e)}
+                ></textarea>
+              </label>
             </div>
-            <div className="mb-2">
-            <IssuePostComment setNewComment={setNewComment}/>
-            </div>
-            <div class="mb-6">
+            <div className="mb-6">
               <button
                 type="submit"
                 className="
+                      mt-5
                       h-10
                       px-5
                       text-indigo-100
@@ -155,13 +204,12 @@ const CreateIssueForm = ({ onClose }) => {
                       focus:shadow-outline
                       hover:bg-indigo-800
                     "
-                onClick={handleSave}
+                onClick={(e) => handleSave(e)}
               >
                 Save
               </button>
             </div>
           </form>
-          <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse"></div>
         </div>
       </div>
     </div>
