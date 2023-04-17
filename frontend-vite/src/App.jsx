@@ -6,11 +6,15 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import CreateProfile from "./pages/CreateProfile";
+import TestingComponent from './components/TestingComponent.jsx'
 import NavBar from "./components/NavBar";
 import UpdateProfile from "./pages/UpdateProfile";
 
 function App() {
   return (
+    // <div>
+    // <TestingComponent />
+    // </div>
     <Routes>
       <Route exact path="/" element={<Login />} />
       <Route exact path="/register" element={<CreateProfile />} />

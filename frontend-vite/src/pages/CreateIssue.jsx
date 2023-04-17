@@ -1,5 +1,5 @@
 import { useState, Fragment } from "react";
-import CreateIssueModal from "../components/CreateIssueModal";
+import CreateIssueForm from "../components/CreateIssueForm";
 import { Transition } from "@headlessui/react";
 import { BsPlus } from "react-icons/bs";
 
@@ -25,7 +25,7 @@ function CreateIssue() {
       >
         <div>
           {isShowing ? (
-            <CreateIssueModal onClose={() => setIsShowing(false)} />
+            <CreateIssueForm onClose={() => setIsShowing(false)} />
           ) : null}
         </div>
       </Transition>
