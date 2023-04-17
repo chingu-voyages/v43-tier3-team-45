@@ -15,10 +15,8 @@ import { createNewIssue } from "../store/projectReducer.js";
 const CreateIssueForm = ({ onClose }) => {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
-  const [comment, setComment] = useState();
   const [priority, setPriority] = useState();
   const [type, setType] = useState();
-  const [newComment, setNewComment] = useState();
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -135,7 +133,8 @@ const CreateIssueForm = ({ onClose }) => {
                   for="name"
                   className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
                 >
-                  Issue Type: <TypeDropdown handleType={handleType} />
+                  Issue Type:{" "}
+                  <TypeDropdown handleType={handleType} type={"TASK"} />
                 </label>
               </div>
               <div className="flex justify-start mt-2">
@@ -143,7 +142,11 @@ const CreateIssueForm = ({ onClose }) => {
                   for="name"
                   className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
                 >
-                  Priority: <PriorityDropdown handlePriority={handlePriority} />
+                  Priority:{" "}
+                  <PriorityDropdown
+                    handlePriority={handlePriority}
+                    priority={"LOW"}
+                  />
                 </label>
               </div>
             </div>
