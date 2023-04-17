@@ -33,15 +33,15 @@ const NavBar = ({ teams }) => {
   return (
     <nav
       className="grid grid-cols-3 gap-none
-     items-center px-5 border-8 border-white-600 mx-auto bg-white-100"
+     items-center px-5 mx-auto bg-white-100"
     >
       <div className="font-sans text-2xl text-blue-500 font-bold ml-3 w-48">
         Chingu Board
       </div>
       
-      <div className="grid grid-cols-2 gap-1 items-center  bg-pink-400">
-        <div >{teams && <TeamDropdown teams={teams} />}</div>
-        <div className="items-center p-3">
+      <div className="flex grid-cols-5 gap-1 items-center">
+        <div>{teams && <TeamDropdown teams={teams} />}</div>
+        <div className="flex p-3">
           {teamMembers &&
             teamAvatars.map((member, index ) => (
               <Avatar
