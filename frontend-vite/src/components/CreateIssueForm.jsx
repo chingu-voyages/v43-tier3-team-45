@@ -5,6 +5,14 @@ import { useState } from "react";
 import axiosInstance from "../util/AxiosInstance.js";
 import TeamMemberDropdown from "./TeamMemberDropdown.jsx";
 import { IssuePostComment } from "./IssuePostComment.jsx";
+import Avatar from "./Avatar.jsx";
+import {
+  addMemberToSelectedList,
+  clearSelectedList,
+  removeMemberFromSelectedList,
+  setFilteredList,
+} from "../store/teamReducer.js";
+
 // import { current } from "@reduxjs/toolkit";
 
 const CreateIssueForm = ({ onClose }) => {
@@ -18,6 +26,8 @@ const CreateIssueForm = ({ onClose }) => {
 
   const currentUser = useSelector((state) => state.user.currentUser);
   const userName = useSelector((state) => state.user.currentUser.email)
+  const selectedList = useSelector((state) => state.team.selectedList);
+
 
   // replace with POST call to backend
   const testIssue = {
@@ -41,18 +51,12 @@ const CreateIssueForm = ({ onClose }) => {
     setDescription(e.target.value);
   };
 
-  // const handleComment = (e) => {
-  //   e.preventDefault();
-  //   setComment(e.target.value);
-  // };
+  // function to handle unassigning a member from an issue
+  const handleClick = (e, member) => {
+    e.preventDefault();
+    dispatch(removeMemberFromSelectedList(member));
+  };
 
-  // const handlePriority = (priority) => {
-  //   setPriority(priority);
-  // };
-
-  // const handleType = (type) => {
-  //   setType(type);
-  // };
 
   const handleSave = (e) => {
         e.preventDefault()
@@ -111,6 +115,18 @@ const CreateIssueForm = ({ onClose }) => {
                 <div>
                 <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Priority: <PriorityDropdown /></label>
                 </div>
+                <div>
+                  <p>Assigned to: </p>
+                  {selectedList.map((member) => (
+                    <button onClick={(e) => handleClick(e, member)}>
+                      <Avatar
+                        src={member.avatarUrl}
+                        alt={member.firstName}
+                        size={12}
+                      />
+                    </button>
+                  ))}
+            </div>
                 <div>
                 <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Members: <TeamMemberDropdown /></label>
               </div>
