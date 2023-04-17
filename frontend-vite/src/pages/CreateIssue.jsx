@@ -1,6 +1,8 @@
 import { useState, Fragment } from "react";
 import CreateIssueForm from "../components/CreateIssueForm";
+import CreateIssueForm from "../components/CreateIssueForm";
 import { Transition } from "@headlessui/react";
+import { BsPlus } from "react-icons/bs";
 import { BsPlus } from "react-icons/bs";
 
 function CreateIssue() {
@@ -8,13 +10,12 @@ function CreateIssue() {
 
   return (
     <div>
-      <button 
+      <button
         className="flex items-center px-2 py-1 bg-gray-700 rounded-md shadow hover:bg-gray-600"
-        onClick={() => setIsShowing((isShowing) => !isShowing)}>
-        New Issue
-       <BsPlus className="h-6 w-6 text-white" />
-        <span className="text-sm font-medium text-white m-1"></span>
-        </button>
+        onClick={() => setIsShowing((isShowing) => !isShowing)}
+      >
+        <BsPlus className="h-6 w-6 text-white" /> New Issue
+      </button>
       <Transition
         show={isShowing}
         enter="transition-opacity duration-125"
@@ -26,9 +27,7 @@ function CreateIssue() {
       >
         <div>
           {isShowing ? (
-            <CreateIssueForm
-              onClose={() => setIsShowing(false)}
-            />
+            <CreateIssueForm onClose={() => setIsShowing(false)} />
           ) : null}
         </div>
       </Transition>

@@ -11,8 +11,7 @@ const UpdateIssueModal = ({ onClose, taskId }) => {
   }, []);
 
   if (data == null) return <CircularLoading />;
-  else return <UpdateIssueForm taskId={taskId} data={data} onClose={onClose} />;
-  
+  else return <UpdateIssueForm data={data} onClose={onClose} />;
 };
 
 export default UpdateIssueModal;

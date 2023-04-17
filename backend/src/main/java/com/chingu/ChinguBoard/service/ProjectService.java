@@ -1,6 +1,9 @@
 package com.chingu.ChinguBoard.service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -47,6 +50,12 @@ public class ProjectService {
     public Project getProject(String id) {
         Project project = projectRepository.findById(id).orElseThrow();
         return populateLists(project);
+    }
+
+    public Map<String, Project> getProjectMap(List<String> ids) {
+        List<Project> projects = getProjects(ids);
+        Map<String, Project> map = projects.stream().collect(Collectors.toMap(Project::getId, Function.identity()));
+        return map;
     }
 
     public Project createProject(Project project, String teamId) {
