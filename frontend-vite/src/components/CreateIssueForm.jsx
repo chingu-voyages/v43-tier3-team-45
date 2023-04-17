@@ -111,11 +111,17 @@ const CreateIssueForm = ({ onClose }) => {
                     onChange={handleTitle}
                   />
                 </label>
-              <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Issue Type: <TypeDropdown /></label>
                 </div>
-                <div>
+
+              <div class="flow-root">
+                <div class="float-right">
+                <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Issue Type: <TypeDropdown /></label>
+                </div>
+                <div class="float-left">
                 <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Priority: <PriorityDropdown /></label>
                 </div>
+              </div>
+
                 <div>
                   <p>Assigned to: </p>
                   {selectedList.map((member) => (
@@ -133,7 +139,7 @@ const CreateIssueForm = ({ onClose }) => {
               </div>
             <div className="mb-2">
               <label>
-              <span class="text-gray-400">Description</span>
+              {/* <span class="text-gray-400">Description</span> */}
                   <textarea
                     name="message"
                     value={description}
@@ -150,6 +156,7 @@ const CreateIssueForm = ({ onClose }) => {
                         focus:ring-indigo-200
                         focus:ring-opacity-50
                       "
+                      placeholder="Description"
                       rows="3"
                     onChange={(e) => handleDescription(e)}
                   ></textarea>
@@ -172,6 +179,7 @@ const CreateIssueForm = ({ onClose }) => {
                       focus:shadow-outline
                       hover:bg-indigo-800
                     "
+                    
                 onClick={handleSave}
               >
                 Save

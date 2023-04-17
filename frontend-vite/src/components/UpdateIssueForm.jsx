@@ -71,6 +71,10 @@ const UpdateIssueForm = ({ onClose, data }) => {
     setPriority(priority);
   };
 
+  const handleType = (type) => {
+    setType(type);
+  };
+
   const handleSave = (e) => {
     e.preventDefault();
     updateIssueDetail(issue);
@@ -116,13 +120,17 @@ const UpdateIssueForm = ({ onClose, data }) => {
                 />
               </label>
             </div>
-            <div>
-            <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Issue Type: <TypeDropdown /></label>
-            </div>
-            <div>
-            <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Priority: <PriorityDropdown handlePriority={handlePriority}
-                priority={priority}
-              /></label>
+            <div class="flow-root"> 
+              <div class="float-left">
+              <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Issue Type: <TypeDropdown handleType={handleType}
+                  type={type}
+                /></label>
+              </div>
+              <div class="float-right">
+              <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Priority: <PriorityDropdown handlePriority={handlePriority}
+                  priority={priority}
+                /></label>
+              </div>
             </div>
             <div>
               <p>Assigned to: </p>
@@ -142,7 +150,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
 
               <div className="mb-2">
                 <label>
-                  <span class="text-gray-200">Description:</span>
+                  <span class="float-left text-gray-200">Description:</span>
                   <textarea
                     name="message"
                     value={description}
@@ -167,13 +175,15 @@ const UpdateIssueForm = ({ onClose, data }) => {
               <div>
                 <IssuePostComment setNewComment={setNewComment} />
               </div>
-              <div style={{ height: '200px', overflow: 'auto' }}>
-                    {comments.map((data) => {
-                      return (
-                        < IssueCommentSection data={data}/>
-                      )
-                    })}
-              </div>
+                {(comments.length > 0) ?
+                  <div style={{ height: '200px', overflow: 'auto' }}>
+                        {comments.map((data) => {
+                          return (
+                            < IssueCommentSection data={data}/>
+                          )
+                        })}
+                  </div> : null
+                }
               <br/>
             <div class="mb-6">
               <button

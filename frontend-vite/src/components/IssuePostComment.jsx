@@ -4,7 +4,7 @@ export const IssuePostComment = ({setNewComment}) => {
     return (
         <div className="mb-2">
             <label>
-                  <span class="text-gray-200">Comment:</span>
+                  {/* <span class="text-gray-200">Comment:</span> */}
                   <textarea
                     name="message"
                     // value={comment}
@@ -22,6 +22,7 @@ export const IssuePostComment = ({setNewComment}) => {
                         focus:ring-indigo-200
                         focus:ring-opacity-50
                       "
+                      placeholder="Add Comment"
                     rows="3"
                     onChange={(e) => setNewComment(e.target.value)}
                   ></textarea>
