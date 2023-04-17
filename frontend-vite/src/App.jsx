@@ -6,7 +6,6 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import CreateProfile from "./pages/CreateProfile";
-import NavBar from "./components/NavBar";
 import UpdateProfile from "./pages/UpdateProfile";
 
 function App() {
