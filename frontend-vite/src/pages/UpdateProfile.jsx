@@ -12,12 +12,12 @@ const UpdateProfile = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateUserProfile(user));
-    navigate("/profile")
+    navigate("/profile");
   };
 
   const handleImageUpdate = (e) => {
@@ -76,6 +76,8 @@ const UpdateProfile = () => {
               value={user.lastName}
               onChange={(e) => dispatch(setUserLastName(e.target.value))}
             />
+
+            <p className="text-red-500 text-xs italic">Last Name.</p>
           </div>
         </div>
       </form>

@@ -76,7 +76,7 @@ export const createNewIssue = createAsyncThunk(
 );
 
 /**
- * @param
+ * @param {string} issueId
  */
 export const deleteIssue = createAsyncThunk(
   "issue/delete",
@@ -84,6 +84,15 @@ export const deleteIssue = createAsyncThunk(
     const projectId = getState().project.currentProject.id;
     dispatch(removeIssueById(issueId));
     return axiosInstance.delete(`/issues/${issueId}?projectId=${projectId}`);
+  }
+);
+
+export const updateProject = createAsyncThunk(
+  "project/update",
+  async (_, { getState }) => {
+    const project = getState().project.currentProject;
+    const response = await axiosInstance.put("/projects/update", project);
+    return response.data;
   }
 );
 
@@ -98,6 +107,9 @@ const projectSlice = createSlice({
       state.inProgress = [];
       state.completed = [];
       state.dndIssue = null;
+    },
+    setProjectName: (state, action) => {
+      state.currentProject.name = action.payload;
     },
     removeFromNewStatus: (state, action) => {
       state.dndIssue = state.newStatus.splice(action.payload, 1)[0];
@@ -185,6 +197,7 @@ const projectSlice = createSlice({
 
 export const {
   resetProject,
+  setProjectName,
   removeFromBacklog,
   removeFromNewStatus,
   removeFromInProgress,

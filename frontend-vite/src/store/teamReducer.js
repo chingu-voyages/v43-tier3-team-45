@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../util/AxiosInstance";
-import { createProject } from "./projectReducer";
+import { createProject, updateProject } from "./projectReducer";
 
 const initialState = {
   currentTeam: null,
@@ -71,6 +71,15 @@ export const createTeam = createAsyncThunk(
   }
 );
 
+export const updateTeam = createAsyncThunk(
+  "teams/update",
+  async (_, { getState }) => {
+    const team = getState().team.currentTeam;
+    const response = await axiosInstance.put("/teams/update", team);
+    return response.data;
+  }
+);
+
 const teamSlice = createSlice({
   name: "team",
   initialState,
@@ -90,6 +99,9 @@ const teamSlice = createSlice({
     setMembers: (state, action) => {
       state.members = action.payload;
       state.filteredList = action.payload; // can remove this once set/clearFilteredList is hooked up with open/close modal
+    },
+    setTeamName: (state, action) => {
+      state.currentTeam.name = action.payload;
     },
     addMemberToSelectedList: (state, action) => {
       state.selectedList.push(action.payload);
@@ -135,6 +147,13 @@ const teamSlice = createSlice({
       state.allTeams.push(action.payload);
       state.currentTeam = action.payload;
     });
+    builder.addCase(updateProject.fulfilled, (state, action) => {
+      const { id, name } = action.payload;
+      const index = state.currentTeam.projects.findIndex(
+        (project) => project.id === id
+      );
+      state.currentTeam.projects[index].name = name;
+    });
   },
 });
 
@@ -143,6 +162,7 @@ export const {
   resetTeam,
   setMembers,
   resetAllTeams,
+  setTeamName,
   addMemberToSelectedList,
   removeMemberFromSelectedList,
   clearSelectedList,

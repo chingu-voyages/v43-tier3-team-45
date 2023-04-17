@@ -48,10 +48,10 @@ public class ProjectController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<ProjectDTO> updateProject(@RequestBody ProjectDTO projectDTO) {
+    public ResponseEntity<ProjectListDTO> updateProject(@RequestBody ProjectDTO projectDTO) {
         Project project = projectDTOMapper.toEntity(projectDTO);
         Project updatedProject = projectService.updateProject(project);
-        return ResponseEntity.ok(projectDTOMapper.toDTO(updatedProject));
+        return ResponseEntity.ok(projectListDTOMapper.toDTO(updatedProject));
     }
 
     // add DELETE method
