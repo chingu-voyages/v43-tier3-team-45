@@ -52,7 +52,7 @@ const NavBar = () => {
         <div className="grid grid-cols-4 gap-1">
           <div className="flex justify-end items-center mr-3">
             <button
-              className="cursor-pointer rounded-lg bg-indigo-300 py-2 shadow-md"
+              className="cursor-pointer rounded-lg bg-[#16558f54] py-2 shadow-md"
               onClick={(e) => handleCreateTeam(e)}
             >
               <span className="block text-black text-sm px-2">Create Team</span>
@@ -81,7 +81,7 @@ const NavBar = () => {
       <div className="flex justify-end">
         <div className="grid grid-cols-2 gap-2 items-center">
           <button
-            className="rounded-lg bg-indigo-300 py-2 shadow-md cursor-pointer px-2 text-sm"
+            className="rounded-lg bg-[#16558f54] py-2 shadow-md cursor-pointer px-2 text-sm"
             onClick={(e) => handleLogout(e)}
           >
             Logout

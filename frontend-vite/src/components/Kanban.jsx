@@ -139,7 +139,7 @@ export default function Kanban() {
           <div className="flex-1">
             <div className="p-3 flex">
               <div>
-                <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">
+                <h1 className="tracking-wide pl-1 text-xl origin-left text-left font-medium pb-2">
                   New
                 </h1>
                 <div className="flex-shrink-0 w-72 p-3 rounded-md bg-gray-100 mr-2 overflow-auto">
@@ -147,7 +147,7 @@ export default function Kanban() {
                 </div>
               </div>
               <div>
-                <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">
+                <h1 className="tracking-wide pl-1 text-xl origin-left text-left font-medium pb-2">
                   Backlog
                 </h1>
                 <div className="flex-shrink-0 w-72 p-3 rounded-md bg-gray-100 mr-2 overflow-auto">
@@ -155,7 +155,7 @@ export default function Kanban() {
                 </div>
               </div>
               <div>
-                <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">
+                <h1 className="tracking-wide pl-1 text-xl origin-left text-left font-medium pb-2">
                   In Progress
                 </h1>
                 <div className="flex-shrink-0 w-72 p-3 rounded-md bg-gray-100 mr-2 overflow-auto">
@@ -163,7 +163,7 @@ export default function Kanban() {
                 </div>
               </div>
               <div>
-                <h1 className="pl-1 text-xl origin-left text-left font-medium pb-2">
+                <h1 className="tracking-wide pl-1 text-xl origin-left text-left font-medium pb-2">
                   Completed
                 </h1>
                 <div className="flex-shrink-0 w-72 p-3 rounded-md bg-gray-100 overflow-auto">
