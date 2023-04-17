@@ -14,7 +14,7 @@ const TeamMemberDropdown = () => {
   };
 
   return (
-    <Popover className="relative mt-2">
+    <Popover className="relative">
       <Popover.Button>
         <span
           className="text-black py-1 px-2
@@ -37,13 +37,13 @@ const TeamMemberDropdown = () => {
         leaveFrom="opacity-100 translate-y-0"
         leaveTo="opacity-0 translate-y-1"
       >
-        <Popover.Panel className="absolute z-10 w-60 mt-3 transform px-2 sm:px-0">
+        <Popover.Panel className="absolute z-10 w-80 mt-3 transform px-2 sm:px-0">
           <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
             <div className="relative grid gap-2 bg-white p-1 grid-cols-1">
               {filteredList &&
                 filteredList.map((member, key) => (
                   <button
-                    className="flex rounded-lg outline items-center"
+                    className="flex rounded-lg outline-none items-center"
                     onClick={(e) => handleClick(e, member)}
                     key={key}
                   >
@@ -52,7 +52,7 @@ const TeamMemberDropdown = () => {
                       alt={member.firstName}
                       size={12}
                     />
-                    <p className="text-sky-400 ml-2 truncate">
+                    <p className="text-sky-400 ml-2 truncate font-thin font-xs">
                       {member.firstName} {member.lastName}
                     </p>
                   </button>

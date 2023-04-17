@@ -147,12 +147,15 @@ const CreateIssueForm = ({ onClose }) => {
                 </label>
               </div>
             </div>
-            <div className="flex justify-start items-center">
+            <div className="flex justify-start items-center mt-2">
               <span className="text-gray-800 text-sm font-bold mr-1">
                 Assigned to:{" "}
               </span>
               {selectedList.map((member) => (
-                <button onClick={(e) => handleClick(e, member)}>
+                <button
+                  className="mx-px"
+                  onClick={(e) => handleClick(e, member)}
+                >
                   <Avatar
                     src={member.avatarUrl}
                     alt={member.firstName}
@@ -161,7 +164,7 @@ const CreateIssueForm = ({ onClose }) => {
                 </button>
               ))}
             </div>
-            <div className="flex justify-start">
+            <div className="flex justify-start mt-2">
               <TeamMemberDropdown />
             </div>
             <div className="flex flex-col items-start my-2">
