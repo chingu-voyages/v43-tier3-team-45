@@ -51,6 +51,7 @@ const CreateIssueForm = ({ onClose }) => {
     setDescription(e.target.value);
   };
 
+  // should clear member list when create issue is clicked or use a new redux slice?
   // function to handle unassigning a member from an issue
   const handleClick = (e, member) => {
     e.preventDefault();
