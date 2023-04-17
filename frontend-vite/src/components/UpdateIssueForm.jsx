@@ -21,10 +21,9 @@ import { IssuePostComment } from "./IssuePostComment.jsx";
 const UpdateIssueForm = ({ onClose, data }) => {
   const [title, setTitle] = useState(data.title);
   const [description, setDescription] = useState(data.description);
-  const [comments, setComment] = useState(data.comments);
   const [priority, setPriority] = useState(data.priority);
   const [type, setType] = useState(data.issueType);
-  const [newComment, setNewComment] = useState();
+  const comments = data.comments;
 
   const dispatch = useDispatch();
   const selectedList = useSelector((state) => state.team.selectedList);
@@ -94,7 +93,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
         <div className="relative py-4 px-4 md:px-10 bg-white shadow-md rounded border border-gray-400">
           <div className="flow-root">
             <button
-              onClick={(e) => handleClose(e)}
+              onClick={(e) => handleSave(e)}
               type="button"
               className="float-right bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
             >
@@ -107,9 +106,9 @@ const UpdateIssueForm = ({ onClose, data }) => {
                 aria-hidden="true"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M6 18L18 6M6 6l12 12"
                 />
               </svg>
@@ -117,12 +116,11 @@ const UpdateIssueForm = ({ onClose, data }) => {
           </div>
           <form className="mt-2">
             <div className="mb-2">
-              <label>
-                <input
-                  type="text"
-                  value={title}
-                  name="name"
-                  className="w-full
+              <input
+                type="text"
+                value={title}
+                id="name"
+                className="w-full
                     block pr-3 pl-1 py-1 my-1
                     border-gray-300
                     rounded-md
@@ -132,10 +130,9 @@ const UpdateIssueForm = ({ onClose, data }) => {
                     focus:ring
                     focus:ring-indigo-200
                     focus:ring-opacity-50"
-                  placeholder="Title"
-                  onChange={handleTitle}
-                />
-              </label>
+                placeholder="Title"
+                onChange={handleTitle}
+              />
             </div>
             <div className="flex justify-start mt-2">
               <label
@@ -178,7 +175,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
               <TeamMemberDropdown />
             </div>
             <div className="flex flex-col items-start my-2">
-              <span className="text-gray-200">Description:</span>
+              <span className="text-gray-400">Description:</span>
               <label className="w-full">
                 <textarea
                   name="message"
@@ -202,31 +199,13 @@ const UpdateIssueForm = ({ onClose, data }) => {
               </label>
             </div>
             {/* add scrollable area to save space */}
-            <div>
-              {comments.map((data) => {
-                return <IssueCommentSection data={data} />;
+            <div className="flex flex-col items-start w-full">
+              <span className="text-gray-400">Comments:</span>
+              {comments.map((data, key) => {
+                return <IssueCommentSection data={data} key={key} />;
               })}
             </div>
-            <IssuePostComment setNewComment={setNewComment} />
-            <div className="mb-6">
-              <button
-                type="submit"
-                className="
-                      h-10
-                      px-5
-                      text-indigo-100
-                      bg-indigo-700
-                      rounded-lg
-                      transition-colors
-                      duration-150
-                      focus:shadow-outline
-                      hover:bg-indigo-800
-                    "
-                onClick={handleSave}
-              >
-                Update
-              </button>
-            </div>
+            <IssuePostComment issueId={data.id} handleClose={handleClose} />
           </form>
         </div>
       </div>

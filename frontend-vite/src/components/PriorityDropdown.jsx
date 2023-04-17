@@ -9,6 +9,8 @@ const PriorityDropdown = (props) => {
     handlePriority(e.target.value);
   };
 
+  // could add colors to match with the colors on task cards
+
   return (
     <select
       className="w-half text-sm font-bold ml-1 p-1 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
