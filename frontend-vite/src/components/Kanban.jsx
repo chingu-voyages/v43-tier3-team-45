@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import Column from "./Column";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,7 @@ import {
 import CreateIssue from "../pages/CreateIssue";
 import CircularLoading from "./CircularLoading";
 import { setTeamName, updateTeam } from "../store/teamReducer";
+import { setProjectName, updateProject } from "../store/projectReducer";
 
 export default function Kanban() {
   const backlog = useSelector((state) => state.project.backlog);
@@ -37,6 +38,14 @@ export default function Kanban() {
 
   const handleTeamNameBlur = (e) => {
     dispatch(updateTeam());
+  };
+
+  const handleProjectNameChange = (e) => {
+    dispatch(setProjectName(e.target.value));
+  };
+
+  const handleProjectNameBlur = (e) => {
+    dispatch(updateProject());
   };
 
   function handleDragEnd(result) {
@@ -102,12 +111,21 @@ export default function Kanban() {
               onChange={(e) => handleTeamNameChange(e)}
               onBlur={(e) => handleTeamNameBlur(e)}
               value={teamName}
-              className="truncate w-11/12"
+              className="truncate w-11/12 font-medium"
             />
           )}
         </div>
         <div className="col-span-2 flex justify-start ml-2 text-2xl origin-left font-medium text-gray-900 leading-tight">
-          {project && project.name}
+          {/* {project && project.name} */}
+          {project && (
+            <input
+              type="text"
+              value={project.name}
+              onChange={(e) => handleProjectNameChange(e)}
+              onBlur={(e) => handleProjectNameBlur(e)}
+              className="truncate w-11/12 font-medium"
+            />
+          )}
         </div>
         <div className="flex justify-end h-full mr-2">
           <div className="text-sm font-medium text-white">

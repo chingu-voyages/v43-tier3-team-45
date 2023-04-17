@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../util/AxiosInstance";
-import { createProject } from "./projectReducer";
+import { createProject, updateProject } from "./projectReducer";
 
 const initialState = {
   currentTeam: null,
@@ -146,6 +146,13 @@ const teamSlice = createSlice({
     builder.addCase(createTeam.fulfilled, (state, action) => {
       state.allTeams.push(action.payload);
       state.currentTeam = action.payload;
+    });
+    builder.addCase(updateProject.fulfilled, (state, action) => {
+      const { id, name } = action.payload;
+      const index = state.currentTeam.projects.findIndex(
+        (project) => project.id === id
+      );
+      state.currentTeam.projects[index].name = name;
     });
   },
 });
