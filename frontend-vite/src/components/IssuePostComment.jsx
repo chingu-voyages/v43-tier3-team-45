@@ -1,13 +1,5 @@
-import { useState } from "react"
 
 export const IssuePostComment = ({setNewComment}) => {
-
-    // const handlePost = (e) => {
-    //     e.preventDefault()
-    //     console.log(comment)
-    // }
-
-    // console.log(comment)
 
     return (
         <div className="mb-2">

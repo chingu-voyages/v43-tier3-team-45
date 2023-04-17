@@ -14,6 +14,7 @@ const CreateIssueForm = ({ onClose }) => {
   const [priority, setPriority] = useState();
   const [type, setType] = useState();
   const dispatch = useDispatch();
+  const [ newComment, setNewComment ] = useState()
 
   const currentUser = useSelector((state) => state.user.currentUser);
   const userName = useSelector((state) => state.user.currentUser.email)
@@ -130,12 +131,12 @@ const CreateIssueForm = ({ onClose }) => {
                         focus:ring-opacity-50
                       "
                       rows="3"
-                    onChange={handleDescription}
+                    onChange={(e) => handleDescription(e)}
                   ></textarea>
                 </label>
             </div>
             <div className="mb-2">
-            <IssuePostComment />
+            <IssuePostComment setNewComment={setNewComment}/>
             </div>
             <div class="mb-6">
               <button

@@ -84,6 +84,7 @@ export default function Kanban() {
         </div>
         <div>
         {project && <CreateIssue />}
+        {/* had to move button into CreateIssue component */}
           {/* <button className="flex items-center px-2 py-1 bg-gray-700 rounded-md shadow hover:bg-gray-600"> */}
             {/* <BsPlus className="h-6 w-6 text-white" />
             <span className="text-sm font-medium text-white m-1">
