@@ -110,7 +110,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
                   type="text"
                   value={title}
                   name="name"
-                  className="text-black"
+                  className="text-black  w-full"
                   placeholder="Title"
                   onChange={handleTitle}
                 />
@@ -164,6 +164,9 @@ const UpdateIssueForm = ({ onClose, data }) => {
                   ></textarea>
                 </label>
               </div>
+              <div>
+                <IssuePostComment setNewComment={setNewComment} />
+              </div>
               <div style={{ height: '200px', overflow: 'auto' }}>
                     {comments.map((data) => {
                       return (
@@ -171,7 +174,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
                       )
                     })}
               </div>
-            <IssuePostComment setNewComment={setNewComment} />
+              <br/>
             <div class="mb-6">
               <button
                 type="submit"
