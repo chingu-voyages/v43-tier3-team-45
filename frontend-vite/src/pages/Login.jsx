@@ -10,7 +10,7 @@ function Login() {
           alt="kanban"
         />
       </div>
-      <div>
+      <div className="flex flex-col justify-center items-center h-full">
         <LoginForm />
       </div>
     </div>
