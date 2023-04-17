@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import Column from "./Column";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,7 @@ import {
 } from "../store/projectReducer";
 import CreateIssue from "../pages/CreateIssue";
 import CircularLoading from "./CircularLoading";
-import { BsPlus } from "react-icons/bs";
+import { setTeamName, updateTeam } from "../store/teamReducer";
 
 export default function Kanban() {
   const backlog = useSelector((state) => state.project.backlog);
@@ -19,9 +19,25 @@ export default function Kanban() {
   const inProgress = useSelector((state) => state.project.inProgress);
   const completed = useSelector((state) => state.project.completed);
   const project = useSelector((state) => state.project.currentProject);
+  const team = useSelector((state) => state.team.currentTeam);
   const loading = useSelector((state) => state.project.status) == "loading";
+  const teamName = useSelector((state) => {
+    if (team !== null) {
+      return state.team.currentTeam.name;
+    } else {
+      return "";
+    }
+  });
 
   const dispatch = useDispatch();
+
+  const handleTeamNameChange = (e) => {
+    dispatch(setTeamName(e.target.value));
+  };
+
+  const handleTeamNameBlur = (e) => {
+    dispatch(updateTeam());
+  };
 
   function handleDragEnd(result) {
     const { destination, source, draggableId } = result;
@@ -78,16 +94,28 @@ export default function Kanban() {
   return (
     <div className="min-h-screen">
       {loading && <CircularLoading />}
-      <div className="p-3 flex justify-between items-center shadow min-w-screen">
-        <div className="text-2xl origin-left font-medium text-gray-900 leading-tight">
+      <div className="grid grid-cols-5 gap-1 shadow min-w-screen p-2">
+        <div className="col-span-2 flex justify-start ml-1 text-2xl origin-left font-semibold text-gray-900 leading-tight">
+          {team && (
+            <input
+              type="text"
+              onChange={(e) => handleTeamNameChange(e)}
+              onBlur={(e) => handleTeamNameBlur(e)}
+              value={teamName}
+              className="truncate w-11/12"
+            />
+          )}
+        </div>
+        <div className="col-span-2 flex justify-start ml-2 text-2xl origin-left font-medium text-gray-900 leading-tight">
           {project && project.name}
         </div>
-        <div className="h-full">
-          <div className="text-sm font-medium text-white m-1">
+        <div className="flex justify-end h-full mr-2">
+          <div className="text-sm font-medium text-white">
             {project && <CreateIssue />}
           </div>
         </div>
       </div>
+
       <div className="">
         <DragDropContext onDragEnd={handleDragEnd}>
           <div className="flex-1">

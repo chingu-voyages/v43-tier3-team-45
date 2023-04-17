@@ -71,6 +71,15 @@ export const createTeam = createAsyncThunk(
   }
 );
 
+export const updateTeam = createAsyncThunk(
+  "teams/update",
+  async (_, { getState }) => {
+    const team = getState().team.currentTeam;
+    const response = await axiosInstance.put("/teams/update", team);
+    return response.data;
+  }
+);
+
 const teamSlice = createSlice({
   name: "team",
   initialState,
@@ -90,6 +99,9 @@ const teamSlice = createSlice({
     setMembers: (state, action) => {
       state.members = action.payload;
       state.filteredList = action.payload; // can remove this once set/clearFilteredList is hooked up with open/close modal
+    },
+    setTeamName: (state, action) => {
+      state.currentTeam.name = action.payload;
     },
     addMemberToSelectedList: (state, action) => {
       state.selectedList.push(action.payload);
@@ -143,6 +155,7 @@ export const {
   resetTeam,
   setMembers,
   resetAllTeams,
+  setTeamName,
   addMemberToSelectedList,
   removeMemberFromSelectedList,
   clearSelectedList,

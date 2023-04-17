@@ -4,7 +4,6 @@ import TypeDropdown from "./TypeDropdown.jsx";
 import PriorityDropdown from "./PriorityDropdown.jsx";
 import Avatar from "./Avatar.jsx";
 import TeamMemberDropdown from "./TeamMemberDropdown.jsx";
-import { IssuePostComment } from "./IssuePostComment.jsx";
 import {
   clearSelectedList,
   setFilteredList,
