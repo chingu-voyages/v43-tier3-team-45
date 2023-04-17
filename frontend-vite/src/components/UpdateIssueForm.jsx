@@ -142,7 +142,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
                 for="name"
                 className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
               >
-                Issue Type: <TypeDropdown handleType={handleType} />
+                Issue Type: <TypeDropdown handleType={handleType} type={type} />
               </label>
             </div>
             <div className="flex justify-start mt-2">
@@ -150,7 +150,11 @@ const UpdateIssueForm = ({ onClose, data }) => {
                 for="name"
                 className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
               >
-                Priority: <PriorityDropdown handlePriority={handlePriority} />
+                Priority:{" "}
+                <PriorityDropdown
+                  handlePriority={handlePriority}
+                  priority={priority}
+                />
               </label>
             </div>
             <div className="flex justify-start items-center mt-2">
