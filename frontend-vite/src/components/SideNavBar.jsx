@@ -6,6 +6,7 @@ import { BsSearch } from "react-icons/bs";
 import { createProject } from "../store/projectReducer";
 import { addMemberToTeam } from "../store/teamReducer";
 import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
+import { BsPlus } from "react-icons/bs";
 
 function SideNavBar({ sidebarOpen }) {
   const [sidebar, setSidebar] = useState(false);
@@ -68,9 +69,17 @@ function SideNavBar({ sidebarOpen }) {
             !sidebarOpen && "scale-0"
           }`}
         >
-          <button onClick={(e) => handleJoinTeam(e)}>
-            <p className="text-red-500"> Join Team</p>
-          </button>
+          <div className="flex flex-col items-center pt-3">
+            <button
+              onClick={(e) => handleJoinTeam(e)}
+              className="flex items-center px-2 py-1 bg-gray-700 rounded-md shadow hover:bg-gray-600"
+            >
+              <BsPlus className="h-6 w-6 text-white" />
+              <span className="block uppercase tracking-wide text-sm font-medium text-white m-1">
+                Join Team
+              </span>
+            </button>
+          </div>
         </div>
       )}
       <div
@@ -99,14 +108,21 @@ function SideNavBar({ sidebarOpen }) {
         {selectedTeamProjects && teamProjectArray}
       </ul>
       {selectedTeam && (
-        <button
-          className={`origin-left font-medium text-lg duration-400 ${
+        <div
+          className={`flex flex-col items-center pt-3 origin-left font-medium text-lg duration-400 ${
             !sidebarOpen && "scale-0"
           }`}
-          onClick={(e) => handleCreateProject(e)}
         >
-          <p>Create new Project</p>
-        </button>
+          <button
+            onClick={(e) => handleCreateProject(e)}
+            className="flex items-center px-2 py-1 bg-gray-700 rounded-md shadow hover:bg-gray-600"
+          >
+            <BsPlus className="h-6 w-6 text-white" />
+            <span className="block uppercase tracking-wide text-sm font-medium text-white m-1">
+              New Project
+            </span>
+          </button>
+        </div>
       )}
     </>
   );

@@ -7,7 +7,7 @@ function CreateIssue() {
 
   return (
     <div>
-      <button onClick={() => setIsShowing((isShowing) => !isShowing)}>
+      <button onClick={() => setIsShowing((isShowing) => !isShowing)} className="block uppercase tracking-wide px-2">
         New Issue
       </button>
       <Transition

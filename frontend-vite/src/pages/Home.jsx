@@ -23,7 +23,7 @@ const Home = () => {
 
       <div className="flex justify-start">
         <div
-          className={`bg-indigo-300 rounded-md p-5 pt-8 mb-4 ${
+          className={`bg-[#16558f54] rounded-md p-5 pt-8 mb-4 ${
             sidebarOpen ? "w-72" : "w-20"
           } duration-300 relative`}
         >
