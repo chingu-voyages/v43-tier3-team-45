@@ -110,7 +110,7 @@ const CreateIssueForm = ({ onClose }) => {
                 <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Priority: <PriorityDropdown /></label>
                 </div>
                 <div>
-                <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Members: <TeamDropdown /></label>
+                <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Members: <TeamMemberDropdown /></label>
                 </div>
             <div className="mb-2">
               <label>
