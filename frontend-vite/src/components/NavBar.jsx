@@ -42,8 +42,11 @@ const NavBar = () => {
         Chingu Board
       </div>
       <div className="flex justify-between items-center mx-auto px-5">
-        <button onClick={(e) => handleCreateTeam(e)}>
-          <p>Create Team</p>
+        <button
+          className="cursor-pointer rounded-lg bg-indigo-300 py-2 shadow-md"
+          onClick={(e) => handleCreateTeam(e)}
+        >
+          <span className="block text-black">Create Team</span>
         </button>
         <div className="mr-2 justify-self-start">
           {teams && <TeamDropdown teams={teams} />}
