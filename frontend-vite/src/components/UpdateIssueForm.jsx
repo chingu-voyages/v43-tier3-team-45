@@ -142,7 +142,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
 
               <div className="mb-2">
                 <label>
-                  <span class="text-gray-400">Description</span>
+                  <span class="text-gray-200">Description:</span>
                   <textarea
                     name="message"
                     value={description}
@@ -164,13 +164,14 @@ const UpdateIssueForm = ({ onClose, data }) => {
                   ></textarea>
                 </label>
               </div>
-              <div>
+              {/* add scrollable area to save space */}
+              <div >
                 {comments.map((data) => {
                   return (
                     < IssueCommentSection data={data}/>
                   )
                 })}
-              </div>  
+              </div >  
             <IssuePostComment setNewComment={setNewComment} />
             <div class="mb-6">
               <button

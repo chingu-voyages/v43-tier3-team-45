@@ -4,7 +4,7 @@ export const IssuePostComment = ({setNewComment}) => {
     return (
         <div className="mb-2">
             <label>
-                  <span class="text-gray-400">Comment</span>
+                  <span class="text-gray-200">Comment:</span>
                   <textarea
                     name="message"
                     // value={comment}
