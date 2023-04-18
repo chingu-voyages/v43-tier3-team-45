@@ -36,7 +36,6 @@ const CreateIssueForm = ({ onClose }) => {
   const handleClick = (e, member) => {
     e.preventDefault();
     dispatch(removeMemberFromSelectedList(member));
-    console.log(issue);
   };
 
   const handleTitle = (e) => {
@@ -54,13 +53,11 @@ const CreateIssueForm = ({ onClose }) => {
   };
 
   const handleType = (type) => {
-    console.log(type);
     setType(type);
   };
 
   const handleSave = (e) => {
     e.preventDefault();
-    console.log(issue);
     dispatch(createNewIssue(issue));
     handleClose(e);
   };
