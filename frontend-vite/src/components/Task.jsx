@@ -4,8 +4,7 @@ import UpdateIssueModal from "../components/UpdateIssueModal.jsx";
 import { Transition } from "@headlessui/react";
 
 export default function Task({ task, index }) {
-
-  const [isShowing, setIsShowing] = useState(false)
+  const [isShowing, setIsShowing] = useState(false);
 
   return (
     <div>
@@ -51,12 +50,12 @@ export default function Task({ task, index }) {
                   <span
                     className={`${
                       task.status === "NEW"
-                        ? "bg-blue-200"
+                        ? "bg-[#B8E3FF]"
                         : task.status === "BACKLOG"
-                        ? "bg-pink-200"
+                        ? "bg-[#61B0B7]"
                         : task.status === "IN_PROGRESS"
-                        ? "bg-purple-200"
-                        : "bg-emerald-200"
+                        ? "bg-[#0584d2b2]"
+                        : "bg-[#16558f74]"
                     } rounded-full ml-1 px-2 py-0.5`}
                   >
                     {task.status}
@@ -77,12 +76,17 @@ export default function Task({ task, index }) {
           leave="transition-opacity duration-150"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
-          >
+        >
           <div>
-            {isShowing ? (<UpdateIssueModal taskId={task.id} onClose={() => setIsShowing(false)} />) : null }
+            {isShowing ? (
+              <UpdateIssueModal
+                taskId={task.id}
+                onClose={() => setIsShowing(false)}
+              />
+            ) : null}
           </div>
-      </Transition>
-    </div>
+        </Transition>
+      </div>
     </div>
   );
 }

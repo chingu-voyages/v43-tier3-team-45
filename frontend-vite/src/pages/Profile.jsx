@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import Avatar from "../components/Avatar";
 import { useSelector } from "react-redux";
-import { useNavigate} from "react-router";
-import {Link} from 'react-router-dom'
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 const Profile = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const navigate = useNavigate();
@@ -28,7 +28,13 @@ const Profile = () => {
           Edit Profile
         </button>
         <div>
-          <Link to={"/home"} className="p-2 block uppercase tracking-wide hover:text-blue-500"> Return to Board</Link>
+          <Link
+            to={"/home"}
+            className="p-2 block uppercase tracking-wide hover:text-blue-500"
+          >
+            {" "}
+            Return to Board
+          </Link>
         </div>
       </div>
     </Fragment>

@@ -4,8 +4,6 @@ import PriorityDropdown from "./PriorityDropdown.jsx";
 import { useState } from "react";
 import axiosInstance from "../util/AxiosInstance.js";
 import TeamMemberDropdown from "./TeamMemberDropdown.jsx";
-import { IssuePostComment } from "./IssuePostComment.jsx";
-import Avatar from "./Avatar.jsx";
 import {
   addMemberToSelectedList,
   clearSelectedList,
@@ -18,9 +16,8 @@ import {
 const CreateIssueForm = ({ onClose }) => {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
-  const [comment, setComment] = useState();
-  const [priority, setPriority] = useState();
-  const [type, setType] = useState();
+  const [priority, setPriority] = useState("LOW");
+  const [type, setType] = useState("TASK");
   const dispatch = useDispatch();
   const [ newComment, setNewComment ] = useState()
 
@@ -39,6 +36,11 @@ const CreateIssueForm = ({ onClose }) => {
     issueType: "TASK",
     priority: "LOW",
     status: "NEW",
+  };
+
+  const handleClick = (e, member) => {
+    e.preventDefault();
+    dispatch(removeMemberFromSelectedList(member));
   };
 
   const handleTitle = (e) => {

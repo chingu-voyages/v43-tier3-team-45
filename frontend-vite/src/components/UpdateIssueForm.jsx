@@ -80,6 +80,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
     setType(type);
   };
 
+  // this won't update the task card on the board since the card lives inside one of project slice's status list
   const handleSave = (e) => {
     e.preventDefault();
     updateIssueDetail(issue);

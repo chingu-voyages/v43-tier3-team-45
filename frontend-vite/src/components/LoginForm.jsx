@@ -66,7 +66,7 @@ const LoginForm = () => {
             />
           </div>
           <button
-            className=" bg-blue-400 hover:bg-blue-700 text-black hover:text-white font-bold py-2 px-4 rounded mr-2 mt-2"
+            className=" bg-[#16558f54] hover:bg-indigo-700 text-black hover:text-white font-bold py-2 px-4 rounded mr-2 mt-2"
             onClick={handleLogin}
             disabled={status === "loading"}
           >
