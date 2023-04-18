@@ -10,6 +10,8 @@ import {
   removeMemberFromSelectedList,
   setFilteredList,
 } from "../store/teamReducer.js";
+import { IssuePostComment } from "./IssuePostComment.jsx";
+import Avatar from "./Avatar.jsx";
 
 // import { current } from "@reduxjs/toolkit";
 
