@@ -16,3 +16,16 @@ in your `readme` feel free to replace the text we've provided here.
  mvn spring-boot:run
  
  npm run dev
+ 
+ brief overview of what project is see README guide
+ 
+ list out dependencies
+ 
+ put a link to the live site
+
+Optional Todo list
+contributors
+tech/stack used
+running the client locally 
+npm install
+npm run dev
