@@ -76,8 +76,6 @@ const UpdateProfile = () => {
               value={user.lastName}
               onChange={(e) => dispatch(setUserLastName(e.target.value))}
             />
-
-            <p className="text-red-500 text-xs italic">Last Name.</p>
           </div>
         </div>
       </form>
