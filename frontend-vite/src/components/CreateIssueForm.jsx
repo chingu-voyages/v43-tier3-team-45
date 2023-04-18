@@ -14,8 +14,8 @@ import { createNewIssue } from "../store/projectReducer.js";
 const CreateIssueForm = ({ onClose }) => {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
-  const [priority, setPriority] = useState();
-  const [type, setType] = useState();
+  const [priority, setPriority] = useState("LOW");
+  const [type, setType] = useState("TASK");
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -54,11 +54,13 @@ const CreateIssueForm = ({ onClose }) => {
   };
 
   const handleType = (type) => {
+    console.log(type);
     setType(type);
   };
 
   const handleSave = (e) => {
     e.preventDefault();
+    console.log(issue);
     dispatch(createNewIssue(issue));
     handleClose(e);
   };
