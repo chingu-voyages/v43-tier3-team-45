@@ -11,16 +11,10 @@ import {
   removeMemberFromSelectedList,
   setFilteredList,
 } from "../store/teamReducer.js";
-import { IssueCommentSection } from "./IssueCommentSection.jsx";
-import { IssuePostComment } from "./IssuePostComment.jsx";
-
 // add new comp for comments and addComment, have own button
 // post text and created by user slice
 import { IssueCommentSection } from "./IssueCommentSection.jsx";
 import { IssuePostComment } from "./IssuePostComment.jsx";
-
-// add new comp for comments and addComment, have own button
-// post text and created by user slice
 
 // data is the IssueDTO
 const UpdateIssueForm = ({ onClose, data }) => {
