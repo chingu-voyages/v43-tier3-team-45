@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const BASE_URL =
-  "http://Chinguboarddev2-env.eba-3gsq927u.us-east-2.elasticbeanstalk.com/api"; // URL for AWS EBS dev deployment
+const BASE_URL = "https://chinguboard.up.railway.app";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
