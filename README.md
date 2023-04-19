@@ -1,6 +1,6 @@
 # Chingu Board - Voyage 43 - Team 45 💪
 
- Chingu Board was built by four software engineers over the six-week Chingu Voyage.
+ Chingu Board was built by four software engineers over a six-week Chingu Voyage.
 
 # Badges
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/chingu-voyages/v43-tier3-team-45?style=plastic)
@@ -9,23 +9,23 @@
 # Description
 Chingu Board is an task and bug tracker that helps users create, track and fix issues efficiently.  
 
-The app consists of main components:
+The app consists of :
 
 ###### Login page  
 * User is able to login or sign up. 
 
-###### NavBar page 
+###### Navbar 
 * Team dropdown displays team avatars associated with a particular project. 
 * Logout button
 * A clickable user avatar which directs the user to their profile page.
 
-###### Work Experience page
+###### Sidebar
 * Cards with title, image and text area
 
-###### Locations page
+###### Kanban Board
 * A Google API map that renders points that the user has visited
 
-###### Projects showcase page
+###### Modal
 * Cards that showcase projects that I've built
 
 # Technologies used in the project
