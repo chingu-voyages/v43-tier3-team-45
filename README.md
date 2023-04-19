@@ -1,10 +1,10 @@
 # Chingu Board - Voyage 43 - Team 45 💪
 
-Chingu Board is an issue and bug tracker that helps users create, track and fix issues efficiently. 
+Chingu Board is an task and bug tracker that helps users create, track and fix issues efficiently. 
 
 # Badges
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/chingu-voyages/v43-tier3-team-45?style=plastic)
-![GitHub repo size](https://img.shields.io/github/repo-size/MLH-Fellowship/project-22-fal-13-hackathon-team-1?style=plastic)
+![GitHub repo size](https://img.shields.io/github/repo-size/chingu-voyages/v43-tier3-team-45?style=plastic)
 
 # Description
 This is a portfolio showcases tells a little about me, my hobbies, work experience, locations that I've traveled to, and my web projects.  
