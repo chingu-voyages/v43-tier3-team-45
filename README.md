@@ -25,8 +25,9 @@ The app consists of :
 ###### Kanban Board
 * Visually displays issues at various stages of the agile process. The kanban uses cards to represent issue items and columns to represent each stage of the process
 
-###### Modal
-* 
+###### Edit or Create Issue Modal
+* Displays in front of and deactivates all other page content. 
+* Edit issue type, add or remove team members, add issue description, add comments. 
 
 # Technologies used in the project
 * Java Spring Boot 
