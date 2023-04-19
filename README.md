@@ -23,7 +23,7 @@ The app consists of :
 * Displays project names
 
 ###### Kanban Board
-* Visually displays issues at various stages of a process using cards to represent issue items and columns to represent each stage of the process
+* Visually displays issues at various stages of the agile process. The kanban uses cards to represent issue items and columns to represent each stage of the process
 
 ###### Modal
 * Cards that showcase projects that I've built
