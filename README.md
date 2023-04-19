@@ -16,6 +16,7 @@ The app consists of :
 
 ###### Profile pages  
 * User can view their account settings: avatar, name, email 
+* User can edit their avatar or name on the update profile page. 
 
 ###### Navbar 
 * Team dropdown displays team avatars associated with a particular project. 
