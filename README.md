@@ -9,13 +9,15 @@
 # Description
 Chingu Board is an task and bug tracker that helps users create, track and fix issues efficiently.  
 
-The app consists of  main components:
+The app consists of main components:
 
-###### Sign-in Sign-up page  
+###### Login page  
 * User is able to login or sign up. 
 
-###### Hobbies page 
-* Cards with title, image and text area
+###### NavBar page 
+* User selects a team to display team avatars. 
+* User may select logout button to logout
+* User clicks on avatar to direct them to their profile page.
 
 ###### Work Experience page
 * Cards with title, image and text area
