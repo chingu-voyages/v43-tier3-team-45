@@ -12,7 +12,7 @@ Chingu Board is an task and bug tracker that helps users create, track and fix i
 The app consists of :
 
 ###### Login page  
-* User is able to login or sign up. 
+* User can login or sign up. 
 
 ###### Navbar 
 * Team dropdown displays team avatars associated with a particular project. 
@@ -20,10 +20,10 @@ The app consists of :
 * A clickable user avatar which directs the user to their profile page.
 
 ###### Sidebar
-* Cards with title, image and text area
+* Displays project names
 
 ###### Kanban Board
-* A Google API map that renders points that the user has visited
+* Visually displays issues at various stages of a process using cards to represent issue items and columns to represent each stage of the process
 
 ###### Modal
 * Cards that showcase projects that I've built
