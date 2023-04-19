@@ -3,7 +3,7 @@
 Chingu Board is an issue and bug tracker that helps users create, track and fix issues efficiently. 
 
 # Badges
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/chingu-voyages/v43-tier-team-45?style=plastic)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/chingu-voyages/v43-tier3-team-45?style=plastic)
 ![GitHub repo size](https://img.shields.io/github/repo-size/MLH-Fellowship/project-22-fal-13-hackathon-team-1?style=plastic)
 
 # Description
