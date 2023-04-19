@@ -26,14 +26,17 @@ The app consists of :
 * Visually displays issues at various stages of the agile process. The kanban uses cards to represent issue items and columns to represent each stage of the process
 
 ###### Modal
-* Cards that showcase projects that I've built
+* 
 
 # Technologies used in the project
-* The Python microframework Flask
-* HTML/CSS and Bootstrap
-* Jinja for templating 
-* JavaScript for the responsive navigation and map creation
-* Google Maps API in JavaScript to mark locations visited in each profile page
+* Java Spring Boot 
+* React
+* TailwindCSS
+* Redux
+* MongoDB
+* AWS S3 bucket for hosting images
+* Backend is deployed on Raleway
+* Frontend is deployed on Vercel
 
 # File Structure
 ```
