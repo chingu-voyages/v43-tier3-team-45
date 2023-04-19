@@ -15,9 +15,9 @@ The app consists of main components:
 * User is able to login or sign up. 
 
 ###### NavBar page 
-* User selects a team to display team avatars. 
-* User may select logout button to logout
-* User clicks on avatar to direct them to their profile page.
+* Team dropdown displays team avatars associated with a particular project. 
+* Logout button
+* A clickable user avatar which directs the user to their profile page.
 
 ###### Work Experience page
 * Cards with title, image and text area
