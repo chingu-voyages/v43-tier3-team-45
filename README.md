@@ -45,42 +45,7 @@ The app consists of :
 
 # File Structure
 ```
-main
-│   README.md                               # Explains this respository
-|   LICENSE.md                              # Details of this project's MIT license
-│   .gitignore                              # Files to be ignored by git
-|   .python-version                         # Python version used to build the project
-|   .env                                    # Environmental variables for API key and URL
-|   requirements.txt                        # Requirements for Python dependencies to install using pip
-│
-└───app
-    │   __init__.py                         # The Python init file that runs upon executing "flask run"
-    │
-    └───static
-    |   └───fonts
-    |   |   |   flux-regular.otf            # The same font style used by Python (free to use)
-    |   |
-    |   └───img
-    |   |   |   (all images for website)    # Various images used in the project
-    |   |
-    |   └───scripts
-    |   |   |   maps.js                     # Script that loads the Google Maps API into the DO
-    |   |
-    |   └───styles
-    |   |   |   main.css                   # Custom styles for all pages
-    └───templates
-        |___ globaComps 
-              | footer.html                # Displays copyright and social links
-              | nav.html                   # Responsive navigation menu
-        |___ landingPage
-              | aboutMe.html               # Template that displays about me information
-              | education.html             # Template that displays education section  
-              | hero.html                  # Template that hero section  
-        |   experience.html                # Template for the experience page
-        |   hobbies.html                   # Template for that displays the hobbies page
-        |   locations.html                 # Template that displays the Google Map
-        |   pageOverlay.html               # Template for overlays in other pages
-        |   landingPage.html               # Template that displays the landingPage
+
  ```       
 
 ## Installation
@@ -100,15 +65,7 @@ Install node and npm
 ```npm install
 ```
 
-You should get a response like this in the terminal:
-```
-❯ flask run
- * Environment: development
- * Debug mode: on
- * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
-```
 
-You'll now be able to access the website at `localhost:5000` or `127.0.0.1:5000` in the browser! 
 
 *Note: The portfolio site will only work on your local machine while you have it running inside of your terminal. 
 
@@ -119,41 +76,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 # Visuals
-![LoginPage-1](https://user-images.githubusercontent.com/20806815/232965690-39d5be04-6d8f-4e4e-a7f7-7193ec669e30.png"-<img width="1728" alt="login page")
 
-![HobbiesPage-2](https://user-images.githubusercontent.com/20806815/192337012-5314882b-5066-4e2d-b4d7-27b222833d10.png)
-![WortExperiencePage-3](https://user-images.githubusercontent.com/20806815/192337103-869debca-0153-4ccc-83a7-bee08c21158f.png)
 
 # Inspiration
 [https://www.figma.com/file/cbVJbxz0ztFTfMqWRlEANc/ChinguBoard?node-id=0%3A1&t=PYShR95vLPpdDL1F-1)](https://www.figma.com/file/cbVJbxz0ztFTfMqWRlEANc/ChinguBoard?node-id=0%3A1&t=PYShR95vLPpdDL1F-1)
-# Chingu Board
-
-Your project's `readme` is as important to success as your code. For 
-this reason you should put as much care into its creation and maintenance
-as you would any other component of the application.
-
-If you are unsure of what should go into the `readme` let this article,
-written by an experienced Chingu, be your starting point - 
-[Keys to a well written README](https://tinyurl.com/yk3wubft).
-
-And before we go there's "one more thing"! Once you decide what to include
-in your `readme` feel free to replace the text we've provided here.
-
-> Own it & Make it your Own!
-
- mvn spring-boot:run
- 
- npm run dev
- 
- brief overview of what project is see README guide
- 
- list out dependencies
- 
- put a link to the live site
-
-Optional Todo list
-contributors
-tech/stack used
-running the client locally 
-npm install
-npm run dev
