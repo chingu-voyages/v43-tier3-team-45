@@ -128,7 +128,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 # Visuals
-![LandingPage-1](https://user-images.githubusercontent.com/20806815/192336943-67042239-f4b6-4493-807b-72087fa85ce8.png)
+![LoginPage-1](https://user-images.githubusercontent.com/20806815/192336943-67042239-f4b6-4493-807b-72087fa85ce8.png)
 
 ![HobbiesPage-2](https://user-images.githubusercontent.com/20806815/192337012-5314882b-5066-4e2d-b4d7-27b222833d10.png)
 ![WortExperiencePage-3](https://user-images.githubusercontent.com/20806815/192337103-869debca-0153-4ccc-83a7-bee08c21158f.png)
