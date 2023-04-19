@@ -1,9 +1,9 @@
 # Chingu Board - Voyage 43 - Team 45 💪
 
-In week 2 of the MLH Site Reliability Engineering program, we made used the portfolio templates that we created in week one and made our own personal portfolio. 
+Chingu Board is an issue and bug tracker that helps users create, track and fix issues efficiently. 
 
 # Badges
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/MLH-Fellowship/project-22-fal-13-hackathon-team-1?style=plastic)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/chingu-voyages/v43-tier-team-45?style=plastic)
 ![GitHub repo size](https://img.shields.io/github/repo-size/MLH-Fellowship/project-22-fal-13-hackathon-team-1?style=plastic)
 
 # Description
