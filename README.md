@@ -14,6 +14,9 @@ The app consists of :
 ###### Login page  
 * User can login or sign up. 
 
+###### Profile pages  
+* User can view their account settings: avatar, name, email 
+
 ###### Navbar 
 * Team dropdown displays team avatars associated with a particular project. 
 * Logout button
