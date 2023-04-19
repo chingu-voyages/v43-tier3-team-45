@@ -96,10 +96,8 @@ Make sure you have node and npm installed
 
 Create a .env file using the example.env template (make a copy using the variables inside of the template)
 
-Start flask development server
-```bash
-$ export FLASK_ENV=development
-$ flask run
+Install node and npm
+```npm install
 ```
 
 You should get a response like this in the terminal:
