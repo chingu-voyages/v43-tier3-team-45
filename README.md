@@ -9,12 +9,10 @@
 # Description
 Chingu Board is an task and bug tracker that helps users create, track and fix issues efficiently.  
 
-The portfolio template consists of 5 main components:
+The app consists of  main components:
 
-###### Landing page  
-* Hero section with name, call to action button and image
-* About Me section with image and text area
-* Education section with school image, degree, major
+###### Sign-in Sign-up page  
+* User is able to login or sign up. 
 
 ###### Hobbies page 
 * Cards with title, image and text area
