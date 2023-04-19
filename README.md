@@ -125,7 +125,7 @@ Please make sure to update tests as appropriate.
 ![WortExperiencePage-3](https://user-images.githubusercontent.com/20806815/192337103-869debca-0153-4ccc-83a7-bee08c21158f.png)
 
 # Inspiration
-https://www.figma.com/file/xvevtcKbVCcdJ2yi86aov3/portfolio-page?node-id=0%3A1
+[https://www.figma.com/file/xvevtcKbVCcdJ2yi86aov3/portfolio-page?node-id=0%3A1](https://www.figma.com/file/cbVJbxz0ztFTfMqWRlEANc/ChinguBoard?node-id=0%3A1&t=PYShR95vLPpdDL1F-1)
 # Chingu Board
 
 Your project's `readme` is as important to success as your code. For 
