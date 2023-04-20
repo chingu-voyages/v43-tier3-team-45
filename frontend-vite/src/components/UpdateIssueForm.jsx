@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import TypeDropdown from "./TypeDropdown.jsx";
 import PriorityDropdown from "./PriorityDropdown.jsx";
 import TeamMemberDropdown from "./TeamMemberDropdown.jsx";
-import { updateIssueDetail } from "../util/apiCalls.js";
 import Avatar from "./Avatar.jsx";
 import {
   addMemberToSelectedList,
@@ -13,6 +12,7 @@ import {
 } from "../store/teamReducer.js";
 import { IssueCommentSection } from "./IssueCommentSection.jsx";
 import { IssuePostComment } from "./IssuePostComment.jsx";
+import { updateIssueDetail } from "../store/projectReducer.js";
 
 // add new comp for comments and addComment, have own button
 // post text and created by user slice
@@ -74,7 +74,7 @@ const UpdateIssueForm = ({ onClose, data }) => {
   // this won't update the task card on the board since the card lives inside one of project slice's status list
   const handleSave = (e) => {
     e.preventDefault();
-    updateIssueDetail(issue);
+    dispatch(updateIssueDetail(issue));
     handleClose(e);
   };
 
@@ -136,18 +136,12 @@ const UpdateIssueForm = ({ onClose, data }) => {
               />
             </div>
             <div className="flex justify-start mt-2">
-              <label
-                for="name"
-                className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
-              >
+              <label className="text-gray-800 text-sm font-bold leading-tight tracking-normal">
                 Issue Type: <TypeDropdown handleType={handleType} type={type} />
               </label>
             </div>
             <div className="flex justify-start mt-2">
-              <label
-                for="name"
-                className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
-              >
+              <label className="text-gray-800 text-sm font-bold leading-tight tracking-normal">
                 Priority:{" "}
                 <PriorityDropdown
                   handlePriority={handlePriority}
