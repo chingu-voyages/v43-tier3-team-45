@@ -96,6 +96,15 @@ export const updateProject = createAsyncThunk(
   }
 );
 
+export const updateIssueDetail = createAsyncThunk(
+  "issue/update",
+  async (issue) => {
+    const issueId = issue.id;
+    const response = await axiosInstance.patch(`/issues/${issueId}`, issue);
+    return response.data;
+  }
+);
+
 const projectSlice = createSlice({
   name: "project",
   initialState,
@@ -191,6 +200,36 @@ const projectSlice = createSlice({
     builder.addCase(createNewIssue.fulfilled, (state, action) => {
       state.currentProject.issues.push(action.payload);
       state.newStatus.unshift(action.payload);
+    });
+    builder.addCase(updateIssueDetail.fulfilled, (state, action) => {
+      const issueList = {
+        id: action.payload.id,
+        title: action.payload.title,
+        createdBy: action.payload.createdBy,
+        issueType: action.payload.issueType,
+        priority: action.payload.priority,
+        status: action.payload.status,
+      };
+      const issueId = action.payload.id;
+      let index;
+      switch (action.payload.status) {
+        case "NEW":
+          index = state.newStatus.findIndex((el) => el.id == issueId);
+          state.newStatus.splice(index, 1, issueList);
+          break;
+        case "BACKLOG":
+          index = state.backlog.findIndex((el) => el.id == issueId);
+          state.backlog.splice(index, 1, issueList);
+          break;
+        case "IN_PROGRESS":
+          index = state.inProgress.findIndex((el) => el.id == issueId);
+          state.inProgress.splice(index, 1, issueList);
+          break;
+        case "DONE":
+          index = state.completed.findIndex((el) => el.id == issueId);
+          state.completed.splice(index, 1, issueList);
+          break;
+      }
     });
   },
 });
