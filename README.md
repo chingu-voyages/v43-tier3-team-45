@@ -7,7 +7,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/chingu-voyages/v43-tier3-team-45?style=plastic)
 
 # Description
-Chingu Board is an task and bug tracker that helps users create, track and fix issues efficiently.  
+Chingu Board is a task and bug tracker that helps users create, track and fix issues efficiently.  
 
 The app consists of :
 
