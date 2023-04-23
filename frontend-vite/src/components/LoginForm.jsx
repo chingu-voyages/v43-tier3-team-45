@@ -15,6 +15,11 @@ const LoginForm = () => {
     password: password,
   };
 
+  const demoCreds = {
+    email: "yoda@email.com",
+    password: "password",
+  };
+
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -26,6 +31,17 @@ const LoginForm = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     dispatch(loginUser(creds))
+      .then(() => {
+        navigate("/home");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleDemoLogin = (e) => {
+    e.preventDefault();
+    dispatch(loginUser(demoCreds))
       .then(() => {
         navigate("/home");
       })
@@ -73,11 +89,17 @@ const LoginForm = () => {
             Login
           </button>
           {error && <p className="text-red-500 mt-1">Invalid credentials</p>}
-          <div className="mt-5 flex">
-            <p>Don't have an account? </p>
-            <Link className="ml-2 underline" to="/register">
-              Signup
-            </Link>
+          <div className="flex flex-col">
+            <div className="mt-5 flex">
+              <p>Don't have an account? </p>
+              <Link className="ml-2 underline" to="/register">
+                Signup
+              </Link>
+            </div>
+            <p>Or</p>
+            <button className="underline" onClick={handleDemoLogin}>
+              Login as Demo User
+            </button>
           </div>
         </div>
       </form>
